@@ -2,10 +2,10 @@
  * Created by amonetta on 16/02/16.
  */
 
-var hubbub = angular.module('Carsktz',['restangular']);
-hubbub.config(
+var carsktz = angular.module('Carsktz',['restangular']);
+carsktz.config(
     function(RestangularProvider) {
-        RestangularProvider.setBaseUrl('/carsktz/api');
+        RestangularProvider.setBaseUrl('/carsktz/carRest');
     }
 );
 

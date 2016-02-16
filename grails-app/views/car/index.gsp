@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Cars</title>
+    <meta name="layout" content="main"/>
     <content tag="htmlAttrs">ng-app=Carsktz</content>
     <r:require modules="core"/>
     <g:javascript>

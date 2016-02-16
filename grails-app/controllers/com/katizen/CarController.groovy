@@ -1,7 +1,10 @@
 package com.katizen
 
 class CarController {
+
     static scaffold = true
+
+    Set cars = []
 
     def findCarsAjax(CarSearchForm carSearchForm) {
         def allCars = []
