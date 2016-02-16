@@ -71,6 +71,7 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.14"
         runtime ":twitter-bootstrap:3.3.5"
         runtime ":fields:1.5.1"
+        runtime ":angularjs-resources:1.4.2"
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"
