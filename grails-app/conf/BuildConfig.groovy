@@ -44,6 +44,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://repo.grails.org/grails/core"
     }
 
     dependencies {
@@ -58,6 +59,7 @@ grails.project.dependency.resolution = {
 
         // plugins for the compile step
         compile ":scaffolding:2.0.3"
+        compile ":searchable:0.6.9"
         compile ':cache:1.1.8', ':cache-ehcache:1.0.5'
         compile "org.grails.plugins:mysql-connectorj:5.1.22.1"
 

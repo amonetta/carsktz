@@ -123,7 +123,3 @@ log4j = {
 // Boostrap configuration
 grails.plugins.twitterbootstrap.fixtaglib = true
 // grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap' // 'bundle_name', 'false', default: 'bundle_bootstrap'
-
-grails.assets.less.compiler = 'less4j'
-grails.assets.plugin."twitter-bootstrap".excludes = ["**/*.less"]
-grails.assets.plugin."twitter-bootstrap".includes = ["bootstrap.less"]

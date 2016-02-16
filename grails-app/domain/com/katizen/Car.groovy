@@ -15,4 +15,6 @@ class Car {
         make maxSize: 50
         model maxSize: 50
     }
+
+    static searchable = true
 }
