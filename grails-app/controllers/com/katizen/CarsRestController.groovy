@@ -3,6 +3,12 @@ package com.katizen
 class CarsRestController {
     static responseFormats = ["json", "xml"]
 
+    /**
+     * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel
+     * Every parameter is optional and no parameters provided returns available all cars.
+     * Any other parameter is ignored, only 'from' 'to' 'make' 'model' are valid.
+     * @return selected cars.
+     */
     def index() {
         def criteria = Car.withCriteria {
             if (params.from && params.from.toString().isInteger())
