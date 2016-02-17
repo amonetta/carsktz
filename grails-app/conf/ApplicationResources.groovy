@@ -7,8 +7,12 @@ modules = {
         resource url: 'js/angular-route-1.4.9.js'
     }
 
+    angularTablejs {
+        resource url: "js/angular-table.js", disposition: 'head'
+    }
+
     angularjs {
-        dependsOn 'ngRoute'
+        dependsOn 'ngRoute, angularTablejs'
         resource url:'js/angular-1.4.9.js', disposition: 'head'
     }
 

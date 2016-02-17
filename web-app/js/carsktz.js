@@ -14,6 +14,11 @@ carsktz.controller("CarsCtrl",
 
         var carsApi = Restangular.all("cars")
 
+        $scope.pag_config = {
+            itemsPerPage: 20,
+            fillLastPage: true
+        }
+
         $scope.allCars = []
 
         $scope.refreshCars = function() {

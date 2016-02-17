@@ -32,7 +32,6 @@
                 <g:form class="form-horizontal" onsubmit="nullFunction(); return false;">
                     <fieldset>
 
-                        <div class="form-group">
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carYearFrom">Year from:</label>
@@ -72,24 +71,21 @@
                     </fieldset>
 
                 </g:form>
-
+            </div>
         </div>
-            <table id="carList" class="table table-striped" >
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                    </tr>
-                </thead>
+
+            <table id="carList" class="table table-striped" at-table at-paginated at-list="allCars" at-config="pag_config">
+                <thead></thead>
                 <tbody>
-                    <tr class="carEntry" ng-repeat="car in allCars" ng-cloak>
-                        <td class="carYear">{{car.year}}</td>
-                        <td class="carMake">{{car.make}}</td>
-                        <td class="carModel">{{car.model}}</td>
+                    <tr>
+                        <td at-implicit at-sortable at-attribute="year" at-initial-sorting="asc"/>
+                        <td at-implicit at-sortable at-attribute="make"/>
+                        <td at-implicit at-sortable at-attribute="model"/>
                     </tr>
                 </tbody>
             </table>
+
+            <at-pagination at-list="allCars" at-config="pag_config"></at-pagination>
     </div>
 </body>
 </html>
