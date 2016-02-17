@@ -16,9 +16,9 @@ class CarsRestController {
             if (params.to && params.to.toString().isInteger())
                 le("year", params.to as Integer)
             if (params.make)
-                like("make", params.make)
+                like("make", '%' + params.make + '%')
             if (params.model)
-                like("model", params.model)
+                like("model", '%' + params.model + '%')
         }
         respond criteria.findAll()
     }

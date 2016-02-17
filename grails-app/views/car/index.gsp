@@ -21,26 +21,75 @@
         }
     </g:javascript>
 </head>
+<body>
     <div ng-controller="CarsCtrl">
-        <div id="carFilter" >
-            <g:form>
-                <input id="carYearFrom" name="{{carFrom}}" type="number" ng-model="carFrom"></input>
-                <g:field id="carYearUntil" name="yearUntil" type="number" ng-model="car_to"></g:field>
-                <g:textField id="carMake" name="carMake" datatype="text" ng-model="car_make"></g:textField>
-                <g:textField id="carModel" name="carModel" datatype="text" ng-model="car_model"></g:textField>
-                <g:submitButton name="Search"
-                    ng-click="refreshCars()"
-                    update="carList"
-                    onSuccess="clearForm(data)"/>
-            </g:form>
-        </div>
-        <div id="carList">
-            <div class="carEntry" ng-repeat="car in allCars" ng-cloak>
-                <div class="carYear">{{car.year}}</div>
-                <div class="carMake">{{car.make}}</div>
-                <div class="carModel">{{car.model}}</div>
+        <div class="panel-primary">
+            <div class="panel-heading">
+                <!-- Form Name -->
+                Busqueda
             </div>
+            <div class="panel-body">
+                <g:form class="form-horizontal" onsubmit="nullFunction(); return false;">
+                    <fieldset>
+
+                        <div class="form-group">
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="carYearFrom">Year from:</label>
+                            <div class="col-md-9">
+                                <g:field id="carYearFrom" class="form-control input-md" name="{{carFrom}}" type="number" ng-model="carFrom" placeholder="Minimun year"></g:field>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="carYearUntil">Year until:</label>
+                            <div class="col-md-9">
+                                <g:field id="carYearUntil" class="form-control input-md" name="{{carTo}}" type="number" ng-model="carTo" placeholder="Maximun year"></g:field>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="carMake">Maker:</label>
+                            <div class="col-md-9">
+                                <g:textField id="carMake" class="form-control input-md" name="{{carMake}}" datatype="text" ng-model="carMake" placeholder="Car maker"></g:textField>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="carModel">Model:</label>
+                            <div class="col-md-9">
+                                <g:textField id="carModel" class="form-control input-md" name="{{carModel}}" datatype="text" ng-model="carModel" placeholder="Car model"></g:textField>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="singlebutton"></label>
+                            <div class="col-md-9">
+                                <g:field type="button" class="btn btn-default" name="submit" value="Submit" ng-click="refreshCars()"/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </g:form>
+
         </div>
+            <table id="carList" class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="carEntry" ng-repeat="car in allCars" ng-cloak>
+                        <td class="carYear">{{car.year}}</td>
+                        <td class="carMake">{{car.make}}</td>
+                        <td class="carModel">{{car.model}}</td>
+                    </tr>
+                </tbody>
+            </table>
     </div>
 </body>
 </html>

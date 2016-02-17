@@ -16,20 +16,20 @@ carsktz.controller("CarsCtrl",
 
         $scope.allCars = []
 
-        //$scope.carFrom = 1940
-
         $scope.refreshCars = function() {
-            if (angular.isUndefined($scope.carFrom) || angular.isNumber($scope.carFrom)) {
-                carsApi.getList({from: $scope.carFrom}).then(
-                    // Function on successful
-                    function (newCarsList) {
-                        $scope.allCars = newCarsList;
-                    }, // Function on error
-                    function (errorResponse) {
-                        alert("Error on refreshing cars: " + errorResponse.status);
-                    });
-            } else
-                alert("Initial year is n a number: " + $scope.carFrom);
+            carsApi.getList({
+                from: $scope.carFrom,
+                to: $scope.carTo,
+                make: $scope.carMake,
+                model: $scope.carModel
+            }).then(
+                // Function on successful
+                function (newCarsList) {
+                    $scope.allCars = newCarsList;
+                }, // Function on error
+                function (errorResponse) {
+                    alert("Error on refreshing cars: " + errorResponse.status);
+                });
         }
 
         $scope.refreshCars();
