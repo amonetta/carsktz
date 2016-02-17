@@ -1,0 +1,61 @@
+package com.katizen
+
+class CarsRestController {
+    static responseFormats = ["json", "xml"]
+
+    def index() {
+        def criteria = Car.withCriteria {
+            if (params.from && params.from.toString().isInteger())
+                ge("year", params.from as Integer)
+            if (params.to && params.to.toString().isInteger())
+                le("year", params.to as Integer)
+            if (params.make)
+                like("make", params.make)
+            if (params.model)
+                like("model", params.model)
+        }
+        respond criteria.findAll()
+    }
+
+    def show(Integer id){
+        respond Car.get(id)
+    }
+
+    def save(Car car) {
+        if (car.hasErrors()) {
+            respond car
+        } else {
+            car.save(failOnError: true)
+            respond car, status:201
+        }
+    }
+
+    def update(Integer id, Car car) {
+        def oldCar = Car.get(id)
+
+        if (!oldCar) {
+            respond message: "Not found", status: 404
+            return
+        }
+
+        oldCar.properties = car.properties
+        oldCar.validate() && oldCar.save(failOnError: true)
+        respond oldCar
+    }
+
+    def delete(Integer id) {
+        def message
+        def status
+        if (Car.exists(id)) {
+            Car.load(id).delete()
+            status = 200
+            message = "Car with ID $id deleted"
+        }
+        else {
+            status = 404
+            message = "Not found"
+        }
+
+        respond message, status: status
+    }
+}
