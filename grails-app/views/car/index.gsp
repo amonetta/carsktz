@@ -16,25 +16,30 @@
         function clearForm(e) {
             $('#carYearFrom').val('')
             $('#carYearUntil').val('')
+            $('#carMake').val('')
+            $('#carModel').val('')
         }
     </g:javascript>
 </head>
-<body>
-    <div id="carFilter" >
-        <g:form>
-            <g:textField id="carYearFrom" name="yearFrom" datatype="integer"></g:textField>
-            <g:textField id="carYearUntil" name="yearUntil" datatype="integer"></g:textField>
-            <g:submitToRemote value="CarSearchForm"
-                url="[controller: car, action: findCarsAjax]"
-                update="carList"
-                onSuccess="clearForm(data)"/>
-        </g:form>
-    </div>
-    <div id="carList">
-        <div class="carEntry" ng-repeat="car in allCars">
-            <div class="carYear">{{car.year}}</div>
-            <div class="carMake">{{car.make}}</div>
-            <div class="carModel">{{car.model}}</div>
+    <div ng-controller="CarsCtrl">
+        <div id="carFilter" >
+            <g:form>
+                <input id="carYearFrom" name="{{carFrom}}" type="number" ng-model="carFrom"></input>
+                <g:field id="carYearUntil" name="yearUntil" type="number" ng-model="car_to"></g:field>
+                <g:textField id="carMake" name="carMake" datatype="text" ng-model="car_make"></g:textField>
+                <g:textField id="carModel" name="carModel" datatype="text" ng-model="car_model"></g:textField>
+                <g:submitButton name="Search"
+                    ng-click="refreshCars()"
+                    update="carList"
+                    onSuccess="clearForm(data)"/>
+            </g:form>
+        </div>
+        <div id="carList">
+            <div class="carEntry" ng-repeat="car in allCars" ng-cloak>
+                <div class="carYear">{{car.year}}</div>
+                <div class="carMake">{{car.make}}</div>
+                <div class="carModel">{{car.model}}</div>
+            </div>
         </div>
     </div>
 </body>
