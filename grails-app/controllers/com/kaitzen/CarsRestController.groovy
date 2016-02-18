@@ -1,4 +1,6 @@
-package com.katizen
+package com.kaitzen
+
+import com.kaitzen.Car
 
 class CarsRestController {
     static responseFormats = ["json", "xml"]

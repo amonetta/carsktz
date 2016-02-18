@@ -1,4 +1,4 @@
-package com.katizen
+package com.kaitzen
 
 class CarController {
 

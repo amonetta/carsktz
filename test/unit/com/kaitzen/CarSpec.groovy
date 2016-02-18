@@ -1,5 +1,6 @@
-package com.katizen
+package com.kaitzen
 
+import com.kaitzen.Car
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

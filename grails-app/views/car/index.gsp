@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2"/>
                             <div class="col-md-9">
-                                <g:field type="button" class="btn btn-default" name="submit" value="Submit" ng-click="refreshCars()"/>
+                                <g:field type="button" class="btn btn-default" name="submit" value="Search" ng-click="refreshCars()"/>
                             </div>
                         </div>
                     </fieldset>
@@ -121,7 +121,7 @@
             </tfoot>
         </table>
 
-        <div class="panel panel-primary">
+        <div class="panel panel-info">
             <div class="panel-heading">JSON Response</div>
             <div class="panel-body" style="max-height: 500px; overflow-y: scroll;">{{plainResponde}}</div>
         </div>

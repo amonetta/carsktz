@@ -1,5 +1,8 @@
-package com.katizen
+package com.kaitzen
 
+import groovy.transform.ToString
+
+@ToString(includeNames = true, includeFields = true, excludes = "metaClass,class")
 class Car {
 
     Integer year
