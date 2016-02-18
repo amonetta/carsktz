@@ -22,7 +22,8 @@ class CarsRestController {
             if (params.model)
                 like("model", '%' + params.model + '%')
         }
-        respond criteria.findAll()
+        def cars = criteria.findAll().toArray()
+        respond {cars: cars}
     }
 
     def show(Integer id){

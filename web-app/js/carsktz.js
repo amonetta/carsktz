@@ -12,7 +12,7 @@ carsktz.config(
 carsktz.controller("CarsCtrl",
     function ($scope, Restangular){
 
-        var carsApi = Restangular.all("cars")
+        var carsApi = Restangular.one("cars")
 
 
         $scope.itemsByPageOptions = [10,25,50,100, 500, 1000]
@@ -30,7 +30,7 @@ carsktz.controller("CarsCtrl",
         $scope.plainResponde = {}
 
         $scope.refreshCars = function() {
-            carsApi.getList({
+            carsApi.get({
                 from: $scope.carFrom,
                 to: $scope.carTo,
                 make: $scope.carMake,
@@ -39,7 +39,7 @@ carsktz.controller("CarsCtrl",
                 // Function on successful
                 function (newCarsList) {
                     $scope.plainResponde = newCarsList.plain()
-                    $scope.safeCollection = newCarsList
+                    $scope.safeCollection = newCarsList.cars
                 }, // Function on error
                 function (errorResponse) {
                     alert("Error on refreshing cars: " + errorResponse.status)
