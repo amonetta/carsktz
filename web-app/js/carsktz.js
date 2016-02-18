@@ -27,6 +27,8 @@ carsktz.controller("CarsCtrl",
 
         $scope.allCars = []
 
+        $scope.plainResponde = {}
+
         $scope.refreshCars = function() {
             carsApi.getList({
                 from: $scope.carFrom,
@@ -36,6 +38,7 @@ carsktz.controller("CarsCtrl",
             }).then(
                 // Function on successful
                 function (newCarsList) {
+                    $scope.plainResponde = newCarsList.plain()
                     $scope.safeCollection = newCarsList
                 }, // Function on error
                 function (errorResponse) {

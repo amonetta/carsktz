@@ -120,6 +120,11 @@
             </tr>
             </tfoot>
         </table>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">JSON Response</div>
+            <div class="panel-body" style="max-height: 500px; overflow-y: scroll;">{{plainResponde}}</div>
+        </div>
     </div>
 </body>
 </html>
