@@ -7,12 +7,8 @@ modules = {
         resource url: 'js/angular-route-1.4.9.js'
     }
 
-    angularTablejs {
-        resource url: "js/angular-table.js", disposition: 'head'
-    }
-
     angularjs {
-        dependsOn 'ngRoute, angularTablejs'
+        dependsOn 'ngRoute'
         resource url:'js/angular-1.4.9.js', disposition: 'head'
     }
 
@@ -25,13 +21,24 @@ modules = {
         resource url: 'js/lodash-2.2.0.js'
     }
 
+    smarttable {
+        // Documentation: http://lorenzofox3.github.io/smart-table-website/#section-pagination
+        // Source: https://github.com/lorenzofox3/Smart-Table
+        dependsOn 'angularjs'
+        resource url: 'js/smart-table.js'
+    }
+
+    allangular {
+        dependsOn 'angularjs,restangular,smarttable'
+    }
+
     baseCss {
         resource url:'/css/main.css'
     }
 
     core {
         dependsOn 'baseCss'
-        dependsOn 'restangular,lodashjs,application'
+        dependsOn 'allangular,lodashjs,application'
         resource url: '/js/carsktz.js'
     }
 }

@@ -63,7 +63,7 @@
 
                         <!-- Button -->
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="singlebutton"></label>
+                            <div class="col-md-offset-2"/>
                             <div class="col-md-9">
                                 <g:field type="button" class="btn btn-default" name="submit" value="Submit" ng-click="refreshCars()"/>
                             </div>
@@ -74,18 +74,52 @@
             </div>
         </div>
 
-            <table id="carList" class="table table-striped" at-table at-paginated at-list="allCars" at-config="pag_config">
-                <thead></thead>
-                <tbody>
-                    <tr>
-                        <td at-implicit at-sortable at-attribute="year" at-initial-sorting="asc"/>
-                        <td at-implicit at-sortable at-attribute="make"/>
-                        <td at-implicit at-sortable at-attribute="model"/>
-                    </tr>
-                </tbody>
-            </table>
-
-            <at-pagination at-list="allCars" at-config="pag_config"></at-pagination>
+        <table st-safe-src="safeCollection" st-table="allCars" class="table table-striped">
+            <thead>
+            <tr>
+                <th st-sort="year">Year</th>
+                <th st-sort="make">Make</th>
+                <th st-sort="model">Model</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="car in allCars">
+                <td>{{car.year}}</td>
+                <td>{{car.make}}</td>
+                <td>{{car.model}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" class="text-center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="pull-right">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="itemsByPageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            {{itemsByPage}}
+                                            <span class="caret"/>
+                                        </button>
+                                            <ul class="dropdown-menu" aria-labelledby="itemsByPageMenu">
+                                                <li ng-repeat="option in itemsByPageOptions">
+                                                    <a ng-click="selectedItemsByPage(option)">{{option}}</a>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                </span>
+                            </div>
+                        <div class="col-md-6">
+                            <span class="pull-left">
+                                <div st-pagination="allCars" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 </body>
 </html>

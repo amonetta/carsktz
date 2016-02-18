@@ -2,7 +2,7 @@
  * Created by amonetta on 16/02/16.
  */
 
-var carsktz = angular.module('Carsktz',['restangular']);
+var carsktz = angular.module('Carsktz',['restangular','smart-table']);
 carsktz.config(
     function(RestangularProvider) {
         RestangularProvider.setBaseUrl('/carsktz/api');
@@ -14,10 +14,16 @@ carsktz.controller("CarsCtrl",
 
         var carsApi = Restangular.all("cars")
 
-        $scope.pag_config = {
-            itemsPerPage: 20,
-            fillLastPage: true
+
+        $scope.itemsByPageOptions = [10,25,50,100, 500, 1000]
+
+        $scope.itemsByPage=25;
+
+        $scope.selectedItemsByPage = function(selectedItemsByPage) {
+            $scope.itemsByPage = selectedItemsByPage
         }
+
+        $scope.safeCollection = []
 
         $scope.allCars = []
 
@@ -30,11 +36,11 @@ carsktz.controller("CarsCtrl",
             }).then(
                 // Function on successful
                 function (newCarsList) {
-                    $scope.allCars = newCarsList;
+                    $scope.safeCollection = newCarsList
                 }, // Function on error
                 function (errorResponse) {
-                    alert("Error on refreshing cars: " + errorResponse.status);
-                });
+                    alert("Error on refreshing cars: " + errorResponse.status)
+                })
         }
 
         $scope.refreshCars();
