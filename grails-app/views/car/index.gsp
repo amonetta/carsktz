@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2"/>
                             <div class="col-md-9">
-                                <g:field type="button" class="btn btn-default" name="submit" value="Search" ng-click="refreshCars()"/>
+                                <g:submitToRemote value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="carsTable" class="btn btn-primary"/>
                             </div>
                         </div>
                     </fieldset>
@@ -80,17 +80,18 @@
                 <th st-sort="year">Year</th>
                 <th st-sort="make">Make</th>
                 <th st-sort="model">Model</th>
-                <th>JSON</th>
+                <!--<th>JSON</th>-->
             </tr>
             </thead>
-            <script>writeTable(${cars})</script>
-            <tbody id="carsTable"></tbody>
+            <tbody id="carsTable">
+                <g:render template="carEntry" collection="${carList}" var="car"/>
+            </tbody>
         </table>
 
         <div class="panel panel-info">
             <div class="panel-heading">JSON Response</div>
             <div id="plainResponse" class="panel-body" style="max-height: 500px; overflow-y: scroll;">
-                ${plainResponse}
+                <g:render template="plainResponse" bean="${plainResponse}"/>
             </div>
         </div>
     </div>

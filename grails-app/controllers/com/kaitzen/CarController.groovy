@@ -9,34 +9,21 @@ class CarController {
 
     Set cars = []
 
+    def carList = []
+
     def index() {
+        [carList: carList]
+    }
+
+    def findCarsAjax() {
         def response
 
-        withRest(url: 'http://localhost:8080/carsktz/carsRest') {
-            response = get(path: 'index', accept: ContentType.JSON)
+        withRest(url: 'http://localhost:8080/carsktz/carsRest/') {
+            response = get(path: '/index', accept: ContentType.JSON)//, query: [year: params.year, make: params.make, model: params.model])
         }
 
-        return [cars: response.json.cars, plainResponse: response.json]
-    }
-
-    def findCarsAjax(CarSearchForm carSearchForm) {
-        def allCars = []
-        allCars = Car.where {
-            year >= carSearchForm.yearFrom
-            year <= carSearchForm.yearUntil
-            make == carSearchForm.Make
-            model == carSearchForm.Model
-        }.list()
-        render template: 'carEntry', collection: allCars, var: 'allCars'
-    }
-}
-
-class CarSearchForm {
-    Integer yearFrom, yearUntil
-    String Make
-    String Model
-
-    static contrains = {
-        yearFrom max: yearUntil
+        carList = response.json.cars
+        render (template: 'carEntry', collection : carList, var:"car")
+        //render (template: 'plainResponse', bean: response.json, var:"plainResponse")
     }
 }

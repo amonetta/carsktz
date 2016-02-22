@@ -15,14 +15,16 @@ class CarsRestController {
      */
     def index() {
         def criteria = Car.withCriteria {
-            if (params.from && params.from.toString().isInteger())
-                ge("year", params.from as Integer)
-            if (params.to && params.to.toString().isInteger())
-                le("year", params.to as Integer)
-            if (params.make)
-                like("make", '%' + params.make + '%')
-            if (params.model)
-                like("model", '%' + params.model + '%')
+            and {
+                if (params.from && params.from.toString().isInteger())
+                    ge("year", params.from as Integer)
+                if (params.to && params.to.toString().isInteger())
+                    le("year", params.to as Integer)
+                if (params.make)
+                    like("make", '%' + params.make + '%')
+                if (params.model)
+                    like("model", '%' + params.model + '%')
+            }
         }
         def cars = criteria.findAll().toArray()
         respond {cars: cars}

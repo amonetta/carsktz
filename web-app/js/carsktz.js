@@ -13,6 +13,4 @@ function writeTable(cars) {
         tr.append('<td>' + cars[i].model + '</td>');
         tr.append('<td>' + cars[i] + '</td>');
     }
-    // reset the count:
-    count = 0;
 }

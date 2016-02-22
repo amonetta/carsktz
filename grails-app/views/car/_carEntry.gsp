@@ -1,5 +1,5 @@
-<div class="carEntry">
-    <div class="carYear">${car.year}</div>
-    <div class="carMake">${car.make}</div>
-    <div class="carModel">${car.model}</div>
-</div>
+<tr class="carEntry">
+    <td class="carYear">${car.year}</td>
+    <td class="carMake">${car.make}</td>
+    <td class="carModel">${car.model}</td>
+</tr>
