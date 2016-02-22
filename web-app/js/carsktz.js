@@ -2,50 +2,17 @@
  * Created by amonetta on 16/02/16.
  */
 
-var carsktz = angular.module('Carsktz',['restangular','smart-table']);
-carsktz.config(
-    function(RestangularProvider) {
-        RestangularProvider.setBaseUrl('/carsktz/api');
+function writeTable(cars) {
+    // cache <tbody> element:
+    var tbody = $('#carsTable');
+    for (var i = 0; i < cars.length; i++) {
+        // create an <tr> element, append it to the <tbody> and cache it as a variable:
+        var tr = $('<tr/>').appendTo(tbody);
+        tr.append('<td>' + cars[i].year + '</td>');
+        tr.append('<td>' + cars[i].make + '</td>');
+        tr.append('<td>' + cars[i].model + '</td>');
+        tr.append('<td>' + cars[i] + '</td>');
     }
-);
-
-carsktz.controller("CarsCtrl",
-    function ($scope, Restangular){
-
-        var carsApi = Restangular.one("cars")
-
-
-        $scope.itemsByPageOptions = [10,25,50,100, 500, 1000]
-
-        $scope.itemsByPage=25;
-
-        $scope.selectedItemsByPage = function(selectedItemsByPage) {
-            $scope.itemsByPage = selectedItemsByPage
-        }
-
-        $scope.safeCollection = []
-
-        $scope.allCars = []
-
-        $scope.plainResponde = {}
-
-        $scope.refreshCars = function() {
-            carsApi.get({
-                from: $scope.carFrom,
-                to: $scope.carTo,
-                make: $scope.carMake,
-                model: $scope.carModel
-            }).then(
-                // Function on successful
-                function (newCarsList) {
-                    $scope.plainResponde = newCarsList.plain()
-                    $scope.safeCollection = newCarsList.cars
-                }, // Function on error
-                function (errorResponse) {
-                    alert("Error on refreshing cars: " + errorResponse.status)
-                })
-        }
-
-        $scope.refreshCars();
-
-    })
+    // reset the count:
+    count = 0;
+}

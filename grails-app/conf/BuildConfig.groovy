@@ -45,6 +45,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
         mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "https://oss.sonatype.org/content/groups/public/"
     }
 
     dependencies {
@@ -68,6 +69,7 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:3.6.10.9" // or ":hibernate4:4.3.4"
         runtime ":database-migration:1.3.8"
         runtime ":jquery:1.11.1"
+        compile ":wslite:0.7.2.0"
         runtime ":resources:1.2.14"
         runtime ":twitter-bootstrap:3.3.5"
         runtime ":fields:1.5.1"
@@ -79,6 +81,8 @@ grails.project.dependency.resolution = {
 
         // An alternative to the default resources plugin is the asset-pipeline plugin
         //compile ":asset-pipeline:1.6.1"
+
+        compile "org.grails.plugins:jquery-ui:1.10.4"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.5.5"

@@ -10,7 +10,7 @@
 <head>
     <title>Cars</title>
     <meta name="layout" content="main"/>
-    <content tag="htmlAttrs">ng-app=Carsktz</content>
+    <g:javascript library="jquery" plugin="jquery"/>
     <r:require modules="core"/>
     <g:javascript>
         function clearForm(e) {
@@ -22,7 +22,7 @@
     </g:javascript>
 </head>
 <body>
-    <div ng-controller="CarsCtrl">
+    <div>
         <div class="panel-primary">
             <div class="panel-heading">
                 <!-- Form Name -->
@@ -80,50 +80,18 @@
                 <th st-sort="year">Year</th>
                 <th st-sort="make">Make</th>
                 <th st-sort="model">Model</th>
+                <th>JSON</th>
             </tr>
             </thead>
-            <tbody>
-            <tr ng-repeat="car in allCars">
-                <td>{{car.year}}</td>
-                <td>{{car.make}}</td>
-                <td>{{car.model}}</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="3" class="text-center">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <span class="pull-right">
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="itemsByPageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            {{itemsByPage}}
-                                            <span class="caret"/>
-                                        </button>
-                                            <ul class="dropdown-menu" aria-labelledby="itemsByPageMenu">
-                                                <li ng-repeat="option in itemsByPageOptions">
-                                                    <a ng-click="selectedItemsByPage(option)">{{option}}</a>
-                                                </li>
-                                            </ul>
-                                    </div>
-                                </span>
-                            </div>
-                        <div class="col-md-6">
-                            <span class="pull-left">
-                                <div st-pagination="allCars" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-                            </span>
-                        </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            </tfoot>
+            <script>writeTable(${cars})</script>
+            <tbody id="carsTable"></tbody>
         </table>
 
         <div class="panel panel-info">
             <div class="panel-heading">JSON Response</div>
-            <div class="panel-body" style="max-height: 500px; overflow-y: scroll;">{{plainResponde}}</div>
+            <div id="plainResponse" class="panel-body" style="max-height: 500px; overflow-y: scroll;">
+                ${plainResponse}
+            </div>
         </div>
     </div>
 </body>

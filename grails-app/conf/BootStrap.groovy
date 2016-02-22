@@ -5,8 +5,8 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        JSON.registerObjectMarshaller(Car) {
-            return it.properties.findAll { k, v -> k != 'class' }
+        JSON.registerObjectMarshaller(Car) { car ->
+            return [id: car.id] + car.properties.findAll { k, v -> k != 'class' }
         }
     }
     def destroy = {

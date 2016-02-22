@@ -1,10 +1,23 @@
 package com.kaitzen
 
+//@Grab('com.github.groovy-wslite:groovy-wslite:1.1.2')
+import wslite.rest.*
+
 class CarController {
 
-    static scaffold = true
+    static scaffold = false
 
     Set cars = []
+
+    def index() {
+        def response
+
+        withRest(url: 'http://localhost:8080/carsktz/carsRest') {
+            response = get(path: 'index', accept: ContentType.JSON)
+        }
+
+        return [cars: response.json.cars, plainResponse: response.json]
+    }
 
     def findCarsAjax(CarSearchForm carSearchForm) {
         def allCars = []

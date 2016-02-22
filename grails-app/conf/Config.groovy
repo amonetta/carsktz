@@ -123,3 +123,4 @@ log4j = {
 // Boostrap configuration
 grails.plugins.twitterbootstrap.fixtaglib = true
 // grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap' // 'bundle_name', 'false', default: 'bundle_bootstrap'
+grails.views.javascript.library="jquery"

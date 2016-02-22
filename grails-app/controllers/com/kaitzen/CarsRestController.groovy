@@ -5,6 +5,8 @@ import com.kaitzen.Car
 class CarsRestController {
     static responseFormats = ["json", "xml"]
 
+    //def carService
+
     /**
      * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel
      * Every parameter is optional and no parameters provided returns available all cars.
@@ -32,35 +34,29 @@ class CarsRestController {
 
     def save(Car car) {
         if (car.hasErrors()) {
-            respond car
+            respond car, status:400
         } else {
-            car.save(failOnError: true)
+            carService.createCar(car.id, car)
             respond car, status:201
         }
     }
 
     def update(Integer id, Car car) {
-        def oldCar = Car.get(id)
-
-        if (!oldCar) {
+        if (!Car.get(id)) {
             respond message: "Not found", status: 404
             return
         }
-
-        oldCar.properties = car.properties
-        oldCar.validate() && oldCar.save(failOnError: true)
-        respond oldCar
+        carService.updateCar(id, car)
     }
 
     def delete(Integer id) {
         def message
         def status
         if (Car.exists(id)) {
-            Car.load(id).delete()
+            carService.deleteCar(id)
             status = 200
             message = "Car with ID $id deleted"
-        }
-        else {
+        } else {
             status = 404
             message = "Not found"
         }
