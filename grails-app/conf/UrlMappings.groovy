@@ -16,7 +16,7 @@ class UrlMappings {
             action = [GET: "index", POST: "save"]
         }
         "/car/api/$id"(resource: "carsRest") {
-            action = [GET:"show", POST: "update", DELETE: "delete"]
+            action = [GET: "show", POST: "update", PUT: "update", DELETE: "delete"]
         }
 	}
 }

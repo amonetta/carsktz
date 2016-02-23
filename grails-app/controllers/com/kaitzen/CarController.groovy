@@ -9,15 +9,14 @@ class CarController {
 
     def carList = []
 
+    def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
+
     def index() {
         [carList: carList]
     }
 
     def edit(Integer id) {
-        def response
-        withRest(url: 'http://localhost:8080/carsktz/car/api/') {
-            response = get(path: "/${id}", accept: ContentType.JSON)
-        }
+        def response = restClient.get(path: "/${id}", accept: ContentType.JSON)
 
         if (!response) {
             respond status: 404
@@ -32,22 +31,16 @@ class CarController {
         if (car.hasErrors())
             respond status: 400
 
-        withRest(url: "http://localhost:8080/carsktz/car/api/") {
-            post(path:"/${params.id}") {
+        restClient.post(path:"/${params.id}") {
                 type: ContentType.JSON
                 charset "UTF-8"
-                urlenc year: "${params.year}", make: "${params.make}", model: "${params.model}"
+                urlenc year: params.year, make: params.make, model: params.model
             }
-        }
         respond status: 200
     }
 
     def findCarsAjax() {
-        def response
-
-        withRest(url: 'http://localhost:8080/carsktz/car/api/') {
-            response = get(path: '', accept: ContentType.JSON, query: [from: params.carFrom, to: params.carTo, make: params.carMake, model: params.carModel])
-        }
+        def response = restClient.get(path: '', accept: ContentType.JSON, query: [from: params.carFrom, to: params.carTo, make: params.carMake, model: params.carModel])
 
         carList = response.json.cars
         render (template: 'carEntry', collection : carList, var:"car")
