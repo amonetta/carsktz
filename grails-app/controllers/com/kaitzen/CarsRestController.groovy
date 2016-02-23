@@ -38,24 +38,25 @@ class CarsRestController {
         if (car.hasErrors()) {
             respond car, status:400
         } else {
-            carService.createCar(car.id, car)
+            car.save()
             respond car, status:201
         }
     }
 
     def update(Integer id, Car car) {
-        if (!Car.get(id)) {
-            respond message: "Not found", status: 404
-            return
+        def oldCar = Car.get(id)
+        if (!oldCar) {
+            respond message: "Not found car", status: 404
         }
-        carService.updateCar(id, car)
+        oldCar.properties = car.properties
+        oldCar.save()
     }
 
     def delete(Integer id) {
         def message
         def status
         if (Car.exists(id)) {
-            carService.deleteCar(id)
+            Car.get(id).delete()
             status = 200
             message = "Car with ID $id deleted"
         } else {

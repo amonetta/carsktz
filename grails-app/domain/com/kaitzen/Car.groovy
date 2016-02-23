@@ -5,6 +5,8 @@ import groovy.transform.ToString
 @ToString(includeNames = true, includeFields = true, excludes = "metaClass,class")
 class Car {
 
+    static MIN_YEAR = 1768
+
     Integer year
     String make
     String model

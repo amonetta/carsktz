@@ -36,28 +36,28 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carYearFrom">Year from:</label>
                             <div class="col-md-9">
-                                <g:field id="carYearFrom" class="form-control input-md" name="{{carFrom}}" type="number" ng-model="carFrom" placeholder="Minimun year"></g:field>
+                                <g:field id="carYearFrom" class="form-control input-md" name="carFrom" type="number" placeholder="Minimun year"></g:field>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carYearUntil">Year until:</label>
                             <div class="col-md-9">
-                                <g:field id="carYearUntil" class="form-control input-md" name="{{carTo}}" type="number" ng-model="carTo" placeholder="Maximun year"></g:field>
+                                <g:field id="carYearUntil" class="form-control input-md" name="carTo" type="number" placeholder="Maximun year"></g:field>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carMake">Maker:</label>
                             <div class="col-md-9">
-                                <g:textField id="carMake" class="form-control input-md" name="{{carMake}}" datatype="text" ng-model="carMake" placeholder="Car maker"></g:textField>
+                                <g:textField id="carMake" class="form-control input-md" name="carMake" datatype="text" placeholder="Car maker"></g:textField>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carModel">Model:</label>
                             <div class="col-md-9">
-                                <g:textField id="carModel" class="form-control input-md" name="{{carModel}}" datatype="text" ng-model="carModel" placeholder="Car model"></g:textField>
+                                <g:textField id="carModel" class="form-control input-md" name="carModel" datatype="text" placeholder="Car model"></g:textField>
                             </div>
                         </div>
 
@@ -77,9 +77,10 @@
         <table st-safe-src="safeCollection" st-table="allCars" class="table table-striped">
             <thead>
             <tr>
-                <th st-sort="year">Year</th>
-                <th st-sort="make">Make</th>
-                <th st-sort="model">Model</th>
+                <th>ID</th>
+                <th>Year</th>
+                <th>Make</th>
+                <th>Model</th>
                 <!--<th>JSON</th>-->
             </tr>
             </thead>

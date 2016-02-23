@@ -3,13 +3,20 @@ class UrlMappings {
 	static mappings = {
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
-                // apply constraints here
+                action( validator: {
+                    it != api
+                })
             }
         }
 
         "/"(view:"/index")
         "500"(view:'/error')
 
-        "/api/cars" (resources: "carsRest")
+        "/car/api/"(controller: "carsRest", parseRequest: true) {
+            action = [GET: "index", POST: "save"]
+        }
+        "/car/api/$id"(resource: "carsRest") {
+            action = [GET:"show", POST: "update", DELETE: "delete"]
+        }
 	}
 }

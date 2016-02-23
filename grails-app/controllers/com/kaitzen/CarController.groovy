@@ -5,8 +5,6 @@ import wslite.rest.*
 
 class CarController {
 
-    static scaffold = false
-
     Set cars = []
 
     def carList = []
@@ -15,11 +13,40 @@ class CarController {
         [carList: carList]
     }
 
+    def edit(Integer id) {
+        def response
+        withRest(url: 'http://localhost:8080/carsktz/car/api/') {
+            response = get(path: "/${id}", accept: ContentType.JSON)
+        }
+
+        if (!response) {
+            respond status: 404
+        }
+
+        return [ carInstance: response.json ]
+    }
+
+    def update(Integer id) {
+        def car = new Car(params)
+
+        if (car.hasErrors())
+            respond status: 400
+
+        withRest(url: "http://localhost:8080/carsktz/car/api/") {
+            post(path:"/${params.id}") {
+                type: ContentType.JSON
+                charset "UTF-8"
+                urlenc year: "${params.year}", make: "${params.make}", model: "${params.model}"
+            }
+        }
+        respond status: 200
+    }
+
     def findCarsAjax() {
         def response
 
-        withRest(url: 'http://localhost:8080/carsktz/carsRest/') {
-            response = get(path: '/index', accept: ContentType.JSON)//, query: [year: params.year, make: params.make, model: params.model])
+        withRest(url: 'http://localhost:8080/carsktz/car/api/') {
+            response = get(path: '', accept: ContentType.JSON, query: [from: params.carFrom, to: params.carTo, make: params.carMake, model: params.carModel])
         }
 
         carList = response.json.cars
