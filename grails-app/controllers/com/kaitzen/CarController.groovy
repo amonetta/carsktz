@@ -25,16 +25,36 @@ class CarController {
         return [ carInstance: response.json ]
     }
 
-    def update(Integer id) {
+    def create() {
+        return [carInstance: new Car()]
+    }
+
+    def save(Car car) {
+        if (car.hasErrors()) {
+            respond status: 400
+            return
+        }
+
+        restClient.post() {
+            type: ContentType.JSON
+            charset "UTF-8"
+            urlenc year: car.year, make: car.make, model: car.model
+        }
+        return
+    }
+
+    def update() {
         def car = new Car(params)
 
-        if (car.hasErrors())
+        if (car.hasErrors()) {
             respond status: 400
+            return
+        }
 
         restClient.post(path:"/${params.id}") {
                 type: ContentType.JSON
                 charset "UTF-8"
-                urlenc year: params.year, make: params.make, model: params.model
+                urlenc id: params.id, year: params.year, make: params.make, model: params.model
             }
         respond status: 200
     }

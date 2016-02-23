@@ -7,7 +7,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
+<>
     <title>Cars</title>
     <meta name="layout" content="main"/>
     <g:javascript library="jquery" plugin="jquery"/>
@@ -19,6 +19,32 @@
             $('#carMake').val('')
             $('#carModel').val('')
         }
+    </g:javascript>
+    <g:javascript>
+        function addRowHandlers() {
+            var table = document.getElementById("tableCars");
+            var rows = table.getElementsByTagName("tr");
+            for (i = 0; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+                var createClickHandler =
+                        function(row)
+                        {
+                            return function() {
+                                var id = [];
+                                for (j=0; j < 4; j++) {
+                                    var cell = row.getElementsByTagName("td")[j];
+                                    id[j] = cell.innerHTML;
+                                };
+                                document.getElementById("idPopup").setAttribute("value",id[0])
+                                document.getElementById("makePopup").setAttribute("value",id[1]);
+                                document.getElementById("modelPopup").setAttribute("value",id[2]);
+                                document.getElementById("yearPopup").setAttribute("value",id[3]);
+                                dialog.dialog("open");
+                            };
+                        };
+                currentRow.onclick = createClickHandler(currentRow);
+            }}
+        window.onload = addRowHandlers();
     </g:javascript>
 </head>
 <body>

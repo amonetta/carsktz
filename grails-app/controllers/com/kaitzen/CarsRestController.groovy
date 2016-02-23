@@ -53,17 +53,17 @@ class CarsRestController {
     }
 
     def delete(Integer id) {
-        def message
+        def body
         def status
         if (Car.exists(id)) {
-            Car.get(id).delete()
+            Car.load(id).delete()
             status = 200
-            message = "Car with ID $id deleted"
+            body = "Car with ID $id deleted"
         } else {
             status = 404
-            message = "Not found"
+            body = "Not found"
         }
 
-        respond message, status: status
+        respond body: body, status: status
     }
 }
