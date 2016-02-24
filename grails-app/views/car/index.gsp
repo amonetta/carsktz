@@ -7,7 +7,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<>
+<head>
     <title>Cars</title>
     <meta name="layout" content="main"/>
     <g:javascript library="jquery" plugin="jquery"/>
@@ -19,32 +19,6 @@
             $('#carMake').val('')
             $('#carModel').val('')
         }
-    </g:javascript>
-    <g:javascript>
-        function addRowHandlers() {
-            var table = document.getElementById("tableCars");
-            var rows = table.getElementsByTagName("tr");
-            for (i = 0; i < rows.length; i++) {
-                var currentRow = table.rows[i];
-                var createClickHandler =
-                        function(row)
-                        {
-                            return function() {
-                                var id = [];
-                                for (j=0; j < 4; j++) {
-                                    var cell = row.getElementsByTagName("td")[j];
-                                    id[j] = cell.innerHTML;
-                                };
-                                document.getElementById("idPopup").setAttribute("value",id[0])
-                                document.getElementById("makePopup").setAttribute("value",id[1]);
-                                document.getElementById("modelPopup").setAttribute("value",id[2]);
-                                document.getElementById("yearPopup").setAttribute("value",id[3]);
-                                dialog.dialog("open");
-                            };
-                        };
-                currentRow.onclick = createClickHandler(currentRow);
-            }}
-        window.onload = addRowHandlers();
     </g:javascript>
 </head>
 <body>
@@ -115,12 +89,53 @@
             </tbody>
         </table>
 
-        <div class="panel panel-info">
-            <div class="panel-heading">JSON Response</div>
-            <div id="plainResponse" class="panel-body" style="max-height: 500px; overflow-y: scroll;">
-                <g:render template="plainResponse" bean="${plainResponse}"/>
-            </div>
+        <div id="editForm" class="collapse">
+            <form class="form-horizontal">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Car</legend>
+
+                    <div class="form-group">
+                        <g:hiddenField id="idInput" name="id"/>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="year">Year</label>
+                        <div class="col-md-4">
+                            <g:field id="yearInput" name="year" type="number" placeholder="Car Year" class="form-control input-md" required=""/>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="maleInput">Make</label>
+                        <div class="col-md-4">
+                            <g:field id="makeInput" name="make" type="text" placeholder="Car maker" class="form-control input-md" required=""/>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="modelInput">Model</label>
+                        <div class="col-md-4">
+                            <g:field id="modelInput" name="model" type="text" placeholder="Car Model" class="form-control input-md" required=""/>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <g:submitToRemote url="[controller: 'car', action: 'update']" class="btn btn-primary"
+                                              id="submitInputButton" name="submitInputButton" value="Submit"/>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </form>
         </div>
+        <button type="button" data-toggle="collapse" data-target="#editForm" class="btn btn-primary">View form</button>
+
     </div>
 </body>
 </html>

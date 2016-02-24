@@ -7,12 +7,12 @@ class CarController {
 
     Set cars = []
 
-    def carList = []
-
     def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
 
     def index() {
-        [carList: carList]
+        def response = restClient.get(path: '', accept: ContentType.JSON)
+
+        [carList: response.json.cars]
     }
 
     def edit(Integer id) {
@@ -22,7 +22,7 @@ class CarController {
             respond status: 404
         }
 
-        return [ carInstance: response.json ]
+        [ carInstance: response.json ]
     }
 
     def create() {
@@ -51,12 +51,13 @@ class CarController {
             return
         }
 
-        restClient.post(path:"/${params.id}") {
+        def response = restClient.post(path:"/${params.id}") {
                 type: ContentType.JSON
                 charset "UTF-8"
                 urlenc id: params.id, year: params.year, make: params.make, model: params.model
             }
-        respond status: 200
+
+        render (template: 'carCols', bean: car, var: "car")
     }
 
     def findCarsAjax() {
@@ -64,6 +65,5 @@ class CarController {
 
         carList = response.json.cars
         render (template: 'carEntry', collection : carList, var:"car")
-        //render (template: 'plainResponse', bean: response.json, var:"plainResponse")
     }
 }
