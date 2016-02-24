@@ -15,7 +15,7 @@
         });
         return false'
                 class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"/>
+            <span class="glyphicon glyphicon-trash"/>
         </button>
     </g:form>
 </td>

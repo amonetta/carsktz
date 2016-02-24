@@ -127,8 +127,13 @@
                     <!-- Button -->
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-4">
-                            <g:submitToRemote class="btn btn-primary"
-                                              id="submitInputButton" name="submitInputButton" value="Submit"/>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-plus"/> New
+                                </button>
+                                <g:submitToRemote class="btn btn-primary" id="submitInputButton"
+                                                  name="submitInputButton" value="Confirm"/>
+                            </div>
                         </div>
                     </div>
                 </fieldset>

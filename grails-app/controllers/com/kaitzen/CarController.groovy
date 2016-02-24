@@ -29,7 +29,9 @@ class CarController {
         return [carInstance: new Car()]
     }
 
-    def save(Car car) {
+    def save() {
+        def car = new Car(params)
+
         if (car.hasErrors()) {
             respond status: 400
             return
