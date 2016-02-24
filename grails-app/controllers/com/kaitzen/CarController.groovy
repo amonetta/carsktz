@@ -60,6 +60,17 @@ class CarController {
         render (template: 'carCols', bean: car, var: "car")
     }
 
+    def delete(Integer id) {
+        if (!Car.exists(id)) {
+            respond status: 404
+            return
+        }
+
+        restClient.delete(path: "/${id}")
+
+        respond status: 200
+    }
+
     def findCarsAjax() {
         def response = restClient.get(path: '', accept: ContentType.JSON, query: [from: params.carFrom, to: params.carTo, make: params.carMake, model: params.carModel])
 

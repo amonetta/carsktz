@@ -45,6 +45,5 @@ function edit(car) {
     document.getElementById("makeInput").setAttribute("value",car.make);
     document.getElementById("modelInput").setAttribute("value",car.model);
     document.getElementById("submitInputButton").setAttribute("update","carID" + car.id);
-    document.getElementById("submitInputButton").setAttribute("url","[controller: 'car', action: 'update/" + car.id +"]");
-
+    document.getElementById("submitInputButton").setAttribute("url","[controller: 'car', action: 'update', id:'" + car.id + "']");
 }

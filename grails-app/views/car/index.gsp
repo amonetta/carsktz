@@ -81,6 +81,7 @@
                 <th>Year</th>
                 <th>Make</th>
                 <th>Model</th>
+                <th></th>
                 <!--<th>JSON</th>-->
             </tr>
             </thead>
