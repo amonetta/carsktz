@@ -51,13 +51,13 @@ class CarController {
             return
         }
 
-        def response = restClient.post(path:"/${params.id}") {
+        def response = restClient.post(path:"/${params.id}", accept: ContentType.JSON) {
                 type: ContentType.JSON
                 charset "UTF-8"
                 urlenc id: params.id, year: params.year, make: params.make, model: params.model
             }
 
-        render (template: 'carCols', bean: car, var: "car")
+        render (template: 'carCols', bean: response.json, var: "car")
     }
 
     def delete(Integer id) {
@@ -66,15 +66,16 @@ class CarController {
             return
         }
 
-        restClient.delete(path: "/${id}")
+        restClient.delete(path: "/${id}", accept: ContentType.JSON)
 
-        respond status: 200
+        //respond status: 200
+        render status: 200
     }
 
     def findCarsAjax() {
         def response = restClient.get(path: '', accept: ContentType.JSON, query: [from: params.carFrom, to: params.carTo, make: params.carMake, model: params.carModel])
 
-        carList = response.json.cars
+        def carList = response.json.cars
         render (template: 'carEntry', collection : carList, var:"car")
     }
 }

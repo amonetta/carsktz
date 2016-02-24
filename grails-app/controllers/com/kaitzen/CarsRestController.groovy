@@ -50,6 +50,7 @@ class CarsRestController {
         }
         oldCar.properties = car.properties
         oldCar.save()
+        render car, status: 200
     }
 
     def delete(Integer id) {
@@ -58,12 +59,12 @@ class CarsRestController {
         if (Car.exists(id)) {
             Car.load(id).delete()
             status = 200
-            body = "Car with ID $id deleted"
+            body = "Car with ID ${id} deleted"
         } else {
             status = 404
             body = "Not found"
         }
 
-        respond body: body, status: status
+        render body: body, status: status
     }
 }
