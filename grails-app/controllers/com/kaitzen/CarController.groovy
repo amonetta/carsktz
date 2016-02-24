@@ -78,4 +78,13 @@ class CarController {
         def carList = response.json.cars
         render (template: 'carEntry', collection : carList, var:"car")
     }
+
+    def getFromFor(Integer id) {
+        def car = Car.get(id)
+
+        if (car)
+            render (template: 'editForm', bean: car, var: 'car')
+        else
+            render status: 404
+    }
 }

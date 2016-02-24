@@ -44,6 +44,7 @@ function edit(car) {
     document.getElementById("yearInput").setAttribute("value",car.year);
     document.getElementById("makeInput").setAttribute("value",car.make);
     document.getElementById("modelInput").setAttribute("value",car.model);
-    document.getElementById("submitInputButton").setAttribute("update","carID" + car.id);
-    document.getElementById("submitInputButton").setAttribute("url","[controller: 'car', action: 'update', id:'" + car.id + "']");
+    document.getElementById("submitInputButton").setAttribute("onclick",
+        'jQuery.ajax({type:"POST",data:jQuery(this).parents("form:first").serialize(), url:"/carsktz/car/update/' + car.id + '",success:function(data,textStatus){jQuery("#carID' + car.id + '").html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});return false'
+    );
 }

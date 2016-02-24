@@ -127,7 +127,7 @@
                     <!-- Button -->
                     <div class="form-group">
                         <div class="col-md-4">
-                            <g:submitToRemote url="[controller: 'car', action: 'update']" class="btn btn-primary"
+                            <g:submitToRemote class="btn btn-primary"
                                               id="submitInputButton" name="submitInputButton" value="Submit"/>
                         </div>
                     </div>
