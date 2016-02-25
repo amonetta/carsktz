@@ -37,12 +37,13 @@ class CarController {
             return
         }
 
-        restClient.post() {
+        def response = restClient.post() {
             type: ContentType.JSON
             charset "UTF-8"
             urlenc year: car.year, make: car.make, model: car.model
         }
-        return
+
+        render (template: 'carEntry', bean: response.json, var: "car")
     }
 
     def update() {

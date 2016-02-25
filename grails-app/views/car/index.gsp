@@ -91,7 +91,7 @@
         </table>
 
         <div id="editForm" class="collapse">
-            <form class="form-horizontal">
+            <form id="carInputForm" class="form-horizontal">
                 <fieldset>
                     <!-- Form Name -->
                     <legend>Car</legend>
@@ -110,7 +110,7 @@
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="maleInput">Make</label>
+                        <label class="col-md-4 control-label" for="makeInput">Make</label>
                         <div class="col-md-4">
                             <g:field id="makeInput" name="make" type="text" placeholder="Car maker" class="form-control input-md" required=""/>
                         </div>
@@ -128,7 +128,12 @@
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-4">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" onclick='
+                                    document.getElementById("idInput").setAttribute("value","");
+                                    document.getElementById("yearInput").setAttribute("value","");
+                                    document.getElementById("makeInput").setAttribute("value","");
+                                    document.getElementById("modelInput").setAttribute("value","");
+                                    setActionNew(document.getElementById("submitInputButton"))'>
                                     <span class="glyphicon glyphicon-plus"/> New
                                 </button>
                                 <g:submitToRemote class="btn btn-primary" id="submitInputButton"

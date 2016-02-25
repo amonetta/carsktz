@@ -48,3 +48,7 @@ function edit(car) {
         'jQuery.ajax({type:"POST",data:jQuery(this).parents("form:first").serialize(), url:"/carsktz/car/update/' + car.id + '",success:function(data,textStatus){jQuery("#carID' + car.id + '").html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});return false'
     );
 }
+
+function setActionNew(submitButton) {
+    submitButton.setAttribute("onclick", 'jQuery.ajax({type:"POST",data:jQuery(this).parents("form:first").serialize(), url:"/carsktz/car/save/",success:function(data,textStatus){$("#carsTable tr:last").after(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});return false')
+}

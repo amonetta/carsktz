@@ -38,7 +38,7 @@ class CarsRestController {
         if (car.hasErrors()) {
             respond car, status:400
         } else {
-            car.save()
+            car = car.save(failOnError: true, flush: true)
             respond car, status:201
         }
     }
