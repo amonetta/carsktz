@@ -36,28 +36,42 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carYearFrom">Year from:</label>
                             <div class="col-md-9">
-                                <g:field id="carYearFrom" class="form-control input-md" name="carFrom" type="number" placeholder="Minimun year"></g:field>
+                                <g:field id="carYearFrom" class="form-control input-md" name="from" type="number" placeholder="Minimun year"></g:field>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carYearUntil">Year until:</label>
                             <div class="col-md-9">
-                                <g:field id="carYearUntil" class="form-control input-md" name="carTo" type="number" placeholder="Maximun year"></g:field>
+                                <g:field id="carYearUntil" class="form-control input-md" name="to" type="number" placeholder="Maximun year"></g:field>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carMake">Maker:</label>
                             <div class="col-md-9">
-                                <g:textField id="carMake" class="form-control input-md" name="carMake" datatype="text" placeholder="Car maker"></g:textField>
+                                <g:textField id="carMake" class="form-control input-md" name="make" datatype="text" placeholder="Car maker"></g:textField>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="carModel">Model:</label>
                             <div class="col-md-9">
-                                <g:textField id="carModel" class="form-control input-md" name="carModel" datatype="text" placeholder="Car model"></g:textField>
+                                <g:textField id="carModel" class="form-control input-md" name="model" datatype="text" placeholder="Car model"></g:textField>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="carPlate">Plate:</label>
+                            <div class="col-md-9">
+                                <g:textField id="carPlate" class="form-control input-md" name="plate" datatype="text" placeholder="Car plate"></g:textField>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="carOwner">Owner:</label>
+                            <div class="col-md-9">
+                                <g:textField id="carOwner" class="form-control input-md" name="owner" datatype="text" pattern="(\\d{7,8})|(\\w*)" placeholder="Car owner: DNI or name propose"></g:textField>
                             </div>
                         </div>
 
@@ -81,6 +95,8 @@
                 <th>Year</th>
                 <th>Make</th>
                 <th>Model</th>
+                <th>Plate</th>
+                <th>Owner</th>
                 <th></th>
                 <!--<th>JSON</th>-->
             </tr>
@@ -104,7 +120,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="year">Year</label>
                         <div class="col-md-4">
-                            <g:field id="yearInput" name="year" type="number" placeholder="Car Year" class="form-control input-md" required=""/>
+                            <g:field id="yearInput" name="year" type="number" min="1768" max="2016" placeholder="Car Year" class="form-control input-md" required=""/>
                         </div>
                     </div>
 
@@ -112,7 +128,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="makeInput">Make</label>
                         <div class="col-md-4">
-                            <g:field id="makeInput" name="make" type="text" placeholder="Car maker" class="form-control input-md" required=""/>
+                            <g:field id="makeInput" name="make" type="text" maxlength="50" placeholder="Car maker" class="form-control input-md" required=""/>
                         </div>
                     </div>
 
@@ -120,7 +136,14 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="modelInput">Model</label>
                         <div class="col-md-4">
-                            <g:field id="modelInput" name="model" type="text" placeholder="Car Model" class="form-control input-md" required=""/>
+                            <g:field id="modelInput" name="model" type="text" maxlength="50" placeholder="Car Model" class="form-control input-md" required=""/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="plateInput">Plate</label>
+                        <div class="col-md-4">
+                            <g:field id="plateInput" name="plate" type="text" placeholder="Car Plate" pattern='([A-Z]{3})(\\d{3})|((D|C|I|M|A)\\d{3}(CP|DM|RX|AC|DC)[A-Z])' class="form-control input-md" required=""/>
                         </div>
                     </div>
 
@@ -133,6 +156,7 @@
                                     document.getElementById("yearInput").setAttribute("value","");
                                     document.getElementById("makeInput").setAttribute("value","");
                                     document.getElementById("modelInput").setAttribute("value","");
+                                    document.getElementById("plateInput").setAttribute("value","");
                                     setActionNew(document.getElementById("submitInputButton"))'>
                                     <span class="glyphicon glyphicon-plus"/> New
                                 </button>

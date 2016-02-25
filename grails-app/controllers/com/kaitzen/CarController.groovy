@@ -12,7 +12,7 @@ class CarController {
     def index() {
         def response = restClient.get(path: '', accept: ContentType.JSON)
 
-        [carList: response.json.cars]
+        [carList: response.json.cars, carCount: response.json.cars.size]
     }
 
     def edit(Integer id) {
@@ -40,7 +40,7 @@ class CarController {
         def response = restClient.post() {
             type: ContentType.JSON
             charset "UTF-8"
-            urlenc year: car.year, make: car.make, model: car.model
+            urlenc params
         }
 
         render (template: 'carEntry', bean: response.json, var: "car")
@@ -57,7 +57,7 @@ class CarController {
         def response = restClient.post(path:"/${params.id}", accept: ContentType.JSON) {
                 type: ContentType.JSON
                 charset "UTF-8"
-                urlenc id: params.id, year: params.year, make: params.make, model: params.model
+                urlenc params
             }
 
         render (template: 'carCols', bean: response.json, var: "car")
@@ -76,7 +76,7 @@ class CarController {
     }
 
     def findCarsAjax() {
-        def response = restClient.get(path: '', accept: ContentType.JSON, query: [from: params.carFrom, to: params.carTo, make: params.carMake, model: params.carModel])
+        def response = restClient.get(path: '', accept: ContentType.JSON, query: params)
 
         def carList = response.json.cars
         render (template: 'carEntry', collection : carList, var:"car")

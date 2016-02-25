@@ -24,6 +24,18 @@ class CarsRestController {
                     like("make", '%' + params.make + '%')
                 if (params.model)
                     like("model", '%' + params.model + '%')
+                if (params.plate)
+                    like("plate", '%' + params.plate + '%')
+                if (params.owner)
+                    owner {
+                        if (params.owner.toString().isInteger())
+                            eq("dni", params.owner as Integer)
+                        else
+                            or {
+                                like("apellido", '%' + params.owner.trim() + '%')
+                                like("nombre", '%' + params.owner.trim() + '%')
+                            }
+                    }
             }
         }
         def cars = criteria.findAll().toArray()

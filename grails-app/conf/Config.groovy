@@ -124,3 +124,12 @@ log4j = {
 grails.plugins.twitterbootstrap.fixtaglib = true
 // grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap' // 'bundle_name', 'false', default: 'bundle_bootstrap'
 grails.views.javascript.library="jquery"
+
+// disable the plugin's operations here. we'll re-enable them in the Bootstrap to avoid conflicts with database-migration
+mirrorChanges = false
+bulkIndexOnStartup = false
+
+
+grails.plugin.databasemigration.updateOnStart = true
+// grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
+// grails.plugin.databasemigration.updateOnStartContexts = ['test,dev,prod']
