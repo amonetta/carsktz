@@ -12,7 +12,7 @@ Relevant plugins
 - Tomcat 7.0.55.3
 - JQuery Plugin 1.11.1
 
-Data source provided by <a href="https://github.com/n8barr">n8bar</a> at <a href="https://github.com/n8barr/automotive-model-year-data">automotive-model-year-data</a>
+Data source provided by [n8bar](https://github.com/n8barr) at [automotive-model-year-data](https://github.com/n8barr/automotive-model-year-data)
 
 CarsKTZ is a REST API and simple CRUD end-user application also, that id provides a simple way to get cars models from database as a simple JSON format.
 
