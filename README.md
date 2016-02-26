@@ -15,4 +15,10 @@ Relevant plugins
 Data source provided by <a href="https://github.com/n8barr">n8bar</a> at <a href="https://github.com/n8barr/automotive-model-year-data">automotive-model-year-data</a>
 
 CarsKTZ is a REST API and simple CRUD end-user application also, that id provides a simple way to get cars models from database as a simple JSON format.
-Building in Grails, this app is a traing for the use of Grails and have also may interesting examples
+
+Builded with Grails, this app is a traing for the use of Grails and have also may interesting examples.
+
+# REST API
+For accessing the API use 
+http://host/carsktz/car/api
+
