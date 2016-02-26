@@ -5,7 +5,7 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.work.dir = "target/work"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
-//grails.project.war.file = "target/${appName}-${appVersion}.war"
+//grails.ico.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-        runtime 'mysql:mysql-connector-java:5.1.38'
+        runtime 'mysql.ico.png:mysql.ico.png-connector-java:5.1.38'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
     }
 
@@ -73,7 +73,6 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.14"
         runtime ":twitter-bootstrap:3.3.5"
         runtime ":fields:1.5.1"
-        runtime ":angularjs-resources:1.4.2"
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"

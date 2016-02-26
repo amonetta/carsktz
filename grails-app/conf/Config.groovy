@@ -2,13 +2,13 @@
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
+// grails.ico.config.locations = [ "classpath:${appName}-config.properties",
 //                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
+//                             "file:${userHome}/.grails.ico/${appName}-config.properties",
+//                             "file:${userHome}/.grails.ico/${appName}-config.groovy"]
 
 // if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
+//    grails.ico.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
 grails.project.groupId = com.kaitzen // change this to alter the default package name and Maven publishing destination
@@ -32,7 +32,7 @@ grails.mime.types = [ // the first one is the default format
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
-//grails.urlmapping.cache.maxsize = 1000
+//grails.ico.urlmapping.cache.maxsize = 1000
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
@@ -95,7 +95,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        // TODO: grails.ico.serverURL = "http://www.changeme.com"
     }
 }
 
@@ -122,7 +122,7 @@ log4j = {
 
 // Boostrap configuration
 grails.plugins.twitterbootstrap.fixtaglib = true
-// grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap' // 'bundle_name', 'false', default: 'bundle_bootstrap'
+// grails.ico.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap' // 'bundle_name', 'false', default: 'bundle_bootstrap'
 grails.views.javascript.library="jquery"
 
 // disable the plugin's operations here. we'll re-enable them in the Bootstrap to avoid conflicts with database-migration
@@ -131,5 +131,5 @@ bulkIndexOnStartup = false
 
 
 grails.plugin.databasemigration.updateOnStart = true
-// grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
-// grails.plugin.databasemigration.updateOnStartContexts = ['test,dev,prod']
+// grails.ico.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
+// grails.ico.plugin.databasemigration.updateOnStartContexts = ['test,dev,prod']
