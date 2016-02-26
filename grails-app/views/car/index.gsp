@@ -26,7 +26,7 @@
         <div class="panel-primary">
             <div class="panel-heading">
                 <!-- Form Name -->
-                Busqueda
+                Search
             </div>
             <div class="panel-body">
                 <g:form class="form-horizontal" onsubmit="nullFunction(); return false;">
@@ -34,43 +34,43 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="carYearFrom">Year from:</label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 col-lg-2 control-label" for="carYearFrom">Year from:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <g:field id="carYearFrom" class="form-control input-md" name="from" type="number" placeholder="Minimun year"></g:field>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="carYearUntil">Year until:</label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 col-lg-2 control-label" for="carYearUntil">Year until:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <g:field id="carYearUntil" class="form-control input-md" name="to" type="number" placeholder="Maximun year"></g:field>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="carMake">Maker:</label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 col-lg-2 control-label" for="carMake">Maker:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <g:textField id="carMake" class="form-control input-md" name="make" datatype="text" placeholder="Car maker"></g:textField>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="carModel">Model:</label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 col-lg-2 control-label" for="carModel">Model:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <g:textField id="carModel" class="form-control input-md" name="model" datatype="text" placeholder="Car model"></g:textField>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="carPlate">Plate:</label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 col-lg-2 control-label" for="carPlate">Plate:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <g:textField id="carPlate" class="form-control input-md" name="plate" datatype="text" placeholder="Car plate"></g:textField>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="carOwner">Owner:</label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 col-lg-2 control-label" for="carOwner">Owner:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <g:textField id="carOwner" class="form-control input-md" name="owner" datatype="text" pattern="(\\d{7,8})|(\\w*)" placeholder="Car owner: DNI or name propose"></g:textField>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         <!-- Button -->
                         <div class="form-group">
                             <div class="col-md-offset-2"/>
-                            <div class="col-md-9">
+                            <div class="col-md-9 col-lg-9">
                                 <g:submitToRemote value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="carsTable" class="btn btn-primary"/>
                             </div>
                         </div>
@@ -118,38 +118,38 @@
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="year">Year</label>
-                        <div class="col-md-4">
+                        <label class="col-md-4 col-lg-4 control-label" for="year">Year</label>
+                        <div class="col-md-4 col-lg-4">
                             <g:field id="yearInput" name="year" type="number" min="1768" max="2016" placeholder="Car Year" class="form-control input-md" required=""/>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="makeInput">Make</label>
-                        <div class="col-md-4">
+                        <label class="col-md-4 col-lg-4 control-label" for="makeInput">Make</label>
+                        <div class="col-md-4 col-lg-4">
                             <g:field id="makeInput" name="make" type="text" maxlength="50" placeholder="Car maker" class="form-control input-md" required=""/>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="modelInput">Model</label>
-                        <div class="col-md-4">
+                        <label class="col-md-4 col-lg-4 control-label" for="modelInput">Model</label>
+                        <div class="col-md-4 col-lg-4">
                             <g:field id="modelInput" name="model" type="text" maxlength="50" placeholder="Car Model" class="form-control input-md" required=""/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="plateInput">Plate</label>
-                        <div class="col-md-4">
+                        <label class="col-md-4 col-lg-4 control-label" for="plateInput">Plate</label>
+                        <div class="col-md-4 col-lg-4">
                             <g:field id="plateInput" name="plate" type="text" placeholder="Car Plate" pattern='([A-Z]{3})(\\d{3})|((D|C|I|M|A)\\d{3}(CP|DM|RX|AC|DC)[A-Z])' class="form-control input-md" required=""/>
                         </div>
                     </div>
 
                     <!-- Button -->
                     <div class="form-group">
-                        <div class="col-md-offset-4 col-md-4">
+                        <div class="col-md-offset-4 col-lg-offset-4 col-md-4 col-lg-4">
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-primary" onclick='
                                     document.getElementById("idInput").setAttribute("value","");

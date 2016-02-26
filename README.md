@@ -1,5 +1,5 @@
 # CarsKTZ
-Tecnologies
+Technologies
 - Tomcat 7
 - MySQL 5.6.29
 - SDK 1.7
@@ -16,7 +16,7 @@ Data source provided by [n8bar](https://github.com/n8barr) at [automotive-model-
 
 CarsKTZ is a REST API and simple CRUD end-user application also, that id provides a simple way to get cars models from database as a simple JSON format.
 
-Builded with Grails, this app is a traing for the use of Grails and have also may interesting examples.
+Building with Grails, this app is a traing for the use of Grails and have also may interesting examples.
 
 REST API
 ---
@@ -80,3 +80,42 @@ For the first for ones, there is nothing tricky:
 
 this will return something like:
     
+    {
+        "cars": [
+            {
+                "id": 4,
+                "model": "Minx Magnificent",
+                "plate": "DIE437",
+                "year": 1950,
+                "owner": null,
+                "make": "Hillman"
+            },
+            {
+                "id": 5,
+                "owner": null,
+                "model": "Corvette",
+                "make": "Chevrolet",
+                "plate": "ENY077",
+                "year": 1953
+            }, ...
+    }
+
+`make` and `model` are proposes of values like:
+
+    http://host/carsktz/car/api/index?make=fo
+
+returns any car hows contains `make` property similar to "fo" without case sense. 
+
+    {
+        "cars": [
+        ...
+            {
+                "id": 9,
+                "model": "Thunderbird",
+                "plate": "EGW705",
+                "owner": null,
+                "make": "Ford",
+                "year": 1955
+            }, ...
+    }
+
