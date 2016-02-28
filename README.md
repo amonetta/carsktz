@@ -1,32 +1,27 @@
 # CarsKTZ
+Technologies
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/tomcat" width="32" height="32"> Tomcat 7
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/grails" width="32" height="32"> Grails 2.3.7
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/java" width="32" height="32"> SDK 1.7
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/jquery" width="32" height="32"> JQuery 1.4.2
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/html5" width="32" height="32"> HTML5
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/bootstrap3" width="32" height="32"> Bootstrap 3
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/mysql" width="32" height="32"> MySQL 5.6.29
+
+Relevant plugins
+- [Tomcat](https://grails.org/plugin/tomcat) (7.0.55.3)
+- [jQuery Plugin](https://grails.org/plugin/jquery) (1.11.1)
+- [jQuery-UI](https://grails.org/plugin/jquery-ui) (1.10.4) | Visual plugin for JQuery
+- [WSlite](https://grails.org/plugin/wslite) (0.7.2.0) | REST Client plugin
+
+Data source provided by [n8bar](https://github.com/n8barr) at [automotive-model-year-data](https://github.com/n8barr/automotive-model-year-data)
+
 CarsKTZ is a REST API and simple CRUD end-user application also, that id provides a simple way to get cars models from database as a simple JSON format.
 
 Building with Grails, this app is a training for the use of Grails and have also may interesting examples.
 
+REST API
 ---
-
-#### Technologies & Requisites
-- ![](img/icons/tomcat.ico =32x32) [Tomcat]() 7
-- ![](img/icons/grails.ico =32x32) [Grails]() 2.3.7*
-- ![](img/icons/java.ico =32x32) [Java SDK]() 1.7*
-- ![](img/icons/jquery.ico =32x32) [JQuery]() 1.4.2
-- ![](img/icons/html5.ico =32x32) [HTML5]()
-- ![](img/icons/bootstrap3.ico =32x32) [Bootstrap 3]()
-- ![](img/icons/.ico =32x32) [MySQL]() 5.6.29*
-- ![]() [Hibernate]() (via GROM)
-
-#### Relevant plugins
-- [Tomcat](https://grails.org/plugin/tomcat) (7.0.55.3)
-- [WSlite](https://grails.org/plugin/wslite) (0.7.2.0) | REST Client plugin
-- [jQuery Plugin](https://grails.org/plugin/jquery) (1.11.1)
-- [jQuery-UI](https://grails.org/plugin/jquery-ui) (1.10.4) | Visual plugin for JQuery
-- [twitter-bootstrap](https://grails.org/plugin/twitter-bootstrap) (3.3.5) | Bootstrap 3
-
---
-Data source provided by [n8bar](https://github.com/n8barr) at [automotive-model-year-data](https://github.com/n8barr/automotive-model-year-data)
-* This require manual installation
-
-## REST API
 For develop your own consumer app for this API, here a simple guide
 
 ### GET
@@ -158,32 +153,5 @@ For adding new one, idem before without `id`. The response (in case all validati
 
 For deleting an object use `DELETE` method like `GET` example and server will response with the deleted object on successful.
 
---
-If you are trying out this API, we suggest to use [Boomerang plugin](https://chrome.google.com/webstore/detail/boomerang-soap-rest-clien/eipdnjedkpcnlmmdfdkgfpljanehloah?utm_source=gmail) for chrome.
 
-## Visual CRUD
-*CarsKTZ* includes a visual interface to see the API in action accessing:
-
-    http://your.host/carsktz/car/index
-
-This view makes a call to REST API to retrieve cars, make search, edit selecting one from table and create.
-
-![CRUD Car View](img/car_index.png)
-
-## About development
-
-*CarsKTZ*, as any other application developed with grails and as good-programing technic, use MVC pattern to separate logic and data from how data is rendered.
-
-As main `View` you will find `car/index` at project folder:
-
-    grails-app/views/car/index.gsp
-
-This one contains the car's CRUD and use templates and jQuery to axaj requests. Tested yourself performing a serach with some parameters and see how only table contect is refreshed.
-
-### Grails Schema
-
-If you are new in grails, would be useful to know that `grails-app/view` es default folder for all views. Next folder represents corresponding controller, ex. `grails-app/view/car`. Finally, the las one part is the specific view, or templates if begins with `_` .
-
-Under `grails-app/controller` there is two relevant ones: `CarController` and  `CarRestController`:
-- `CarController` is `car/index` controller. Its work is render main view and make REST calls to API.
-- `CarRestController` is `car/api` controller and its work is only provide REST service (`GET`, `POST`, `PUT`, `DELETE`).
+If you are trying out this API, we suggest to use [Boomerang plugin](https://chrome.google.com/webstore/detail/boomerang-soap-rest-clien/eipdnjedkpcnlmmdfdkgfpljanehloah?utm_source=gmail) for chrome. 
