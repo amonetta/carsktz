@@ -62,7 +62,7 @@ and the response will have the format:
 
 Pay attention that there is an array of cars so, if you try to access in code would be like:
 
-    response.json.car[0]
+    response.json.cars[0]
 
 and NOT:
 
@@ -126,7 +126,7 @@ returns any car whose contains `make` property similar to "fo" without case sens
 - as numeric: `owner` is understood as owner DNI and query will return cars whose owner DNI is equal to given one
 - as literal: `owner` is understood as owner name propose (name or surname) and query will return cars whose owner name or surname are like given one
  
- Finally, and as you have saw, you can provide some, all or no param to the query as your needs.
+ Finally, and as you can see, you can provide some, all or no param to the query as your needs.
  
 ### GET & UPDATE
 
@@ -153,5 +153,43 @@ For adding new one, idem before without `id`. The response (in case all validati
 
 For deleting an object use `DELETE` method like `GET` example and server will response with the deleted object on successful.
 
-
+--
 If you are trying out this API, we suggest to use [Boomerang plugin](https://chrome.google.com/webstore/detail/boomerang-soap-rest-clien/eipdnjedkpcnlmmdfdkgfpljanehloah?utm_source=gmail) for chrome. 
+
+## About development
+
+*CarsKTZ*, as any other application developed with grails and as good-programing technic, use MVC pattern to separate logic and data from how data is rendered.
+
+As main `View` you will find `car/index` at project folder:
+
+    grails-app/views/car/index.gsp
+
+This one contains the car's CRUD and use templates and jQuery to axaj requests. Tested yourself performing a serach with some parameters and see how only table contect is refreshed.
+
+### Grails Schema
+
+If you are new in grails, would be useful to know that `grails-app/view` es default folder for all views. Next folder represents corresponding controller, ex. `grails-app/view/car`. Finally, the las one part is the specific view, or templates if begins with `_` .
+
+Under `grails-app/controller` there is two relevant ones: `CarController` and  `CarRestController`:
+- `CarController` is `car/index` controller. Its work is render main view and make REST calls to API.
+- `CarRestController` is `car/api` controller and its work is only provide REST service (`GET`, `POST`, `PUT`, `DELETE`).
+
+### REST Service
+
+The REST controller is `CarRestController` that's provide the API for cars and its only function is receive requests and call GORM to resolve `GET`, `POST`, `PUT`, `DELETE` operations.
+
+This controller is located at:
+
+    /grails-app/controllers/com/kaitzen/CarRestController
+
+As convention in Grails, all controllers are located at `/grails-app/controllers`, so CRUD controllers for Car and Owner are also located there.
+
+### Car's CRUD
+
+*CarsKTZ* includes a visual interface to see the API in action accessing:
+
+    http://your.host/carsktz/car/index
+    
+This view makes a call to REST API to retrieve cars, make search, edit selecting one from table and create.
+
+![CRUD Car View](img/car_index.png)
