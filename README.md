@@ -1,6 +1,6 @@
 # CarsKTZ
 Technologies
-- ![](https://github.com/amonettaktz/carsktz/img/icons/tomcat.ico =32x32) Tomcat 7
+- ![](https://github.com/amonettaktz/carsktz/blob/master/img/icons/tomcat.ico =32x32) Tomcat 7
 - <img src="https://github.com/amonettaktz/carsktz/img/icons/grails.ico" width="32" height="32"> Grails 2.3.7
 - <img src="https://github.com/amonettaktz/carsktz/.img/icons/java.ico" width="32" height="32"> SDK 1.7
 - <img src="https://github.com/amonettaktz/carsktz/.img/icons/jquery.ico" width="32" height="32"> JQuery 1.4.2
