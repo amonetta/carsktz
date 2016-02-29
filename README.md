@@ -1,12 +1,12 @@
 # CarsKTZ
 Technologies
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/tomcat" width="32" height="32"> Tomcat 7
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/grails" width="32" height="32"> Grails 2.3.7
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/java" width="32" height="32"> SDK 1.7
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/jquery" width="32" height="32"> JQuery 1.4.2
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/html5" width="32" height="32"> HTML5
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/bootstrap3" width="32" height="32"> Bootstrap 3
-- <img src="https://github.com/amonettaktz/carsktz/.img/icons/mysql" width="32" height="32"> MySQL 5.6.29
+- ![](https://github.com/amonettaktz/carsktz/img/icons/tomcat.ico =32x32) Tomcat 7
+- <img src="https://github.com/amonettaktz/carsktz/img/icons/grails.ico" width="32" height="32"> Grails 2.3.7
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/java.ico" width="32" height="32"> SDK 1.7
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/jquery.ico" width="32" height="32"> JQuery 1.4.2
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/html5.ico" width="32" height="32"> HTML5
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/bootstrap3.ico" width="32" height="32"> Bootstrap 3
+- <img src="https://github.com/amonettaktz/carsktz/.img/icons/mysql.ico" width="32" height="32"> MySQL 5.6.29
 
 Relevant plugins
 - [Tomcat](https://grails.org/plugin/tomcat) (7.0.55.3)
