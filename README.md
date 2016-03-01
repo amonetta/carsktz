@@ -1,15 +1,17 @@
 # CarsKTZ
 Technologies
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/tomcat.ico" width="32" height="32"> Tomcat 7
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/grails.ico" width="32" height="32"> Grails 2.3.7
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/java.ico" width="32" height="32"> SDK 1.7
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/jquery.ico" width="32" height="32"> JQuery 1.4.2
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/html5.ico" width="32" height="32"> HTML5
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/bootstrap3.ico" width="32" height="32"> Bootstrap 3
-- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/mysql.ico" width="32" height="32"> MySQL 5.6.29
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/tomcat.ico" width="32" height="32"> [Tomcat](http://tomcat.apache.org/) 7
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/grails.ico" width="32" height="32"> [Grails](https://grails.org/) 2.3.7
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/java.ico" width="32" height="32"> [JDK](http://www.oracle.com/technetwork/es/java/javase/downloads/jdk7-downloads-1880260.html) 1.7
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/jquery.ico" width="32" height="32"> [JQuery](https://jquery.com/) 1.4.2
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/html5.ico" width="32" height="32"> [HTML5](https://www.w3.org/TR/html5/)
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/bootstrap3.ico" width="32" height="32"> [Bootstrap 3](http://getbootstrap.com/)
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/mysql.ico" width="32" height="32"> [MySQL](https://www.mysql.com/) 5.6.29
+- <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/hibernate.ico" width="32" height="32"> [Hibernate 3](hibernate.org)
 
 Relevant plugins
 - [Tomcat](https://grails.org/plugin/tomcat) (7.0.55.3)
+- [Hibernate]() (3.6.10.9) 
 - [jQuery Plugin](https://grails.org/plugin/jquery) (1.11.1)
 - [jQuery-UI](https://grails.org/plugin/jquery-ui) (1.10.4) | Visual plugin for JQuery
 - [WSlite](https://grails.org/plugin/wslite) (0.7.2.0) | REST Client plugin
@@ -193,3 +195,67 @@ As convention in Grails, all controllers are located at `/grails-app/controllers
 This view makes a call to REST API to retrieve cars, make search, edit selecting one from table and create.
 
 ![CRUD Car View](img/car_index.png)
+
+## Running the project
+---
+
+### Installing database (MySQL)
+
+For executing project, first install corresponding version of MySQL and follow instructions [here](https://github.com/n8barr/automotive-model-year-data/blob/master/README.md)
+
+Then configure `DataSource.groovy` like:
+
+    dataSource {
+        driverClassName = "com.mysql.jdbc.Driver"
+        dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+        username = "your.username"
+        password = "your.password"
+        ... 
+    }
+    environments {
+        development {
+            dataSource {
+                url = "jdbc:mysql://localhost:3306/your.database.name"
+                ...
+            }
+        }
+
+--
+Remember include dependences and plugin at `BuildConfig.groovy`
+
+### Executing
+
+For running you must install, at least, Grails sdk and JDK 7, the rest left it on Grails hands:
+
+1. Open a terminal
+
+        Ubuntu: CTRL + ALT + 'T'
+        
+        Windows: Open 'Home' and search for 'cmd.exe'
+      
+2. Select working folder as your project folder, for example:
+
+        Ubuntu: cd /home/youruser/grails/carsktz
+         
+        Windows: cd 'C:/Documents and Settings/youruser/grails/carsktz'
+        
+3. run project as:
+
+        grails run-app
+        
+4. and open in a browser (chrome recommended) the app as:
+
+        http://localhost:8080/carsktz/car
+        
+or try API using boomerang (or similar) with:
+
+        http://localhost:8080/carsktz/car/api 
+
+## BUGs
+
+This version of develop fails when making request GET with no parameters `http://localhost:8080/carsktz/car/api`, hwen using `CarService` 
+
+When asking for full list of cars, SQL Exception is raised with message: 
+
+    Positioned Update not supported..
+

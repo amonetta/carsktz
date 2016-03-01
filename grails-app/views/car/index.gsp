@@ -12,6 +12,7 @@
     <meta name="layout" content="main"/>
     <g:javascript library="jquery" plugin="jquery"/>
     <r:require modules="core"/>
+    <g:javascript src="pagination.js"/>
     <g:javascript>
         function clearForm(e) {
             $('#carYearFrom').val('')
@@ -79,7 +80,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2"/>
                             <div class="col-md-9 col-lg-9">
-                                <g:submitToRemote value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="carsTable" class="btn btn-primary"/>
+                                <g:submitToRemote value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="grid" class="btn btn-primary"/>
                             </div>
                         </div>
                     </fieldset>
@@ -88,23 +89,9 @@
             </div>
         </div>
 
-        <table st-safe-src="safeCollection" st-table="allCars" class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Year</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Plate</th>
-                <th>Owner</th>
-                <th></th>
-                <!--<th>JSON</th>-->
-            </tr>
-            </thead>
-            <tbody id="carsTable">
-                <g:render template="carEntry" collection="${carList}" var="car"/>
-            </tbody>
-        </table>
+        <div id="grid" class="grid">
+            <g:render template="carEntry" model="${tableModel}"/>
+        </div>
 
         <div id="editForm" class="collapse">
             <form id="carInputForm" class="form-horizontal">

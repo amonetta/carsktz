@@ -10,9 +10,9 @@ class CarController {
     def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
 
     def index() {
-        def response = restClient.get(path: '', accept: ContentType.JSON)
+        def response = restClient.get(path: "?from=${params.from? params.from : ''}&to=${params.to? params.to : ''}&model=${params.model? params.model : ''}&make=${params.make? params.make : ''}&owner=${params.owner? params.owner : ''}&max=${params.max? params.max : ''}&offset=${params.offset? params.offset : ''}", accept: ContentType.JSON)
 
-        [carList: response.json.cars, carCount: response.json.cars.size]
+        [tableModel: response.json]
     }
 
     def edit(Integer id) {
@@ -78,8 +78,10 @@ class CarController {
     def findCarsAjax() {
         def response = restClient.get(path: '', accept: ContentType.JSON, query: params)
 
-        def carList = response.json.cars
-        render (template: 'carEntry', collection : carList, var:"car")
+        /*def carList = response.json.body.cars
+        render (template: 'carEntry', collection : carList, var:"car")*/
+        def tableModel = response.json
+        render (template: 'carEntry', model: tableModel)
     }
 
     def getFromFor(Integer id) {
@@ -89,5 +91,12 @@ class CarController {
             render (template: 'editForm', bean: car, var: 'car')
         else
             render status: 404
+    }
+
+    def filter = {
+        def response = restClient.get(path: '', accept: ContentType.JSON, query: params)
+
+        def carList = response.json.body.cars
+        render (template: 'carEntry', collection : carList, var:"car")
     }
 }

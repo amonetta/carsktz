@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-        runtime 'mysql.ico.png:mysql.ico.png-connector-java:5.1.38'
+        runtime 'mysql:mysql-connector-java:5.1.38'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
     }
 
@@ -73,6 +73,7 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.14"
         runtime ":twitter-bootstrap:3.3.5"
         runtime ":fields:1.5.1"
+        runtime ":remote-pagination:0.4.8"
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"

@@ -1,7 +1,7 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "com.mysql.ico.png.jdbc.Driver"
+    driverClassName = "com.mysql.jdbc.Driver"
     dialect = org.hibernate.dialect.MySQL5InnoDBDialect
     username = "carsktz-app"
     password = ""
@@ -18,19 +18,19 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql.ico.png://localhost:3306/carsktzdb.dev"
+            url = "jdbc:mysql://localhost:3306/carsktzdb.dev"
         }
     }
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql.ico.png://localhost:3306/carsktzdb.test"
+            url = "jdbc:mysql://localhost:3306/carsktzdb.test"
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql.ico.png://localhost:3306/carsktzdb"
+            url = "jdbc:mysql://localhost:3306/carsktzdb"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

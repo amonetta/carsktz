@@ -5,16 +5,10 @@ import com.kaitzen.Car
 class CarsRestController {
     static responseFormats = ["json", "xml"]
 
-    def carService
+    //def carService
 
-    /**
-     * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel
-     * Every parameter is optional and no parameters provided returns available all cars.
-     * Any other parameter is ignored, only 'from' 'to' 'make' 'model' are valid.
-     * @return selected cars.
-     */
-    def index() {
-        def criteria = Car.withCriteria {
+    def list() {
+        def query = {
             and {
                 if (params.from && params.from.toString().isInteger())
                     ge("year", params.from as Integer)
@@ -38,9 +32,26 @@ class CarsRestController {
                     }
             }
         }
-        def cars = criteria.findAll().toArray()
-        // respond {cars: carService.list(params)}
-        respond {cars: cars}
+
+        def criteria = Car.createCriteria()
+        params.max = Math.min(params.max? params.int('max') : 20, 100)
+        def cars = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [make: params.make, model: params.model, plate: params.plate]
+
+        def model = [cars: cars, carsTotal: cars.totalCount, filters: filters]
+
+        respond model
+    }
+
+    /**
+     * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel
+     * Every parameter is optional and no parameters provided returns available all cars.
+     * Any other parameter is ignored, only 'from' 'to' 'make' 'model' are valid.
+     * @return selected cars.
+     */
+    def index() {
+        def cars = list();
+        respond cars
     }
 
     def show(Integer id){
