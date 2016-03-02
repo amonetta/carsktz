@@ -39,9 +39,9 @@ class CarsRestController {
         if (params.max.toString().toUpperCase() == 'ALL')
             params.max = null
         else
-            params.max = Math.min(params.max? params.int('max') : 20, 100)
+            params.max = Math.min(params.max? params.int('max') : 20, 1000)
         def cars = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, sort: params.sort, order: params.order]
+        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, max: params.max? params.max: cars.totalCount, sort: params.sort, order: params.order]
 
         def model = [cars: cars, carsTotal: cars.totalCount, filters: filters]
 

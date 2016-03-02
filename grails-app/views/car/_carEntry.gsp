@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12 col-lg-12">
     <g:javascript src="pagination.js"/>
     <table id="carsTable" class="table table-striped ajax">
         <thead>
@@ -21,7 +21,7 @@
         </tbody>
     </table>
 
-    <div class="pagination">
-        <g:paginate controller="car" action="findCarsAjax" update="grid" total="${carsTotal}" params="${filters}" />
+    <div class="pagination col-md-12 col-lg-12">
+        <g:paginate controller="car" action="findCarsAjax" update="grid" total="${carsTotal}" params="${filters}" max="${filters?.max? filters.max : 20}"/>
     </div>
 </div>

@@ -280,3 +280,6 @@ When asking for full list of cars, SQL Exception is raised with message:
 
     Positioned Update not supported..
 
+## Recommended links
+
+- [Pagination Sample](http://www.craigburke.com/2011/01/23/grails-ajax-list-with-paging-sorting-and-filtering.html)

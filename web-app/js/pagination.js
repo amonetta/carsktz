@@ -9,7 +9,6 @@ jQuery(document).ready(function() {
 // Turn all sorting and paging links into ajax requests for the grid
 function setupGridAjax() {
     $("#grid").find(".step, th.sortable a").on('click', function(event) {
-    //$("#grid").find($(".step")).on('click', function(event) {
         event.preventDefault();
         var url = $(this).attr('href');
 
@@ -20,7 +19,6 @@ function setupGridAjax() {
             type: 'GET',
             url: url,
             success: function(data) {
-               // $(grid).fadeOut('fast', function() {$(this).html(data).fadeIn('slow');});
                 jQuery("#grid").html(data)
             }
         })

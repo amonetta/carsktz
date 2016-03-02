@@ -78,7 +78,6 @@ class CarController {
 
     def findCarsAjax() {
         def query = params.findAll {it.value && it.value != 'null'}
-        println query
         def response = restClient.get(query: query, accept: ContentType.JSON)
 
         def tableModel = response.json

@@ -23,7 +23,7 @@
 </head>
 <body>
     <div>
-        <div class="panel-primary">
+        <div class="panel-primary col-md-12 col-lg-12">
             <div class="panel-heading">
                 <!-- Form Name -->
                 Search
@@ -75,6 +75,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label" for="max">Results p/page: </label>
+                            <div class="col-md-9 col-lg-9">
+                                <g:select id="max" class="form-control" from="${[20,50,100,500,1000, 'all']}" name="max" value="${tableModel?.filters?.max}" noSelection="${['null':20]}"/>
+                            </div>
+                        </div>
                         <!-- Button -->
                         <div class="form-group">
                             <div class="col-md-offset-2"/>
