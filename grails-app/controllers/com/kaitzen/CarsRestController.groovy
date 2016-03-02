@@ -67,10 +67,8 @@ class CarsRestController {
         if (car.hasErrors()) {
             respond car, status:400
         } else {
-            if(car.validate() && car.save(failOnError: true))
-                respond car, status:201
-            else
-                respond status: 406
+            car = car.save(failOnError: true)
+            respond car, status:201
         }
     }
 

@@ -97,7 +97,7 @@
         </div>
 
         <div id="grid" class="grid">
-            <g:render template="carEntry" model="${tableModel}"/>
+            <g:render template="carTable" model="${tableModel}"/>
         </div>
 
         <div id="editForm" class="collapse">
@@ -151,7 +151,7 @@
                                     document.getElementById("makeInput").setAttribute("value","");
                                     document.getElementById("modelInput").setAttribute("value","");
                                     document.getElementById("plateInput").setAttribute("value","");
-                                    setActionNew(document.getElementById("submitInputButton"))'>
+                                    setActionNew("submitInputButton")'>
                                     <span class="glyphicon glyphicon-plus"/> New
                                 </button>
                                 <g:submitToRemote class="btn btn-primary" id="submitInputButton"

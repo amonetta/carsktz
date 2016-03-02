@@ -38,7 +38,7 @@ class CarController {
             return
         }
 
-        def response = restClient.post() {
+        def response = restClient.post(accept: ContentType.JSON) {
             type: ContentType.JSON
             charset "UTF-8"
             urlenc params
@@ -81,7 +81,7 @@ class CarController {
         def response = restClient.get(query: query, accept: ContentType.JSON)
 
         def tableModel = response.json
-        render (template: 'carEntry', model: tableModel)
+        render (template: 'carTable', model: tableModel)
     }
 
     def getFromFor(Integer id) {

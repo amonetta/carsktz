@@ -50,6 +50,16 @@ function edit(car) {
     );
 }
 
-function setActionNew(submitButton) {
-    submitButton.setAttribute("onclick", 'jQuery.ajax({type:"POST",data:jQuery(this).parents("form:first").serialize(), url:"/carsktz/car/save/",success:function(data,textStatus){$("#carsTable tr:last").after(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});return false')
+function setActionNew(submitButtonName) {
+    var submitButton = $("#" + submitButtonName)
+    submitButton.on('click', function () {
+        jQuery.ajax({
+            type: "POST",
+            data: jQuery(this).parents("form:first").serialize(),
+            url: "/carsktz/car/save/",
+                 success:function(data,textStatus){$("#carsTable tr:last").after(data);},
+                 error:function(XMLHttpRequest,textStatus,errorThrown){}
+        })
+        return false
+    })
 }
