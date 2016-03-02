@@ -67,8 +67,10 @@ class CarsRestController {
         if (car.hasErrors()) {
             respond car, status:400
         } else {
-            car = carService.save(car)
-            respond car, status:201
+            if(car.validate() && car.save(failOnError: true))
+                respond car, status:201
+            else
+                respond status: 406
         }
     }
 
@@ -77,17 +79,20 @@ class CarsRestController {
             respond message: "Not found car", status: 404
         }
 
-        respond carService.update(id,car), status: 200
+        car.id = id;
+        if (car.validate() && car.save(failOnError: true))
+            respond car, status: 200
+        else
+            respond status: 406
     }
 
     def delete(Integer id) {
-        def body
-        def status
         if (!Car.exists(id)) {
             render body: "Not found", status: 404
         } else {
-            body = "Car with ID ${id} deleted"
-            respond carService.delete(id), body: "Car with ID ${id} deleted", status: 200
+            def car = Car.load(id)
+            car.delete()
+            respond car, body: "Car with ID ${id} deleted", status: 200
         }
     }
 }

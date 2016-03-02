@@ -23,7 +23,7 @@
             data:$("#deleteFormID" + ${car.id}).serialize(),
              url:"/carsktz/car/delete/" + ${car.id},
              success:function(data,textStatus){
-                 $("#deleteFormID" + ${car.id}).remove()
+                 $("#carID" + ${car.id}).remove()
              },error:function(XMLHttpRequest,textStatus,errorThrown){}
         });
         return false'

@@ -67,7 +67,7 @@ and the response will have the format:
                 "nombre": "Nombre"
             },
             "model": "Model T"
-        }, ...
+        }, ...],
         "carsTotal": 7271,
         "filters": {
             "from": null,
@@ -75,6 +75,7 @@ and the response will have the format:
             "make": null,
             "model": null,
             "plate": null,
+            "max": 7271,
             "sort": null,
             "order": null
         }
