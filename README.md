@@ -22,7 +22,15 @@ CarsKTZ is a REST API and simple CRUD end-user application also, that id provide
 
 Building with Grails, this app is a training for the use of Grails and have also may interesting examples.
 
-REST API
+## Relevant updates
+
+- Add pagination and sorting to car's view
+- Changes on REST API for pagination and filtering
+    - add field `carsTotal`: total count of cars for given filters
+    - add field `filters`: array of filters used to retrieve car's list
+- REST service only return all results if set parameter `max=all` (no case-sensitive)
+
+## REST API
 ---
 For develop your own consumer app for this API, here a simple guide
 
@@ -33,7 +41,7 @@ For accessing the API use:
 
 For getting a full list of entities, use:
 
-    http://your.host/carsktz/car/api
+    http://your.host/carsktz/car/api?max=all
 
 and the response will have the format:
 
@@ -60,7 +68,20 @@ and the response will have the format:
             },
             "model": "Model T"
         }, ...
+        "carsTotal": 7271,
+        "filters": {
+            "from": null,
+            "to": null,
+            "make": null,
+            "model": null,
+            "plate": null,
+            "sort": null,
+            "order": null
+        }
     }
+
+--
+Note: default `max` value is `20`, so value `all` is required to get full list of cars. No other literal values are valid.
 
 Pay attention that there is an array of cars so, if you try to access in code would be like:
 
@@ -70,7 +91,7 @@ and NOT:
 
     response.json[0]
 
-Also you are able to add parameter to restrict result:
+Also you are able to add parameter to restrict result (filters):
 - from
 - to
 - make
@@ -253,7 +274,7 @@ or try API using boomerang (or similar) with:
 
 ## BUGs
 
-This version of develop fails when making request GET with no parameters `http://localhost:8080/carsktz/car/api`, hwen using `CarService` 
+This version of develop fails when making request GET with no parameters `http://localhost:8080/carsktz/car/api`, when using `CarService` 
 
 When asking for full list of cars, SQL Exception is raised with message: 
 

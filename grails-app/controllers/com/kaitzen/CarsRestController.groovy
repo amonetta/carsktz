@@ -31,12 +31,17 @@ class CarsRestController {
                             }
                     }
             }
+            if (params.sort && params.order in ['asc', 'desc'])
+                order(params.sort, params.order)
         }
 
         def criteria = Car.createCriteria()
-        params.max = Math.min(params.max? params.int('max') : 20, 100)
+        if (params.max.toString().toUpperCase() == 'ALL')
+            params.max = null
+        else
+            params.max = Math.min(params.max? params.int('max') : 20, 100)
         def cars = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [make: params.make, model: params.model, plate: params.plate]
+        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, sort: params.sort, order: params.order]
 
         def model = [cars: cars, carsTotal: cars.totalCount, filters: filters]
 

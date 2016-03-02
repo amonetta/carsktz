@@ -12,7 +12,6 @@
     <meta name="layout" content="main"/>
     <g:javascript library="jquery" plugin="jquery"/>
     <r:require modules="core"/>
-    <g:javascript src="pagination.js"/>
     <g:javascript>
         function clearForm(e) {
             $('#carYearFrom').val('')

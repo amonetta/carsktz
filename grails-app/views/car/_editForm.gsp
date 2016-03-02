@@ -17,7 +17,7 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="maleInput">Make</label>
+            <label class="col-md-4 control-label" for="makeInput">Make</label>
             <div class="col-md-4">
                 <g:field id="makeInput" name="make" type="text" placeholder="Car maker" class="form-control input-md" required="" value="${car.make}"/>
             </div>
