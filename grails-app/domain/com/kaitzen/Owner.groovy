@@ -12,7 +12,10 @@ class Owner {
     ]
 
     static mapping = {
-        table "Person"
+        table "owner"
+        nombre column: 'name'
+        apellido column: 'last_name'
+        nacionalidad column: 'nationality'
     }
 
     static constraints = {
