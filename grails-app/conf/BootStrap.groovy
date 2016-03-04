@@ -13,13 +13,7 @@ class BootStrap {
 
         JSON.createNamedConfig("Owner") { cfg ->
             cfg.registerObjectMarshaller(Owner) { Owner owner ->
-                return [ class: Owner.name,
-                         id: owner.id,
-                         nombre: owner.nombre,
-                         apellido: owner.apellido,
-                         dni: owner.dni,
-                         nacionalidad: owner.nacionalidad
-                ]
+                return [id: owner.id] + car.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/)}
             }
         }
 
