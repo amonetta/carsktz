@@ -141,6 +141,24 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <g:field id="ownerInput" name="owner" type="hidden" placeholder="Owner" class="form-control input-md" required=""/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-lg-4 control-label" for="ownerDescription">Owner</label>
+                        <div class="input-group col-md-4 col-lg-4">
+                            <input disabled="true" id="ownerDescription" autocomplete="off" type="text" maxlength="50" name="ownerDescription" class="form-control" placeholder="Owner"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="editOwner">Edit</button>
+                            </span>
+                        </div>
+
+                        <div class="col-md-offset-4 col-md-4 col-lg-4">
+                            <div id="ownerList" class="btn-group">
+                            </div>
+                        </div>
+                    </div>
                     <!-- Button -->
                     <div class="form-group">
                         <div class="col-md-offset-4 col-lg-offset-4 col-md-4 col-lg-4">
