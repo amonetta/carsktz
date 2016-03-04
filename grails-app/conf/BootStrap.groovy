@@ -11,6 +11,19 @@ class BootStrap {
             return [id: car.id] + car.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/)}
         }
 
+        JSON.createNamedConfig("Owner") { cfg ->
+            cfg.registerObjectMarshaller(Owner) { Owner owner ->
+                return [ class: Owner.name,
+                         id: owner.id,
+                         nombre: owner.nombre,
+                         apellido: owner.apellido,
+                         dni: owner.dni,
+                         nacionalidad: owner.nacionalidad
+                ]
+            }
+        }
+
+
         // Manually start the mirroring process to ensure that it comes after the automated migrations.
         println "Performing bulk index"
         searchableService.reindex()
