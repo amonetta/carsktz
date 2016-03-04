@@ -15,7 +15,6 @@ class Car {
 
     static mapping = {
         table "VehicleModelYear"
-        plate column: 'car_plate'
     }
 
     static constraints = {
