@@ -4,27 +4,11 @@ import grails.converters.JSON
 class OwnerRestController {
     static responseFormats = ["json","xml"]
 
+    def ownerService
+
     def index() {
-        def ownerList
-        def query = Owner.createCriteria()
-        ownerList = query.list(max:10){
-            and{
-                if(params.nombre){
-                    like("nombre", params.nombre+'%')
-                }
-                if(params.apellido){
-                    like("apellido", params.apellido+'%')
-                }
-                if(params.nacionalidad){
-                    like("nacionalidad", params.nacionalidad+'%')
-                }
-                if(params.dni){
-                    def dniIni = params.dni.padRight(8,'0').toInteger()
-                    def dniEnd = params.dni.padRight(8,'0').toInteger() + 10**(8 - params.dni.length()) - 1
-                    between("dni", dniIni, dniEnd)
-                }
-            }
-        }
+        def ownerList = ownerService.searchOwner(params)
+
         JSON.use('Owner') {
             respond ownerList
         }
@@ -38,12 +22,11 @@ class OwnerRestController {
     }
 
     def save(Owner owner) {
-        if (!owner.hasErrors()) {
-            owner.save()
-            respond owner, status: 201
-        }
-        else {
-            respond owner
+        def newOwner = ownerService.addOwner(owner)
+        if (newOwner) {
+            respond newOwner, status: 201
+        } else {
+            respond owner, status: 404
         }
     }
 
