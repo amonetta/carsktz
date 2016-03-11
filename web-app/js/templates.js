@@ -63,9 +63,9 @@ var templates = {
                     '<div class="form-group">' +
                         '<label class="col-md-4 col-lg-4 control-label" for="ownerDescription">Owner</label>' +
                         '<div class="input-group col-md-4 col-lg-4">' +
-                            '<input disabled="true" id="ownerDescription"  autocomplete="off" type="text" maxlength="50" class="form-control" placeholder="Owner" value="::ownerDescription"/>' +
+                            '<input disabled="true" id="ownerDescription"  autocomplete="off" type="text" maxlength="50" class="form-control" placeholder="Owner" value="::ownerDescription" onkeyup="keyupOwner(event)"/>' +
                             '<span class="input-group-btn">' +
-                                '<button class="btn btn-primary" type="button" id="editOwner">Edit</button>' +
+                                "<button class='btn btn-primary' type='button' id='editOwner' onclick='editOwner();'>Edit</button>" +
                             '</span>' +
                         '</div>' +
                     '</div>' +

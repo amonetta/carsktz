@@ -58,16 +58,17 @@ function editCarAjax(car_id) {
     return false
 }
 
-function edit(car) {
-    var rootRow = $('#carID' + car.id)
+function edit(carEntryId) {
+    var rootRow = $(carEntryId)
     var owner = {id:'', description:''}
     var ownercol = rootRow.find('td.carOwner')
     if (!ownercol.is(':empty')) {
         owner.id = ownercol.find('.ownerId').html();
         owner.description = ownercol.find('.ownerDescription').html();
     }
+    var car_id = rootRow.find('td.carId').html()
     var form = templates.buildTemplate(templates.temps._EDITCAR, {
-            "::id" : rootRow.find('td.carId').html(),
+            "::id" : car_id,
             "::year" : rootRow.find('td.carYear').html(), //car.year,
             "::make" : rootRow.find('td.carMake').html(),
             "::model" : rootRow.find('td.carModel').html(),
@@ -75,7 +76,7 @@ function edit(car) {
             "::ownerId" : owner.id,
             "::ownerDescription" : owner.description,
             "::submitLabel" : "Save",
-            "::submitAction" : "editCarAjax(" + car.id + ")"
+            "::submitAction" : "editCarAjax(" + car_id + ")"
         })
     inputDialog = $('#editForm').modal()
     inputDialog.show(form)
@@ -95,22 +96,21 @@ function setActionNew(submitButtonName) {
     })
 }
 
-
 /***
  * OnClick event for owner edit button
  */
-$("#editOwner").click(function(){
+function editOwner() {
     $("#ownerDescription").prop('disabled',false);
     $("#ownerDescription").val('');
-    $("#ownerDescription").trigger('keyup',13);
-});
+    $("#ownerDescription").trigger("keyup",13);
+}
 
 /***
  * OnClick event for owner text box
  */
-$("#ownerDescription").keyup(function(event){
+function keyupOwner(event){
     loadOwnerList($("#ownerDescription"),$("#ownerList"));
-});
+}
 
 /***
  * @param ownerInputElement
