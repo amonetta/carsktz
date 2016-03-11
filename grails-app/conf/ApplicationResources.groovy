@@ -16,9 +16,18 @@ modules = {
         resource url:'js/jquery.rest.js'
     }
 
+    chicoui {
+        resource url: 'css/chico.min.css', disposition: head
+        resource url: 'css/chico_mesh.min.css', disposition: head
+        resource url: 'js/chico.min.js', disposition: body
+    }
+
     core {
         dependsOn 'baseCss'
         dependsOn 'lodashjs,application, jquery, jquery-ui, jqueryRest'
-        resource url: '/js/carsktz.js'
+        dependsOn 'chicoui'
+        resource url: 'js/carsktz.js', disposition: head
+        resource url: 'js/templates.js', disposition: head
+        resource url: 'js/index_chico.js', disposition: body
     }
 }

@@ -2,6 +2,8 @@
  * Created by amonetta on 16/02/16.
  */
 
+var inputDialog
+
 function applyElementUpdates(json) {
     var updates;
     var script;
@@ -39,24 +41,44 @@ function applyElementUpdates(json) {
     } // if(json.updates)
 } // applyElementUpdates
 
+function editCarAjax(car_id) {
+    //preventDefault()
+    var dat = $('#carInputForm').serialize()
+    $.ajax({
+        type:'POST',
+        //data:$(this).parents('form:first').serialize(),
+        data:dat,
+        url:'/carsktz/car/update',
+        success:function(data,textStatus){
+            $('#carID' + car_id).replaceWith(data);
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){}
+    })
+    inputDialog.destroy()
+    return false
+}
+
 function edit(car) {
-    document.getElementById("idInput").setAttribute("value",car.id)
-    document.getElementById("yearInput").setAttribute("value",car.year);
-    document.getElementById("makeInput").setAttribute("value",car.make);
-    document.getElementById("modelInput").setAttribute("value",car.model);
-    document.getElementById("plateInput").setAttribute("value",car.plate);
-    $("#ownerInput").val(car.owner.id);
-    $("#ownerDescription").val(car.owner.nombre + ' ' + car.owner.apellido);
-    document.getElementById("submitInputButton").setAttribute("onclick",
-        'jQuery.ajax({' +
-            'type:"POST",' +
-            'data:jQuery(this).parents("form:first").serialize(),' +
-            ' url:"/carsktz/car/update/' + car.id + '",' +
-            'success:function(data,textStatus){jQuery("#carID' + car.id + '").html(data);},' +
-            'error:function(XMLHttpRequest,textStatus,errorThrown){}' +
-        '});' +
-        'return false'
-    );
+    var rootRow = $('#carID' + car.id)
+    var owner = {id:'', description:''}
+    var ownercol = rootRow.find('td.carOwner')
+    if (!ownercol.is(':empty')) {
+        owner.id = ownercol.find('.ownerId').html();
+        owner.description = ownercol.find('.ownerDescription').html();
+    }
+    var form = templates.buildTemplate(templates.temps._EDITCAR, {
+            "::id" : rootRow.find('td.carId').html(),
+            "::year" : rootRow.find('td.carYear').html(), //car.year,
+            "::make" : rootRow.find('td.carMake').html(),
+            "::model" : rootRow.find('td.carModel').html(),
+            "::plate" : rootRow.find('td.carPlate').html(),
+            "::ownerId" : owner.id,
+            "::ownerDescription" : owner.description,
+            "::submitLabel" : "Save",
+            "::submitAction" : "editCarAjax(" + car.id + ")"
+        })
+    inputDialog = $('#editForm').modal()
+    inputDialog.show(form)
 }
 
 function setActionNew(submitButtonName) {
@@ -120,3 +142,10 @@ function loadOwnerList(ownerInputElement, ownerListElement){
         });
     });
 }
+
+
+/* function showInputDialog() {
+    inputDialog.show($('#editForm').html())
+} */
+
+//var autocomplete = new AutoComplete($('#carOwner'))

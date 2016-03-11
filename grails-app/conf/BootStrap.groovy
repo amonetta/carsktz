@@ -8,7 +8,11 @@ class BootStrap {
     def init = { servletContext ->
 
         JSON.registerObjectMarshaller(Car) { car ->
-            return [id: car.id] + car.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/)}
+            return [id: car.id] + car.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/) && k != 'owner'} + [owner: car.owner? [
+                    id: car.owner.id,
+                    nombre: car.owner.nombre,
+                    apellido: car.owner.apellido
+                ] : null]
         }
 
         JSON.createNamedConfig("Owner") { cfg ->

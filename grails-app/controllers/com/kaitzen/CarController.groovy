@@ -61,7 +61,7 @@ class CarController {
                 urlenc params
             }
 
-        render (template: 'carCols', bean: response.json, var: "car")
+        render (template: 'carEntry', bean: response.json, var: "car")
     }
 
     def delete(Integer id) {
@@ -80,8 +80,7 @@ class CarController {
         def query = params.findAll {it.value && it.value != 'null'}
         def response = restClient.get(query: query, accept: ContentType.JSON)
 
-        def tableModel = response.json
-        render (template: 'carTable', model: tableModel)
+        render (template: 'carTable', model: response.json)
     }
 
     def getFromFor(Integer id) {
