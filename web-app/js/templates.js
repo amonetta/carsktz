@@ -58,15 +58,19 @@ var templates = {
                         '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
-                        '<input id="ownerInput" type="hidden" name="owner_id" value="::ownerId"/>' +
+                        '<input id="ownerInput" type="hidden" name="owner" value="::ownerId"/>' +
                     '</div>' +
                     '<div class="form-group">' +
                         '<label class="col-md-4 col-lg-4 control-label" for="ownerDescription">Owner</label>' +
                         '<div class="input-group col-md-4 col-lg-4">' +
-                            '<input disabled="true" id="ownerDescription"  autocomplete="off" type="text" maxlength="50" class="form-control" placeholder="Owner" value="::ownerDescription" onkeyup="keyupOwner(event)"/>' +
+                            '<input disabled="true" id="ownerDescription" autocomplete="off" type="text" maxlength="50" class="form-control" placeholder="Owner" value="::ownerDescription" onkeyup="keyupOwner(event)"/>' +
                             '<span class="input-group-btn">' +
-                                "<button class='btn btn-primary' type='button' id='editOwner' onclick='editOwner();'>Edit</button>" +
+                                "<button class='ch-btn' type='button' id='editOwner' onclick='ownerEdit()'>Edit</button>" +
                             '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="col-md-offset-4 col-md-4 col-lg-4">' +
+                        '<div id="ownerList" class="btn-group">' +
                         '</div>' +
                     '</div>' +
                     '<div class="form-group">' +

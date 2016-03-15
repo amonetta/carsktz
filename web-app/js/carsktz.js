@@ -41,13 +41,21 @@ function applyElementUpdates(json) {
     } // if(json.updates)
 } // applyElementUpdates
 
+/***
+ * OnClick event for owner edit button
+ */
+function ownerEdit() {
+    $("#ownerDescription").prop('disabled',false);
+    $("#ownerDescription").val('');
+    $("#ownerDescription").trigger("keyup",13);
+}
+
 function editCarAjax(car_id) {
     //preventDefault()
-    var dat = $('#carInputForm').serialize()
     $.ajax({
         type:'POST',
         //data:$(this).parents('form:first').serialize(),
-        data:dat,
+        data: $('#carInputForm').serialize(),
         url:'/carsktz/car/update',
         success:function(data,textStatus){
             $('#carID' + car_id).replaceWith(data);
@@ -73,8 +81,8 @@ function edit(carEntryId) {
             "::make" : rootRow.find('td.carMake').html(),
             "::model" : rootRow.find('td.carModel').html(),
             "::plate" : rootRow.find('td.carPlate').html(),
-            "::ownerId" : owner.id,
-            "::ownerDescription" : owner.description,
+            "::ownerId" : owner.id ? owner.id : "",
+            "::ownerDescription" : owner.description ? owner.description : "",
             "::submitLabel" : "Save",
             "::submitAction" : "editCarAjax(" + car_id + ")"
         })
@@ -94,15 +102,6 @@ function setActionNew(submitButtonName) {
         })
         return false
     })
-}
-
-/***
- * OnClick event for owner edit button
- */
-function editOwner() {
-    $("#ownerDescription").prop('disabled',false);
-    $("#ownerDescription").val('');
-    $("#ownerDescription").trigger("keyup",13);
 }
 
 /***

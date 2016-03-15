@@ -48,17 +48,11 @@ class CarController {
     }
 
     def update() {
-        def car = new Car(params)
 
-        if (car.hasErrors()) {
-            respond status: 400
-            return
-        }
-
-        def response = restClient.post(path:"/${params.id}", accept: ContentType.JSON) {
+        def response = restClient.put(path:"${params.id}", accept: ContentType.JSON) {
                 type: ContentType.JSON
                 charset "UTF-8"
-                urlenc params
+                json params
             }
 
         render (template: 'carEntry', bean: response.json, var: "car")
@@ -72,8 +66,7 @@ class CarController {
 
         restClient.delete(path: "/${id}", accept: ContentType.JSON)
 
-        //respond status: 200
-        render status: 200
+        respond status: 200
     }
 
     def findCarsAjax() {

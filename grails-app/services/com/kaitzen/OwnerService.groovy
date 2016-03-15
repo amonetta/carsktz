@@ -17,18 +17,14 @@ class OwnerService {
     }
 
     def searchOwner(params) {
-        def query = Owner.createCriteria()
-        def ownerList = query.list(max: 10) {
+        def query = {
             and {
-                if (params.nombre) {
-                    like("nombre", params.nombre + '%')
-                }
-                if (params.apellido) {
-                    and { like("apellido", params.apellido + '%') }
-                }
-                if (params.nacionalidad) {
-                    and { like("nacionalidad", params.nacionalidad + '%') }
-                }
+                if (params.nombre)
+                    like("nombre", '%' + params.nombre + '%')
+                if (params.apellido)
+                    like("apellido", '%' + params.apellido + '%')
+                if (params.nacionalidad)
+                    like("nacionalidad", '%' + params.nacionalidad + '%')
                 if (params.dni) {
                     def dniIni = params.dni.padRight(8, '0').toInteger()
                     def dniEnd = params.dni.padRight(8, '0').toInteger() + 10**(8 - params.dni.length()) - 1
@@ -36,6 +32,10 @@ class OwnerService {
                 }
             }
         }
+
+        def criteria = Owner.createCriteria()
+        def ownerList = criteria.list(query, max: 10)
+
         return ownerList
     }
 }

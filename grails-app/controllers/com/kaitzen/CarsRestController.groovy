@@ -74,12 +74,14 @@ class CarsRestController {
     }
 
     def update(Integer id, Car car) {
-        if (!Car.exists(id)) {
+        def oldCar = Car.findById(id)
+        if (!oldCar) {
             respond message: "Not found car", status: 404
         }
 
-        car.id = id;
-        if (car.validate() && car.save(failOnError: true))
+        oldCar.properties = car.properties
+
+        if (oldCar.validate() && oldCar.save(failOnError: true))
             respond car, status: 200
         else
             respond status: 406

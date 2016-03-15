@@ -9,16 +9,12 @@ class OwnerRestController {
     def index() {
         def ownerList = ownerService.searchOwner(params)
 
-        JSON.use('Owner') {
-            respond ownerList
-        }
+        respond ownerList
     }
 
     def show(Integer id) {
         Owner owner = Owner.findById(id)
-        JSON.use('Owner'){
-            respond owner
-        }
+        respond owner
     }
 
     def save(Owner owner) {
@@ -40,7 +36,7 @@ class OwnerRestController {
             }
 
             owner.properties = newOwner.properties
-            owner.validate() && owner.save()
+            owner.save()
 
 
             respond owner

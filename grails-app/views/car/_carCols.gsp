@@ -1,4 +1,4 @@
-<td class="carEditLink">${car.id}</td>
+<td class="carId">${car.id}</td>
 <td class="carYear">${car.year}</td>
 <td class="carMake">${car.make}</td>
 <td class="carModel">${car.model}</td>

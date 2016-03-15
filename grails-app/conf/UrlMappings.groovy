@@ -12,11 +12,6 @@ class UrlMappings {
         "/"(view:"/index")
         "500"(view:'/error')
 
-        "/car/api/"(controller: "carsRest", parseRequest: true) {
-            action = [GET: "index", POST: "save"]
-        }
-        "/car/api/$id"(resource: "carsRest") {
-            action = [GET: "show", POST: "update", PUT: "update", DELETE: "delete"]
-        }
+        "/car/api"(resources: "carsRest")
 	}
 }
