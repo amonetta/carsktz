@@ -29,7 +29,7 @@ var templates = {
     _templateEditCar : function () {
         return '<div class="panel panel-primary">' +
         '<div class="panel-heading">'+
-            '<h2>::formTitle</h2>' +
+            '<h2><b>::formTitle</b></h2>' +
         '</div>'+
         '<div class="panel-body">' +
             "<form id='carInputForm' class='form-horizontal' action='::formAction'>" +
@@ -38,26 +38,26 @@ var templates = {
                             "<input id='idInput' type='hidden' name='id' value='::id'/>" +
                         '</div>' +
                         '<div class="form-group">' +
-                            '<label class="col-md-4 col-lg-4 control-label" for="year">Year</label>' +
-                            '<div class="col-md-4 col-lg-4">' +
+                            '<label class="col-md-2 col-lg-2 control-label" for="year">Year</label>' +
+                            '<div class="col-md-10 col-lg-10">' +
                                 "<input id='yearInput' name='year' type='number' min='1768' max='2016' placeholder='Car Year' class='form-control input-md' required='' value='::year' />" +
                             '</div>' +
                         '</div>' +
                         '<div class="form-group">' +
-                            '<label class="col-md-4 col-lg-4 control-label" for="makeInput">Make</label>' +
-                            '<div class="col-md-4 col-lg-4">' +
+                            '<label class="col-md-2 col-lg-2 control-label" for="makeInput">Make</label>' +
+                            '<div class="col-md-10 col-lg-10">' +
                                 '<input id="makeInput" name="make" type="text" maxlength="50" placeholder="Car maker" class="form-control input-md" required="" value="::make"/>' +
                             '</div>' +
                         '</div>'+
                         '<div class="form-group">' +
-                            '<label class="col-md-4 col-lg-4 control-label" for="modelInput">Model</label>' +
-                            '<div class="col-md-4 col-lg-4">' +
+                            '<label class="col-md-2 col-lg-2 control-label" for="modelInput">Model</label>' +
+                            '<div class="col-md-10 col-lg-10">' +
                                 '<input id="modelInput" name="model" type="text" maxlength="50" placeholder="Car Model" class="form-control input-md" required="" value="::model"/>' +
                             '</div>' +
                         '</div>' +
                         '<div class="form-group">' +
-                            '<label class="col-md-4 col-lg-4 control-label" for="plateInput">Plate</label>' +
-                            '<div class="col-md-4 col-lg-4">' +
+                            '<label class="col-md-2 col-lg-2 control-label" for="plateInput">Plate</label>' +
+                            '<div class="col-md-10 col-lg-10">' +
                                 '<input id="plateInput" name="plate" type="text" placeholder="Car Plate" pattern="([A-Z]{3})(\\d{3})|((D|C|I|M|A)\\d{3}(CP|DM|RX|AC|DC)[A-Z])" class="form-control input-md" required="" value="::plate"/>' +
                             '</div>' +
                         '</div>' +
@@ -65,8 +65,8 @@ var templates = {
                             '<input id="ownerInput" type="hidden" name="owner" value="::ownerId"/>' +
                         '</div>' +
                         '<div class="form-group">' +
-                            '<label class="col-md-4 col-lg-4 control-label" for="ownerDescription">Owner</label>' +
-                            '<div class="col-md-4 col-lg-4">' +
+                            '<label class="col-md-2 col-lg-2 control-label" for="ownerDescription">Owner</label>' +
+                            '<div class="col-md-10 col-lg-10">' +
                                 '<div class="input-group">' +
                                     '<input disabled="true" id="ownerDescription" autocomplete="off" type="text" maxlength="50" class="form-control" placeholder="Owner" value="::ownerDescription" onkeyup="keyupOwner(event)"/>' +
                                     '<span class="input-group-btn">' +
@@ -75,12 +75,14 @@ var templates = {
                                 '</div>' +
                             '</div>' +
                         '</div>' +
-                        '<div class="col-md-offset-4 col-md-4 col-lg-4">' +
-                            '<div id="ownerList" class="btn-group">' +
+                        '<div class="form-group">' +
+                            '<div class="col-md-offset-2 col-lg-offset-2 col-md-10 col-lg-10">' +
+                                '<div id="ownerList" class="btn-group">' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                         '<div class="form-group">' +
-                            '<div class="col-md-offset-8 col-lg-offset-8 col-md-4 col-lg-4">' +
+                            '<div class="col-md-offset-2 col-lg-offset-3 col-md-10 col-lg-3">' +
                                 '<div class="btn-group" role="group">' +
                                     "<button id='submitInputButton' type='button' class='ch-btn' name='submitInputButton' value='Confirm' onclick='::submitAction'>::submitLabel</button>" +
                                 '</div>' +
