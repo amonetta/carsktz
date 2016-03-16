@@ -45,6 +45,10 @@ function setSearchBtn() {
     $("#btnSearch").val("<span class='glyphicon glyphicon-search'/> Search")
 }
 
+function loadingTable(tableId) {
+    $(tableId).html('<div class="text-center"> <span class="glyphicon glyphicon-hourglass"/> Wait a moment please... </div>')
+}
+
 /***
  * OnClick event for owner edit button
  */
@@ -81,7 +85,7 @@ function editCarAjax(car_id) {
     return false
 }
 
-function newCarAjax() {
+function newCarAjax(e) {
     e.preventDefault()
     e.stopPropagation()
     var form = $("#carInputForm")
@@ -90,9 +94,13 @@ function newCarAjax() {
         type: "POST",
         data: form.serialize(),
         url: form.attr("action"),
-        beforeSend: function(){},
+        beforeSend: function(jqXHR, settings){
+            inputDialog.destroy()
+            inputDialog = $('#editForm').modal()
+            inputDialog.show("<span class='ch-loading-centered'>")},
         success:function(data,textStatus){$("#carsTable tr:last").after(data);},
-        error:function(XMLHttpRequest,textStatus,errorThrown){}
+        error:function(XMLHttpRequest,textStatus,errorThrown){},
+        complete: function(jqXHR, textStatus) {inputDialog.destroy()}
     })
     inputDialog.destroy()
     return false
@@ -123,7 +131,7 @@ function showNewCarDialog() {
         "::ownerId" : '',
         "::ownerDescription" : '',
         "::submitLabel" : "Confirm",
-        "::submitAction" : "newCarAjax()"
+        "::submitAction" : "newCarAjax(event)"
     })
     inputDialog = $('#editForm').modal()
     inputDialog.show(form)
@@ -153,20 +161,6 @@ function edit(carEntryId) {
         })
     inputDialog = $('#editForm').modal()
     inputDialog.show(form)
-}
-
-function setActionNew(submitButtonName) {
-    var submitButton = $("#" + submitButtonName)
-    submitButton.on('click', function () {
-        jQuery.ajax({
-            type: "POST",
-            data: jQuery(this).parents("form:first").serialize(),
-            url: "/carsktz/car/save/",
-                 success:function(data,textStatus){$("#carsTable tr:last").after(data);},
-                 error:function(XMLHttpRequest,textStatus,errorThrown){}
-        })
-        return false
-    })
 }
 
 /***
@@ -206,10 +200,3 @@ function loadOwnerList(ownerInputElement, ownerListElement){
         });
     });
 }
-
-
-/* function showInputDialog() {
-    inputDialog.show($('#editForm').html())
-} */
-
-//var autocomplete = new AutoComplete($('#carOwner'))

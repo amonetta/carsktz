@@ -20,7 +20,7 @@
                 <div class="panel-heading">
                     <div class="container-fluid">
                         <div class="col-md-8 col-lg-8">
-                            <h2><b>Search</b></h2>
+                            <h2><span class="glyphicon glyphicon-search"/> <b>Search</b></h2>
                         </div>
                         <div class="col-md-4 col-lg-4">
                             <button id="toggleSearchBtn" class="ch-btn pull-right" data-toggle="collapse" data-target="#searchDiv" onclick="btnToggleSearch('#searchDiv')">
@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-2"/>
                                 <div class="col-md-9 col-lg-9">
-                                    <g:submitToRemote id="btnSearch" value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="grid" class="ch-btn" before="\$(toggleSearchBtn).click()"/>
+                                    <g:submitToRemote id="btnSearch" value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="grid" class="ch-btn" before="\$(toggleSearchBtn).click(); loadingTable('#grid')"/>
                                 </div>
                             </div>
                         </fieldset>
