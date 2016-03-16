@@ -56,9 +56,9 @@ function ownerEdit() {
 
 function btnToggleSearch(collapseDivId) {
     if ($(collapseDivId).attr('class').indexOf('collapse in') > -1)
-        $(this).find("span").attr("class", "glyphicon glyphicon-menu-down")
+        $("#toggleSearchBtn").find("span").attr("class", "glyphicon glyphicon-menu-down")
     else
-        $(this).find("span").attr("class", "glyphicon glyphicon-menu-up")
+        $("#toggleSearchBtn").find("span").attr("class", "glyphicon glyphicon-menu-up")
 }
 
 function editCarAjax(car_id) {
