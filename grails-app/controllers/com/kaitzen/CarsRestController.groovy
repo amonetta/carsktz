@@ -89,7 +89,7 @@ class CarsRestController {
 
     def delete(Integer id) {
         if (!Car.exists(id)) {
-            render body: "Not found", status: 404
+            respond body: "Not found", status: 404
         } else {
             def car = Car.load(id)
             car.delete()

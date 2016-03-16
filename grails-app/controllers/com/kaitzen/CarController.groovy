@@ -41,7 +41,7 @@ class CarController {
         def response = restClient.post(accept: ContentType.JSON) {
             type: ContentType.JSON
             charset "UTF-8"
-            urlenc params
+            json params
         }
 
         render (template: 'carEntry', bean: response.json, var: "car")
@@ -59,14 +59,10 @@ class CarController {
     }
 
     def delete(Integer id) {
-        if (!Car.exists(id)) {
-            respond status: 404
-            return
-        }
+        println id;
+        def response = restClient.delete(path: "/${id}", accept: ContentType.JSON)
 
-        restClient.delete(path: "/${id}", accept: ContentType.JSON)
-
-        respond status: 200
+        render status: response.statusCode
     }
 
     def findCarsAjax() {

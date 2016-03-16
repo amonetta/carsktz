@@ -12,24 +12,24 @@
     <meta name="layout" content="main"/>
     <g:javascript library="jquery" plugin="jquery"/>
     <r:require modules="core"/>
-    <g:javascript>
-        function clearForm(e) {
-            $('#carYearFrom').val('')
-            $('#carYearUntil').val('')
-            $('#carMake').val('')
-            $('#carModel').val('')
-        }
-    </g:javascript>
 </head>
 <body>
     <div>
         <div class="col-md-12 col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <!-- Form Name -->
-                    Search
+                    <div class="container-fluid">
+                        <div class="col-md-8 col-lg-8">
+                            <h2><b>Search</b></h2>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <button id="toggleSearchBtn" class="ch-btn pull-right" data-toggle="collapse" data-target="#searchDiv" onclick="btnToggleSearch('#searchDiv')">
+                                <span class="glyphicon glyphicon-menu-down"/>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div id="searchDiv" class="panel-body collapse">
                     <g:form class="form-horizontal" onsubmit="nullFunction(); return false;">
                         <fieldset>
 
@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-2"/>
                                 <div class="col-md-9 col-lg-9">
-                                    <g:submitToRemote value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="grid" class="ch-btn"/>
+                                    <g:submitToRemote id="btnSearch" value="Search" url="[controller: 'Car', action: 'findCarsAjax']" update="grid" class="ch-btn" before="\$(toggleSearchBtn).click()"/>
                                 </div>
                             </div>
                         </fieldset>
@@ -102,7 +102,8 @@
 
         <div id="editForm" style="display:none">
         </div>
-        <button type="button" data-target="#editForm" class="ch-btn" onclick="showInputDialog()">View form</button>
+
+        <%--<button type="button" class="ch-btn" onclick="showNewCarDialog()">New Car</button>--%>
 
     </div>
 </body>

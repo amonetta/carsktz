@@ -41,6 +41,10 @@ function applyElementUpdates(json) {
     } // if(json.updates)
 } // applyElementUpdates
 
+function setSearchBtn() {
+    $("#btnSearch").val("<span class='glyphicon glyphicon-search'/> Search")
+}
+
 /***
  * OnClick event for owner edit button
  */
@@ -50,13 +54,24 @@ function ownerEdit() {
     $("#ownerDescription").trigger("keyup",13);
 }
 
+function btnToggleSearch(collapseDivId) {
+    if ($(collapseDivId).attr('class').indexOf('collapse in') > -1)
+        $(this).find("span").attr("class", "glyphicon glyphicon-menu-down")
+    else
+        $(this).find("span").attr("class", "glyphicon glyphicon-menu-up")
+}
+
 function editCarAjax(car_id) {
     //preventDefault()
     $.ajax({
+        async: false,
         type:'POST',
         //data:$(this).parents('form:first').serialize(),
         data: $('#carInputForm').serialize(),
-        url:'/carsktz/car/update',
+        url: $('#carInputForm').attr("action"),
+        beforeSend: function(){
+            inputDialog.show("<span class='ch-loading'/>")
+        },
         success:function(data,textStatus){
             $('#carID' + car_id).replaceWith(data);
         },
@@ -64,6 +79,54 @@ function editCarAjax(car_id) {
     })
     inputDialog.destroy()
     return false
+}
+
+function newCarAjax() {
+    e.preventDefault()
+    e.stopPropagation()
+    var form = $("#carInputForm")
+    jQuery.ajax({
+        async: false,
+        type: "POST",
+        data: form.serialize(),
+        url: form.attr("action"),
+        beforeSend: function(){},
+        success:function(data,textStatus){$("#carsTable tr:last").after(data);},
+        error:function(XMLHttpRequest,textStatus,errorThrown){}
+    })
+    inputDialog.destroy()
+    return false
+}
+
+function deleteCarAjax(e, carid) {
+    e.preventDefault()
+    e.stopPropagation()
+    jQuery.ajax({
+        type:"DELETE",
+        url:"/carsktz/car/delete/" + carid,
+        success:function(data,textStatus){
+            $("#carID" + carid).remove()
+        },error:function(XMLHttpRequest,textStatus,errorThrown){}
+    });
+    return false
+}
+
+function showNewCarDialog() {
+    var form = templates.buildTemplate(templates.temps._EDITCAR, {
+        "::formTitle" : "Create Car",
+        "::formAction" : "/carsktz/car/save",
+        "::id" : '',
+        "::year" : new Date().getFullYear(), //car.year,
+        "::make" : '',
+        "::model" : '',
+        "::plate" : '',
+        "::ownerId" : '',
+        "::ownerDescription" : '',
+        "::submitLabel" : "Confirm",
+        "::submitAction" : "newCarAjax()"
+    })
+    inputDialog = $('#editForm').modal()
+    inputDialog.show(form)
 }
 
 function edit(carEntryId) {
@@ -76,6 +139,8 @@ function edit(carEntryId) {
     }
     var car_id = rootRow.find('td.carId').html()
     var form = templates.buildTemplate(templates.temps._EDITCAR, {
+            "::formTitle" : "Edit Car",
+            "::formAction" : "/carsktz/car/update",
             "::id" : car_id,
             "::year" : rootRow.find('td.carYear').html(), //car.year,
             "::make" : rootRow.find('td.carMake').html(),
@@ -83,7 +148,7 @@ function edit(carEntryId) {
             "::plate" : rootRow.find('td.carPlate').html(),
             "::ownerId" : owner.id ? owner.id : "",
             "::ownerDescription" : owner.description ? owner.description : "",
-            "::submitLabel" : "Save",
+            "::submitLabel" : "Confirm",
             "::submitAction" : "editCarAjax(" + car_id + ")"
         })
     inputDialog = $('#editForm').modal()

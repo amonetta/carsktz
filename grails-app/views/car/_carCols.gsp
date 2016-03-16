@@ -18,19 +18,7 @@
     <td class="carOwner"/>
 </g:else>
 <td class="carDelete">
-    <g:form id="deleteFormID${car.id}">
-        <g:hiddenField name="id" value="${car.id}"/>
-        <button onclick='jQuery.ajax({
-            type:"DELETE",
-            data:$("#deleteFormID" + ${car.id}).serialize(),
-             url:"/carsktz/car/delete/" + ${car.id},
-             success:function(data,textStatus){
-                 $("#carID" + ${car.id}).remove()
-             },error:function(XMLHttpRequest,textStatus,errorThrown){}
-        });
-        return false'
-                class="btn btn-default">
-            <span class="glyphicon glyphicon-trash"/>
-        </button>
-    </g:form>
+    <button class="ch-btn" onclick="deleteCarAjax(event, ${car.id})">
+        <span class="glyphicon glyphicon-trash"/>
+    </button>
 </td>
