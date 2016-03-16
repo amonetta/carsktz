@@ -48,15 +48,28 @@ grails.project.dependency.resolution = {
         mavenRepo "https://oss.sonatype.org/content/groups/public/"
     }
 
+    def gebVersion = "0.9.2"
+    def seleniumVersion = "2.41.0"
+
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         runtime 'mysql:mysql-connector-java:5.1.38'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+
+        //Adds Geb/Spock integration
+        test "org.gebish:geb-spock:$gebVersion"
+
+        //Uses Firefox for functional tests
+        test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+        test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
     }
 
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.55.3" // or ":tomcat:9.0.0.M1" (for Tomcat 9)
+
+        //Geb
+        test ":geb:$gebVersion" //Adds Gebs Grails Plugin
 
         // plugins for the compile step
         compile ":scaffolding:2.0.3"
