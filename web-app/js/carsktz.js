@@ -3,6 +3,12 @@
  */
 
 var inputDialog
+var autocompletOwner
+
+function setupAutocompleteOwner(ownerFieldId) {
+    autocompletOwner = new $(ownerFieldId, {}).autocomplete()
+    autocompletOwner.suggest(['Agu', 'Agus', 'Agustín'])
+}
 
 function applyElementUpdates(json) {
     var updates;
@@ -135,6 +141,7 @@ function showNewCarDialog() {
     })
     inputDialog = $('#editForm').modal()
     inputDialog.show(form)
+    setupAutocompleteOwner('#ownerDescription')
 }
 
 function edit(carEntryId) {
@@ -161,6 +168,7 @@ function edit(carEntryId) {
         })
     inputDialog = $('#editForm').modal()
     inputDialog.show(form)
+    setupAutocompleteOwner('#ownerDescription')
 }
 
 /***

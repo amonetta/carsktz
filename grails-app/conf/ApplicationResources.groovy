@@ -28,6 +28,5 @@ modules = {
         dependsOn 'chicoui'
         resource url: 'js/carsktz.js', disposition: head
         resource url: 'js/templates.js', disposition: head
-        resource url: 'js/index_chico.js', disposition: body
     }
 }
