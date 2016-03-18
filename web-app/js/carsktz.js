@@ -5,9 +5,53 @@
 var inputDialog
 var autocompletOwner
 
-function setupAutocompleteOwner(ownerFieldId) {
-    autocompletOwner = new $(ownerFieldId, {}).autocomplete()
-    autocompletOwner.suggest(['Agu', 'Agus', 'Agustín'])
+function createAutocomplete(ownerFieldId) {
+    /*autocompletOwner = new $(ownerFieldId).autocomplete({
+            source: '/owner/api/autocomplete',
+            minLength: 2,
+            type: 'GET',
+            dataType: 'json',
+            select: function(event, ui) {
+                $('#ownerInput').val(ui.id)
+                $('#ownerDescription').val(ui.label)
+            }
+        });*/
+    //autocompletOwner.disable()
+    autocompletOwner = new $(ownerFieldId).autocomplete({
+        delay: 500,
+        minLength: 2,
+        source: getAutocomplete(request, response),
+        focus: focusAutocoplete(event, ui),
+        select: selectAutocomplete(event, ui)
+    })
+}
+
+function getAutocomplete(request, response) {
+    $.getJSON("/owner/api/autocomplete", {
+        term: request.term
+    }, function (data) {
+        // data is an array of objects and must be transformed for autocomplete to use
+        var array = data.error ? [] : $.map(data.owners, function (owner) {
+            return {
+                id: owner.id,
+                label: owner.label,
+                value: owner.value
+            };
+        });
+        response(array);
+    });
+}
+
+function focusAutoselect(event, ui) {
+    // prevent autocomplete from updating the textbox
+    //event.preventDefault();
+}
+
+function selectAutoselect(event, ui) {
+    // prevent autocomplete from updating the textbox
+    //event.preventDefault();
+    $('#ownerInput').val(ui.item.id)
+    $('#ownerDescription').val(ui.item.label)
 }
 
 function applyElementUpdates(json) {
@@ -103,7 +147,7 @@ function newCarAjax(e) {
         beforeSend: function(jqXHR, settings){
             inputDialog.destroy()
             inputDialog = $('#editForm').modal()
-            inputDialog.show("<span class='ch-loading-centered'>")},
+            inputDialog.show('<div class="text-center"> <span class="glyphicon glyphicon-hourglass"/> Processing... </div>')},
         success:function(data,textStatus){$("#carsTable tr:last").after(data);},
         error:function(XMLHttpRequest,textStatus,errorThrown){},
         complete: function(jqXHR, textStatus) {inputDialog.destroy()}
@@ -140,8 +184,13 @@ function showNewCarDialog() {
         "::submitAction" : "newCarAjax(event)"
     })
     inputDialog = $('#editForm').modal()
+    inputDialog.on('destroy', function () {
+        inputDialog = null
+    })
+    inputDialog.on('ready', function () {
+        createAutocomplete('#ownerDescription')
+    })
     inputDialog.show(form)
-    setupAutocompleteOwner('#ownerDescription')
 }
 
 function edit(carEntryId) {
@@ -166,9 +215,14 @@ function edit(carEntryId) {
             "::submitLabel" : "Confirm",
             "::submitAction" : "editCarAjax(" + car_id + ")"
         })
-    inputDialog = $('#editForm').modal()
+    inputDialog = ($('#editForm')).modal('/owner/autocomplete')
+    inputDialog.on('destroy', function () {
+        inputDialog = null
+    })
+    /*inputDialog.on('ready', function () {
+        createAutocomplete('#ownerDescription')
+    })*/
     inputDialog.show(form)
-    setupAutocompleteOwner('#ownerDescription')
 }
 
 /***

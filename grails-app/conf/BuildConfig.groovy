@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
         mavenRepo "http://repo.grails.org/grails/core"
-        mavenRepo "https://oss.sonatype.org/content/groups/public/"
+        mavenRepo "https://oss.sonatype.org/content/groups/public/" //wslite repository
     }
 
     dependencies {
@@ -63,13 +63,13 @@ grails.project.dependency.resolution = {
         compile ":searchable:0.6.9"
         compile ':cache:1.1.8'//, ':cache-ehcache:1.0.5'
         compile "org.grails.plugins:mysql-connectorj:5.1.22.1"
+        compile ":wslite:0.7.2.0"
 
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.9" // or ":hibernate4:4.3.4"
         runtime ":database-migration:1.3.8"
         runtime ":jquery:1.11.1"
-        compile ":wslite:0.7.2.0"
         runtime ":resources:1.2.14"
         runtime ":twitter-bootstrap:3.3.5"
         runtime ":fields:1.5.1"
