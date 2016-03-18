@@ -20,15 +20,23 @@ function createAutocomplete(ownerFieldId) {
     autocompletOwner = new $(ownerFieldId).autocomplete({
         delay: 500,
         minLength: 2,
-        source: getAutocomplete(request, response),
-        focus: focusAutocoplete(event, ui),
-        select: selectAutocomplete(event, ui)
+        source: getAutocomplete(request, response)
+        /*focus: function(event, ui) {
+            // prevent autocomplete from updating the textbox
+            //event.preventDefault();
+        },
+        select: function(event, ui) {
+            // prevent autocomplete from updating the textbox
+            //event.preventDefault();
+            // navigate to the selected item's url
+            //window.open(ui.item.url);
+        }*/
     })
 }
 
 function getAutocomplete(request, response) {
-    $.getJSON("/owner/api/autocomplete", {
-        term: request.term
+    $.getJSON("/carktz/owner/autocomplete", {
+        query: request.term
     }, function (data) {
         // data is an array of objects and must be transformed for autocomplete to use
         var array = data.error ? [] : $.map(data.owners, function (owner) {
@@ -184,9 +192,6 @@ function showNewCarDialog() {
         "::submitAction" : "newCarAjax(event)"
     })
     inputDialog = $('#editForm').modal()
-    inputDialog.on('destroy', function () {
-        inputDialog = null
-    })
     inputDialog.on('ready', function () {
         createAutocomplete('#ownerDescription')
     })
@@ -215,13 +220,10 @@ function edit(carEntryId) {
             "::submitLabel" : "Confirm",
             "::submitAction" : "editCarAjax(" + car_id + ")"
         })
-    inputDialog = ($('#editForm')).modal('/owner/autocomplete')
-    inputDialog.on('destroy', function () {
-        inputDialog = null
-    })
-    /*inputDialog.on('ready', function () {
+    inputDialog = $('#editForm').modal()
+    inputDialog.on('ready', function () {
         createAutocomplete('#ownerDescription')
-    })*/
+    })
     inputDialog.show(form)
 }
 
