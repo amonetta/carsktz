@@ -43,9 +43,6 @@ class CarService {
         else
             params.max = Math.min(params.max? params.int('max') : 20, 1000)
 
-        if (params.page)
-            params.offset = params.max * (params.max - 1)
-
         def cars = criteria.list(query.search(params), max: params.max, offset: params.offset)
         def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, max: params.max? params.max: cars.totalCount, sort: params.sort, order: params.order]
 

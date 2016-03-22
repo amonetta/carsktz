@@ -38,14 +38,4 @@ class CarsRestController {
     def delete(Integer id) {
         respond carService.delete(id), body: "Car with ID ${id} deleted", status: 200
     }
-
-    /*def delete(Integer id) {
-        if (!Car.exists(id)) {
-            respond body: "Not found", status: 404
-        } else {
-            def car = Car.load(id)
-            car.delete()
-            respond car, body: "Car with ID ${id} deleted", status: 200
-        }
-    }*/
 }

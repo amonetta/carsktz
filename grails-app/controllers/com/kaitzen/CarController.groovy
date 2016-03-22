@@ -4,11 +4,14 @@ import wslite.rest.*
 
 class CarController {
 
-    Set cars = []
-
     def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
 
     def index() {
+        if (params.page && params.page.toString().isInteger()) {
+            def newParams = params.findAll {it.key != 'page'}
+            newParams.offset = (params.max? params.int('max') : 20) * (params.int('page') - 1)
+            redirect(params: newParams)
+        }
         def query = params.findAll {it.value && it.value != 'null'}
         def response = restClient.get(query: query, accept: ContentType.JSON)
 
