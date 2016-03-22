@@ -5,49 +5,7 @@ import com.kaitzen.Car
 class CarsRestController {
     static responseFormats = ["json", "xml"]
 
-    //def carService
-
-    def list() {
-        def query = {
-            and {
-                if (params.from && params.from.toString().isInteger())
-                    ge("year", params.from as Integer)
-                if (params.to && params.to.toString().isInteger())
-                    le("year", params.to as Integer)
-                if (params.make)
-                    like("make", '%' + params.make + '%')
-                if (params.model)
-                    like("model", '%' + params.model + '%')
-                if (params.plate)
-                    like("plate", '%' + params.plate + '%')
-                if (params.owner)
-                    owner {
-                        if (params.owner.toString().isInteger())
-                            eq("dni", params.owner as Integer)
-                        else
-                            or {
-                                like("apellido", '%' + params.owner.trim() + '%')
-                                like("nombre", '%' + params.owner.trim() + '%')
-                            }
-                    }
-            }
-            if (params.sort)
-                order(params.sort, params.order == 'desc'? 'desc' : 'asc')
-        }
-
-        def criteria = Car.createCriteria()
-        if (params.max.toString().toUpperCase() == 'ALL')
-            params.max = null
-        else
-            params.max = Math.min(params.max? params.int('max') : 20, 1000)
-
-        def cars = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, max: params.max? params.max: cars.totalCount, sort: params.sort, order: params.order]
-
-        def model = [cars: cars, carsTotal: cars.totalCount, filters: filters]
-
-        respond model
-    }
+    def carService
 
     /**
      * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel
@@ -56,38 +14,32 @@ class CarsRestController {
      * @return selected cars.
      */
     def index() {
-        def cars = list();
+        def cars = carService.list(params);
         respond cars
     }
 
     def show(Integer id){
-        respond Car.get(id)
+        respond carService.show(id)
     }
 
     def save(Car car) {
         if (car.hasErrors()) {
-            respond car, status:400
+            respond car, status: 400
         } else {
-            car = car.save(failOnError: true)
-            respond car, status:201
+            car = carService.save(car.id, car)
+            respond car, status: 201
         }
     }
 
     def update(Integer id, Car car) {
-        def oldCar = Car.findById(id)
-        if (!oldCar) {
-            respond message: "Not found car", status: 404
-        }
-
-        oldCar.properties = car.properties
-
-        if (oldCar.validate() && oldCar.save(failOnError: true))
-            respond car, status: 200
-        else
-            respond status: 406
+        respond carService.update(id, car), status: 200
     }
 
     def delete(Integer id) {
+        respond carService.delete(id), body: "Car with ID ${id} deleted", status: 200
+    }
+
+    /*def delete(Integer id) {
         if (!Car.exists(id)) {
             respond body: "Not found", status: 404
         } else {
@@ -95,5 +47,5 @@ class CarsRestController {
             car.delete()
             respond car, body: "Car with ID ${id} deleted", status: 200
         }
-    }
+    }*/
 }

@@ -5,33 +5,58 @@ import grails.transaction.*
 @Transactional
 class CarService {
 
-    @Transactional(readOnly = true)
-    def list(Map params) {
-        def criteria = Car.withCriteria {
-            and {
-                if (params.from && params.from.toString().isInteger())
-                    ge("year", params.from as Integer)
-                if (params.to && params.to.toString().isInteger())
-                    le("year", params.to as Integer)
-                if (params.make)
-                    like("make", '%' + params.make + '%')
-                if (params.model)
-                    like("model", '%' + params.model + '%')
-                if (params.plate)
-                    like("plate", '%' + params.plate + '%')
-                if (params.owner)
-                    owner {
-                        if (params.owner.toString().isInteger())
-                            eq("dni", params.owner as Integer)
-                        else
-                            or {
-                                like("apellido", '%' + params.owner.trim() + '%')
-                                like("nombre", '%' + params.owner.trim() + '%')
-                            }
-                    }
+    static def query = [
+        search: { params -> return {
+                and {
+                    if (params.from && params.from.toString().isInteger())
+                        ge("year", params.from as Integer)
+                    if (params.to && params.to.toString().isInteger())
+                        le("year", params.to as Integer)
+                    if (params.make)
+                        like("make", '%' + params.make + '%')
+                    if (params.model)
+                        like("model", '%' + params.model + '%')
+                    if (params.plate)
+                        like("plate", '%' + params.plate + '%')
+                    if (params.owner)
+                        owner {
+                            if (params.owner.toString().isInteger())
+                                eq("dni", params.owner as Integer)
+                            else
+                                or {
+                                    like("apellido", '%' + params.owner.trim() + '%')
+                                    like("nombre", '%' + params.owner.trim() + '%')
+                                }
+                        }
+                }
+                if (params.sort)
+                    order(params.sort, params.order == 'desc' ? 'desc' : 'asc')
             }
         }
-        return criteria.toArray()
+    ]
+
+    @Transactional(readOnly = true)
+    def list(Map params) {
+        def criteria = Car.createCriteria()
+        if (params.max.toString().toUpperCase() == 'ALL')
+            params.max = null
+        else
+            params.max = Math.min(params.max? params.int('max') : 20, 1000)
+
+        if (params.page)
+            params.offset = params.max * (params.max - 1)
+
+        def cars = criteria.list(query.search(params), max: params.max, offset: params.offset)
+        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, max: params.max? params.max: cars.totalCount, sort: params.sort, order: params.order]
+
+        def model = [cars: cars, carsTotal: cars.totalCount, filters: filters]
+
+        return model
+    }
+
+    @Transactional(readOnly =true)
+    def Car show(Integer id) {
+        return Car.get(id)
     }
 
     def Car save(Integer id, Car newCar) {
