@@ -12,9 +12,9 @@ class UrlMappings {
         "/"(view:"/index")
         "500"(view:'/error')
 
+        //"/assets/$imageName" (controller: "owner", action: "getImage")
+
         "/car/api"(resources: "carsRest")
         "/owner/api"(resources: "ownerRest")
-
-        //"/owner/api"(controller: "ownerRest", action:'autocomplete', method:'GET')
 	}
 }

@@ -1,6 +1,5 @@
 package com.kaitzen
 
-//@Grab('com.github.groovy-wslite:groovy-wslite:1.1.2')
 import wslite.rest.*
 
 class CarController {

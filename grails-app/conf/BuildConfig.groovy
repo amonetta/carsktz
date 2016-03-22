@@ -62,7 +62,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.3"
         compile ":searchable:0.6.9"
         compile ':cache:1.1.8'//, ':cache-ehcache:1.0.5'
-        compile "org.grails.plugins:mysql-connectorj:5.1.22.1"
+        compile ":mysql-connectorj:5.1.22.1"
         compile ":wslite:0.7.2.0"
 
 
@@ -80,6 +80,7 @@ grails.project.dependency.resolution = {
 
         // An alternative to the default resources plugin is the asset-pipeline plugin
         //compile ":asset-pipeline:1.6.1"
+        compile ":asset-pipeline:2.7.2"
 
         compile "org.grails.plugins:jquery-ui:1.10.4"
 

@@ -2,8 +2,12 @@ package com.kaitzen
 
 import wslite.rest.ContentType
 import wslite.rest.RESTClient
+import org.codehaus.groovy.grails.core.io.ResourceLocator
+import org.springframework.core.io.Resource
 
 class OwnerController {
+
+    ResourceLocator grailsResourceLocator
 
     static scaffold = true
 
@@ -19,5 +23,11 @@ class OwnerController {
         def model = [owners: response]
 
         render(contentType: 'application/json'){model}
+    }
+
+    def getImage(String imageName) {
+        println imageName
+        final Resource image = grailsResourceLocator.findResourceForURI('/assets/images/' + imageName)
+        render file: image.inputStream, contentType: 'image/gif'
     }
 }

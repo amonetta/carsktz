@@ -20,7 +20,9 @@ function createAutocomplete(ownerFieldId) {
     autocompletOwner = new $(ownerFieldId).autocomplete({
         delay: 500,
         minLength: 2,
-        source: getAutocomplete(request, response)
+        source: function (request,response) {
+            getAutocomplete(request, response)
+        }
         /*focus: function(event, ui) {
             // prevent autocomplete from updating the textbox
             //event.preventDefault();
