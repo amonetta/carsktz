@@ -4,7 +4,7 @@ import wslite.rest.*
 
 class CarController {
 
-    def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
+    private def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
 
     def index() {
         if (params.page && params.page.toString().isInteger()) {

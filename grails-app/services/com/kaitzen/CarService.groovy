@@ -5,7 +5,7 @@ import grails.transaction.*
 @Transactional
 class CarService {
 
-    static def query = [
+    private static final query = [
         search: { params -> return {
                 and {
                     if (params.from && params.from.toString().isInteger())

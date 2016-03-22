@@ -1,7 +1,6 @@
 /**
  * Created by amonetta on 16/02/16.
  */
-
 var inputDialog
 var autocompletOwner
 
@@ -106,7 +105,7 @@ function setSearchBtn() {
 }
 
 function loadingTable(tableId) {
-    $(tableId).html('<div class="text-center"> <span class="glyphicon glyphicon-hourglass"/> Wait a moment please... </div>')
+    $(tableId).html('<div class="text-center"> <span class="ch-loading-small"/> Wait a moment please... </div>')
 }
 
 /***

@@ -25,9 +25,9 @@ class OwnerController {
         render(contentType: 'application/json'){model}
     }
 
-    def getImage(String imageName) {
+    /*def getImage(String imageName) {
         println imageName
-        final Resource image = grailsResourceLocator.findResourceForURI('/assets/images/' + imageName)
+        final Resource image = grailsResourceLocator.findResourceForURI('/images/' + imageName)
         render file: image.inputStream, contentType: 'image/gif'
-    }
+    }*/
 }
