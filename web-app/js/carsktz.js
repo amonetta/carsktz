@@ -1,8 +1,67 @@
 /**
  * Created by amonetta on 16/02/16.
  */
-
 var inputDialog
+var autocompletOwner
+
+function createAutocomplete(ownerFieldId) {
+    /*autocompletOwner = new $(ownerFieldId).autocomplete({
+            source: '/owner/api/autocomplete',
+            minLength: 2,
+            type: 'GET',
+            dataType: 'json',
+            select: function(event, ui) {
+                $('#ownerInput').val(ui.id)
+                $('#ownerDescription').val(ui.label)
+            }
+        });*/
+    //autocompletOwner.disable()
+    autocompletOwner = new $(ownerFieldId).autocomplete({
+        delay: 500,
+        minLength: 2,
+        source: function (request,response) {
+            getAutocomplete(request, response)
+        }
+        /*focus: function(event, ui) {
+            // prevent autocomplete from updating the textbox
+            //event.preventDefault();
+        },
+        select: function(event, ui) {
+            // prevent autocomplete from updating the textbox
+            //event.preventDefault();
+            // navigate to the selected item's url
+            //window.open(ui.item.url);
+        }*/
+    })
+}
+
+function getAutocomplete(request, response) {
+    $.getJSON("/carktz/owner/autocomplete", {
+        query: request.term
+    }, function (data) {
+        // data is an array of objects and must be transformed for autocomplete to use
+        var array = data.error ? [] : $.map(data.owners, function (owner) {
+            return {
+                id: owner.id,
+                label: owner.label,
+                value: owner.value
+            };
+        });
+        response(array);
+    });
+}
+
+function focusAutoselect(event, ui) {
+    // prevent autocomplete from updating the textbox
+    //event.preventDefault();
+}
+
+function selectAutoselect(event, ui) {
+    // prevent autocomplete from updating the textbox
+    //event.preventDefault();
+    $('#ownerInput').val(ui.item.id)
+    $('#ownerDescription').val(ui.item.label)
+}
 
 function applyElementUpdates(json) {
     var updates;
@@ -46,7 +105,7 @@ function setSearchBtn() {
 }
 
 function loadingTable(tableId) {
-    $(tableId).html('<div class="text-center"> <span class="glyphicon glyphicon-hourglass"/> Wait a moment please... </div>')
+    $(tableId).html('<div class="text-center"> <span class="ch-loading-small"/> Wait a moment please... </div>')
 }
 
 /***
@@ -97,7 +156,7 @@ function newCarAjax(e) {
         beforeSend: function(jqXHR, settings){
             inputDialog.destroy()
             inputDialog = $('#editForm').modal()
-            inputDialog.show("<span class='ch-loading-centered'>")},
+            inputDialog.show('<div class="text-center"> <span class="glyphicon glyphicon-hourglass"/> Processing... </div>')},
         success:function(data,textStatus){$("#carsTable tr:last").after(data);},
         error:function(XMLHttpRequest,textStatus,errorThrown){},
         complete: function(jqXHR, textStatus) {inputDialog.destroy()}
@@ -134,6 +193,9 @@ function showNewCarDialog() {
         "::submitAction" : "newCarAjax(event)"
     })
     inputDialog = $('#editForm').modal()
+    inputDialog.on('ready', function () {
+        createAutocomplete('#ownerDescription')
+    })
     inputDialog.show(form)
 }
 
@@ -160,6 +222,9 @@ function edit(carEntryId) {
             "::submitAction" : "editCarAjax(" + car_id + ")"
         })
     inputDialog = $('#editForm').modal()
+    inputDialog.on('ready', function () {
+        createAutocomplete('#ownerDescription')
+    })
     inputDialog.show(form)
 }
 

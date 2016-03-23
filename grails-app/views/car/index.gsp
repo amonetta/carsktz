@@ -10,6 +10,7 @@
 <head>
     <title>Cars</title>
     <meta name="layout" content="main"/>
+    <asset:image src="assets/images/loading-small.gif"/>
     <g:javascript library="jquery" plugin="jquery"/>
     <r:require modules="core"/>
 </head>

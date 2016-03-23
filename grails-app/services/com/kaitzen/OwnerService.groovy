@@ -17,26 +17,55 @@ class OwnerService {
     }
 
     def searchOwner(params) {
-        def query = {
-            and {
-                if (params.nombre)
-                    like("nombre", '%' + params.nombre + '%')
-                if (params.apellido)
-                    like("apellido", '%' + params.apellido + '%')
-                if (params.nacionalidad)
-                    like("nacionalidad", '%' + params.nacionalidad + '%')
-                if (params.dni) {
-                    def dniIni = params.dni.padRight(8, '0').toInteger()
-                    def dniEnd = params.dni.padRight(8, '0').toInteger() + 10**(8 - params.dni.length()) - 1
-                    between("dni", dniIni, dniEnd)
-                }
-            }
-        }
+        def query = (params.type?.toUpperCase() == 'INCLUDE' ? QueryTypeEnum.INCLUDE : QueryTypeEnum.EXCLUDE).getQuery(params)
 
         def criteria = Owner.createCriteria()
         def ownerList = criteria.list(query, max: 10)
 
         return ownerList
+    }
+
+    enum QueryTypeEnum {
+        INCLUDE,
+        EXCLUDE
+
+        def getQuery(params) {
+            def query
+            switch (this) {
+                case INCLUDE: query = {
+                        or {
+                            if (params.nombre)
+                                like("nombre", '%' + params.nombre + '%')
+                            if (params.apellido)
+                                like("apellido", '%' + params.apellido + '%')
+                            if (params.nacionalidad)
+                                like("nacionalidad", '%' + params.nacionalidad + '%')
+                            if (params.dni) {
+                                def dniIni = params.dni.padRight(8, '0').toInteger()
+                                def dniEnd = params.dni.padRight(8, '0').toInteger() + 10**(8 - params.dni.length()) - 1
+                                between("dni", dniIni, dniEnd)
+                            }
+                        }
+                    }
+                    break
+                default: query = {
+                        and {
+                            if (params.nombre)
+                                like("nombre", '%' + params.nombre + '%')
+                            if (params.apellido)
+                                like("apellido", '%' + params.apellido + '%')
+                            if (params.nacionalidad)
+                                like("nacionalidad", '%' + params.nacionalidad + '%')
+                            if (params.dni) {
+                                def dniIni = params.dni.padRight(8, '0').toInteger()
+                                def dniEnd = params.dni.padRight(8, '0').toInteger() + 10**(8 - params.dni.length()) - 1
+                                between("dni", dniIni, dniEnd)
+                            }
+                        }
+                    }
+            }
+            return query
+        }
     }
 }
 
