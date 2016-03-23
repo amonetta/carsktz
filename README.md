@@ -15,6 +15,7 @@ Relevant plugins
 - [jQuery Plugin](https://grails.org/plugin/jquery) (1.11.1)
 - [jQuery-UI](https://grails.org/plugin/jquery-ui) (1.10.4) | Visual plugin for JQuery
 - [WSlite](https://grails.org/plugin/wslite) (0.7.2.0) | REST Client plugin
+- [Asset Pipeline] (https://grails.org/plugin/asset-pipeline) (2.7.2)
 
 Data source provided by [n8bar](https://github.com/n8barr) at [automotive-model-year-data](https://github.com/n8barr/automotive-model-year-data)
 
@@ -24,17 +25,20 @@ Building with Grails, this app is a training for the use of Grails and have also
 
 ## Relevant updates
 
-- Add pagination and sorting to car's view
-- Changes on REST API for pagination and filtering
-    - add field `carsTotal`: total count of cars for given filters
-    - add field `filters`: array of filters used to retrieve car's list
-- REST service only return all results if set parameter `max=all` (no case-sensitive)
+- Changes on Controllers to allow:
+    - autocomplete for owner names and selection using REST.
+    - access directly an specific page of pagination using parameter `page`
+- REST API now use refactored persistence operation on service layer with defined transactions.
+- Change style to [Chico style](http://chico-ui.com.ar/)
 
 ## REST API
 ---
 For develop your own consumer app for this API, here a simple guide
 
 ### GET
+
+#### List and Filtering
+
 For accessing the API use:
 
     http://your.host/carsktz/car/api
@@ -93,11 +97,11 @@ and NOT:
     response.json[0]
 
 Also you are able to add parameter to restrict result (filters):
-- from
-- to
-- make
-- model
-- owner
+- from (Integer\[>0\])
+- to (Integer\[>from\])
+- make (String)
+- model (String)
+- owner (String | Integer\[>0\])
 
 For the first for ones, there is nothing tricky: 
 
@@ -152,6 +156,13 @@ returns any car whose contains `make` property similar to "fo" without case sens
  
  Finally, and as you can see, you can provide some, all or no param to the query as your needs.
  
+#### Ordering and offseting
+
+This version also offer adds three parameters as optional to ordering and pagination:
+- `sort` (String): Sorting property. A valid Car's property to sort query (id|year|make|model|plate).
+- `order` (asc | desc): Select ascending or descending order. Default: 'desc'
+- `offset` (Integer): Order number of the first result from the result query. Typically use `max` multiples to paginate.
+
 ### GET & UPDATE
 
 For retrieving a single car user throw `GET` request `http://your.host/carsktz/car/api/` + `id`
@@ -169,7 +180,7 @@ For editing use the same url, where `id` is the id of the object to be updated, 
         "year": integer (min: 1768, max: today)
     }
 
-Note that this API only accepts valid argentinian plates, civil and diplomatic ones.
+Note that this API only accepts valid argentinian plates, civil and diplomatic ones (that order).
 
 ### SAVE & DELETE 
 
@@ -198,7 +209,7 @@ Under `grails-app/controller` there is two relevant ones: `CarController` and  `
 - `CarController` is `car/index` controller. Its work is render main view and make REST calls to API.
 - `CarRestController` is `car/api` controller and its work is only provide REST service (`GET`, `POST`, `PUT`, `DELETE`).
 
-### REST Service
+### REST Web Service
 
 The REST controller is `CarRestController` that's provide the API for cars and its only function is receive requests and call GORM to resolve `GET`, `POST`, `PUT`, `DELETE` operations.
 
@@ -216,7 +227,17 @@ As convention in Grails, all controllers are located at `/grails-app/controllers
     
 This view makes a call to REST API to retrieve cars, make search, edit selecting one from table and create.
 
-![CRUD Car View](img/car_index.png)
+![CRUD Car View](img/car_index1.png)
+
+This version also includes a new interface, combined with [Chico-ui](http://chico-ui.com.ar/) and using dialogs to create and edit cars.
+
+![CRUD Car View (unhidden search form)](img/car_index2.png)
+
+Both dialogs are generated for the same template called with different parameters:
+
+![Edit Dialog](img/car_index3.png)
+
+![Create Dialog](img/car_index4.png)
 
 ## Running the project
 ---
@@ -245,6 +266,12 @@ Then configure `DataSource.groovy` like:
 --
 Remember include dependences and plugin at `BuildConfig.groovy`
 
+If you need some guide to install MySQL or MySQL workbench, here some suggestions, simple and easy:
+
+- [MySQL Server](https://help.ubuntu.com/lts/serverguide/mysql.html)
+- [MySQL Workbench](http://proyectosbeta.net/2014/06/instalar-mysql-workbench-6-1-6-en-ubuntu-14-04-lts/)
+- [Download MySQL Workbench](http://dev.mysql.com/downloads/workbench/)
+
 ### Executing
 
 For running you must install, at least, Grails sdk and JDK 7, the rest left it on Grails hands:
@@ -271,16 +298,10 @@ For running you must install, at least, Grails sdk and JDK 7, the rest left it o
         
 or try API using boomerang (or similar) with:
 
-        http://localhost:8080/carsktz/car/api 
-
-## BUGs
-
-This version of develop fails when making request GET with no parameters `http://localhost:8080/carsktz/car/api`, when using `CarService` 
-
-When asking for full list of cars, SQL Exception is raised with message: 
-
-    Positioned Update not supported..
+        http://localhost:8080/carsktz/car/api
 
 ## Recommended links
 
 - [Pagination Sample](http://www.craigburke.com/2011/01/23/grails-ajax-list-with-paging-sorting-and-filtering.html)
+- [Chico UI API Components](http://chico.mercadolibre.com/ui/api/)
+- [Chico UI CSS](http://chico-ui.com.ar/widgets/css-library)

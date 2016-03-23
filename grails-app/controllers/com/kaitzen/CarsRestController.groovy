@@ -19,20 +19,30 @@ class CarsRestController {
     }
 
     def show(Integer id){
-        respond carService.show(id)
+        def car = carService.show(id)
+        if (car)
+            respond car, status: 200
+        else
+            render status: 404, message: "Car #${id} not found"
     }
 
     def save(Car car) {
-        if (car.hasErrors()) {
+        if (car.hasErrors())
             respond car, status: 400
-        } else {
-            car = carService.save(car.id, car)
-            respond car, status: 201
+        else {
+            def savedCar = carService.save(car.id, car)
+            if (savedCar)
+                respond savedCar, status: 201
+            else
+                render status: 500, message: "Car #${car.id} not saved"
         }
     }
 
     def update(Integer id, Car car) {
-        respond carService.update(id, car), status: 200
+        if (car.hasErrors())
+            respond car, status: 400
+        else
+            respond carService.update(id, car), status: 200
     }
 
     def delete(Integer id) {
