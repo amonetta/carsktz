@@ -8,13 +8,17 @@ class CarsRestController {
     def carService
 
     /**
-     * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel
-     * Every parameter is optional and no parameters provided returns available all cars.
-     * Any other parameter is ignored, only 'from' 'to' 'make' 'model' are valid.
+     * For simple search perform: GET /<baseurl>?from=InitialYear&to=EndYear&make=CarMaker&model=CarModel&max=all&sort=SortingProperty&order=(asc|desc)&offset=Offset
+     * Every parameter is optional and no parameters provided returns available max 20 cars.
+     * max = ([1-1000] | 'all') : Define maximum results returned.
+     * offset: First element returned from query.
+     * Sort = ('id'|'year'|'model'|'make'|'plate') : Property used to sort result set.
+     * Order = ('asc'|'desc') : Default: 'desc'. Define order for sorting.
+     * Any other parameter is ignored, only given parameters are valid.
      * @return selected cars.
      */
     def index() {
-        def cars = carService.list(params);
+        def cars = carService.list(params)
         respond cars
     }
 
@@ -30,9 +34,9 @@ class CarsRestController {
         if (car.hasErrors())
             respond car, status: 400
         else {
-            def savedCar = carService.save(car.id, car)
+            def carResponse = carService.save(car.id, car)
             if (savedCar)
-                respond savedCar, status: 201
+                respond carResponse, status: 201
             else
                 render status: 500, message: "Car #${car.id} not saved"
         }
@@ -42,10 +46,18 @@ class CarsRestController {
         if (car.hasErrors())
             respond car, status: 400
         else
-            respond carService.update(id, car), status: 200
+            try {
+                respond carService.update(id, car), status: 200
+            } catch (CarServiceException e) {
+                render status: e.status, message: e.message
+            }
     }
 
     def delete(Integer id) {
-        respond carService.delete(id), body: "Car with ID ${id} deleted", status: 200
+        try {
+            respond carService.delete(id), body: "Car with ID ${id} deleted", status: 200
+        } catch (CarServiceException e) {
+            render status: e.status, message: e.message
+        }
     }
 }
