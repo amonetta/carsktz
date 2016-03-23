@@ -1,4 +1,6 @@
 # CarsKTZ
+Version: 2.0
+
 Technologies
 - <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/tomcat.ico" width="32" height="32"> [Tomcat](http://tomcat.apache.org/) 7
 - <img src="https://github.com/amonettaktz/carsktz/blob/master/img/icons/grails.ico" width="32" height="32"> [Grails](https://grails.org/) 2.3.7
@@ -11,7 +13,7 @@ Technologies
 
 Relevant plugins
 - [Tomcat](https://grails.org/plugin/tomcat) (7.0.55.3)
-- [Hibernate]() (3.6.10.9) 
+- [Hibernate](https://grails.org/plugin/hibernate) (3.6.10.9) 
 - [jQuery Plugin](https://grails.org/plugin/jquery) (1.11.1)
 - [jQuery-UI](https://grails.org/plugin/jquery-ui) (1.10.4) | Visual plugin for JQuery
 - [WSlite](https://grails.org/plugin/wslite) (0.7.2.0) | REST Client plugin
@@ -19,7 +21,7 @@ Relevant plugins
 
 Data source provided by [n8bar](https://github.com/n8barr) at [automotive-model-year-data](https://github.com/n8barr/automotive-model-year-data)
 
-CarsKTZ is a REST API and simple CRUD end-user application also, that id provides a simple way to get cars models from database as a simple JSON format.
+*CarsKTZ* is a REST API and simple CRUD end-user application also, that provides a simple way to get cars models from database as a simple JSON format.
 
 Building with Grails, this app is a training for the use of Grails and have also may interesting examples.
 
