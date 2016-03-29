@@ -16,6 +16,35 @@ class CarSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test all constrains"() {
+        when:
+        def car = new Car("$field": val)
+
+        then:
+        validateConstraints(car, field, errorCode)
+
+        where:
+        errorCode           | field     | val
+        'max.exceeded'      | 'year'    | Calendar.getInstance().get(Calendar.YEAR) + 1
+        'min.notmet'        | 'year'    | 1757
+        'nullable'          | 'year'    | null
+        'nullable'          | 'model'   | ''
+        'nullable'          | 'model'   | null
+        'nullable'          | 'make'    | ''
+        'nullable'          | 'make'    | null
+        'matches.invalid'   | 'plate'   | 'AAA00'
+        'nullable'          | 'plate'   | ''
+        'nullable'          | 'plate'   | null
+    }
+
+    void validateConstraints(obj, field, error) {
+        def validated = obj.validate()
+        if (error && error != 'valid') {
+            assert !validated
+            assert obj.errors[field]
+            assert error == obj.errors[field].code
+        } else {
+            assert !obj.errors[field]
+        }
     }
 }

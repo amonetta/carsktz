@@ -21,7 +21,7 @@ class CarService {
                     if (params.owner)
                         owner {
                             if (params.owner.toString().isInteger())
-                                eq("dni", params.owner as Integer)
+                                sqlRestriction("('' + dni) LIKE '%${params.owner}%'")
                             else
                                 or {
                                     like("apellido", '%' + params.owner.trim() + '%')
@@ -36,7 +36,7 @@ class CarService {
     ]
 
     @Transactional(readOnly = true)
-    def list(Map params) {
+    def list(Map params = [max: 20, offset: 0]) {
         def criteria = Car.createCriteria()
         if (params.max.toString().toUpperCase() == 'ALL')
             params.max = null
@@ -57,17 +57,18 @@ class CarService {
     }
 
     @Transactional(readOnly =true)
-    def Car show(Integer id) {
+    def Car show(Long id) {
         return Car.get(id)
     }
 
-    def Car save(Integer id, Car newCar) {
-        Car car = new Car(id:id)
-        car.properties = newCar.properties
-        return performSave(car)
+    def Car save(Long id, Car newCar) {
+        if (id)
+            return update(id, newCar)
+        else
+            return performSave(new Car(newCar.properties))
     }
 
-    def Car update(Integer id, Car updatedCar) {
+    def Car update(Long id, Car updatedCar) {
 
         if (!updatedCar.validate())
             throw new CarServiceException(status: 400,message: "Car is invalid, check contrains", car: updatedCar)
@@ -78,7 +79,7 @@ class CarService {
         return performSave(oldCar)
     }
 
-    def Car delete(Integer id) {
+    def Car delete(Long id) {
         def car = Car.get(id)
         if (!car)
             throw new CarServiceException(status: 404, message:  "Car (id: ${id}) not found")
@@ -93,7 +94,8 @@ class CarService {
     }
 }
 
-class CarServiceException extends Exception {
+class CarServiceException extends RuntimeException {
     def Integer status
     def Car car
+    def String message
 }

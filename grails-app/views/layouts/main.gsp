@@ -16,7 +16,7 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
+		<div id="appHeading" role="heading"><a href="http://localhost:8080/carsktz/car"><img src="https://www.mercadolibre.com/org-img/FAQS/assets/logo_ml.gif" alt="Cars - Kaitzen" id="appLogo"/></a></div>
 		<div class="container">
 			<g:layoutBody/>
 		</div>

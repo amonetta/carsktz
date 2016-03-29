@@ -32,7 +32,7 @@ class CarsRestControllerFunctionalSpec extends Specification {
         def response = restClient.post(accept: ContentType.JSON){
             type: ContentType.JSON
             charset "UTF-8"
-            urlenc make: "Chevrolet", model: "Classic", year: "1995", plate: "ZZZ605", owner: 1
+            json make: "Chevrolet", model: "Classic", year: "1995", plate: "ZZZ605", owner: 1
         }
 
         then: "Return status code 201 and id != null"
