@@ -56,7 +56,7 @@ class CarService {
         return model
     }
 
-    @Transactional(readOnly =true)
+    @Transactional(readOnly = true)
     def Car show(Long id) {
         return Car.get(id)
     }

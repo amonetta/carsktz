@@ -1,12 +1,17 @@
 <div class="col-md-12 col-lg-12">
-    <g:javascript src="pagination.js"/>
+    <%--<g:javascript src="pagination.js"/>--%>
+    <script type="text/javascript">
+        jQuery("#grid").ready(function () {
+            setupGridAjax()
+        })
+    </script>
     <table id="carsTable" class="ch-datagrid ajax">
         <thead>
         <tr>
-            <g:sortableColumn scope="col" action="findCarsAjax" property="id" title="Id" params="${filters}" />
-            <g:sortableColumn scope="col" action="findCarsAjax" property="year" title="Year" params="${filters}" />
+            <g:sortableColumn scope="col" action="findCarsAjax" property="id"    title="Id"    params="${filters}" />
+            <g:sortableColumn scope="col" action="findCarsAjax" property="year"  title="Year"  params="${filters}" />
             <g:sortableColumn scope="col" action="findCarsAjax" property="model" title="Model" params="${filters}" />
-            <g:sortableColumn scope="col" action="findCarsAjax" property="make" title="Make" params="${filters}" />
+            <g:sortableColumn scope="col" action="findCarsAjax" property="make"  title="Make"  params="${filters}" />
             <g:sortableColumn scope="col" action="findCarsAjax" property="plate" title="Plate" params="${filters}" />
             <th>Owner</th>
             <th><button type="button" class="ch-btn" onclick="showNewCarDialog()">

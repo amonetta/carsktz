@@ -15,7 +15,7 @@ class CarController {
         def query = params.findAll {it.value && it.value != 'null'}
         def response = restClient.get(query: query, accept: ContentType.JSON)
 
-        [tableModel: response.json]
+        render (view: "index", model: [tableModel: response.json])
     }
 
     def edit(Integer id) {

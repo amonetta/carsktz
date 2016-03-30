@@ -10,10 +10,11 @@
 <head>
     <title>Cars</title>
     <meta name="layout" content="main"/>
-    <g:javascript library="jquery" plugin="jquery"/>
+    <g:javascript src="pagination.js"/>
     <r:require modules="core"/>
 </head>
 <body>
+
     <div>
         <div class="col-md-12 col-lg-12">
             <div class="panel panel-primary">

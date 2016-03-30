@@ -24,7 +24,7 @@ modules = {
 
     core {
         dependsOn 'baseCss'
-        dependsOn 'lodashjs,application, jquery, jquery-ui, jqueryRest'
+        dependsOn 'lodashjs,application, jquery, jqueryRest'
         dependsOn 'chicoui'
         resource url: 'js/carsktz.js', disposition: head
         resource url: 'js/templates.js', disposition: head

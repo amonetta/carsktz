@@ -34,11 +34,15 @@ class CarsRestController {
         if (car.hasErrors())
             respond car, status: 400
         else {
-            def carResponse = carService.save(car.id, car)
-            if (savedCar)
+            def carResponse
+            try {
+                carResponse = carService.save(car.id, car)
+            } catch (CarServiceException e) {
+                render status: 500, errorMessage: "Car not saved"
+            }
+            if (carResponse)
                 respond carResponse, status: 201
-            else
-                render status: 500, message: "Car #${car.id} not saved"
+
         }
     }
 
