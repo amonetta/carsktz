@@ -47,6 +47,7 @@ class CarsRestController {
     }
 
     def update(Integer id, Car car) {
+        println car
         if (car.hasErrors())
             respond car, status: 400
         else
