@@ -36,7 +36,7 @@ class CarController {
         def car = new Car(params)
 
         if (car.hasErrors()) {
-            respond status: 400
+            render status: 400
             return
         }
 

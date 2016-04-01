@@ -31,9 +31,10 @@ class CarsRestController {
     }
 
     def save(Car car) {
-        if (car.hasErrors())
-            respond car, status: 400
-        else {
+        // It's necessary to copy properties into a new entity to test for validation errors
+        if (new Car(car.properties).hasErrors()) {
+            render status: 400, errorMessage: "Car not saved"
+        } else {
             def carResponse
             try {
                 carResponse = carService.save(car.id, car)
@@ -47,9 +48,8 @@ class CarsRestController {
     }
 
     def update(Integer id, Car car) {
-        println car
         if (car.hasErrors())
-            respond car, status: 400
+            render status: 400, errorMessage: "Car has validation errors"
         else
             try {
                 respond carService.update(id, car), status: 200
