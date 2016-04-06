@@ -11,7 +11,7 @@ class OwnerController {
 
     static scaffold = true
 
-    def restClient = new RESTClient("http://localhost:8080/carsktz/owner/api")
+    def restClient = new RESTClient("http://localhost:8080/carsktz/api/owner")
 
     def index() {}
 

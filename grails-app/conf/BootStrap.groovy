@@ -16,7 +16,7 @@ class BootStrap {
         }
 
         JSON.registerObjectMarshaller(Owner) { Owner owner ->
-            return [id: owner.id] + owner.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/) && k != 'cars'}
+            return [id: owner.id] + owner.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/) && k != 'cars'} + [cars: owner.cars.collect { it.id }.toList()]
         }
 
 

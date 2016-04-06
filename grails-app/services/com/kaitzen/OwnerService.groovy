@@ -2,9 +2,10 @@ package com.kaitzen
 
 import grails.transaction.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 class OwnerService {
 
+    @Transactional
     Owner addOwner(Owner owner) {
         if (owner.hasErrors()) {
             throw new OwnerException(
@@ -20,9 +21,17 @@ class OwnerService {
         def query = (params.type?.toUpperCase() == 'INCLUDE' ? QueryTypeEnum.INCLUDE : QueryTypeEnum.EXCLUDE).getQuery(params)
 
         def criteria = Owner.createCriteria()
-        def ownerList = criteria.list(query, max: 10)
+        if (params.max.toString().toUpperCase() == 'ALL')
+            params.max = null
+        else
+            params.max = Math.min(params.max? params.int('max') : 20, 1000)
+        def owners = criteria.list(QueryTypeEnum.EXCLUDE.getQuery(params), max: params.max, offset: params.offset)
 
-        return ownerList
+        return owners
+    }
+
+    def getOwnerForCar(Long carId) {
+        return Car.findById(carId).owner
     }
 
     enum QueryTypeEnum {

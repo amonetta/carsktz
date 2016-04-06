@@ -28,6 +28,10 @@ class CarService {
                                     like("nombre", '%' + params.owner.trim() + '%')
                                 }
                         }
+                    if (params.ownerId)
+                        owner {
+                            eq("id", params.long('ownerId'))
+                        }
                 }
                 if (params.sort)
                     order(params.sort, params.order == 'desc' ? 'desc' : 'asc')
@@ -47,9 +51,9 @@ class CarService {
         try {
             cars = criteria.list(query.search(params), max: params.max, offset: params.offset)
         } catch (Exception e) {
-            throw new CarServiceException(cause: e, message: "Could not get list of cars, see nested exception", status: 500)
+            throw new CarServiceException(message: "Could not get list of cars, see nested exception", state: 500)
         }
-        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, max: params.max? params.max: cars.totalCount, sort: params.sort, order: params.order]
+        def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, owner: params.owner, ownerId: params.ownerId, max: params.max? params.max: cars.totalCount, sort: params.sort, order: params.order]
 
         def model = [cars: cars, carsTotal: cars.totalCount, filters: filters]
 
@@ -61,14 +65,16 @@ class CarService {
         return Car.get(id)
     }
 
-    def Car save(Long id, Car newCar) {
+    def Car save(Long id, Car newCar, Long ownerId = null) {
+        if (ownerId)
+            newCar.owner = Owner.get(ownerId)
         if (id)
             return update(id, newCar)
         else
             return performSave(new Car(newCar.properties))
     }
 
-    def Car update(Long id, Car updatedCar) {
+    def Car update(Long id, Car updatedCar, Long ownerId = null) {
 
         if (!updatedCar.validate())
             throw new CarServiceException(status: 400,message: "Car is invalid, check contrains", car: updatedCar)
@@ -76,14 +82,22 @@ class CarService {
         if (!oldCar)
             throw new CarServiceException(status: 404, message: "Car (id: ${id}) not found")
         oldCar.properties = updatedCar.properties
+        if(ownerId)
+            oldCar.owner = Owner.get(ownerId)
         return performSave(oldCar)
     }
 
-    def Car delete(Long id) {
+    def Car delete(Long id, Long ownerId = null) {
         def car = Car.get(id)
         if (!car)
             throw new CarServiceException(status: 404, message:  "Car (id: ${id}) not found")
-        car.delete()
+        if (ownerId)
+            if (car.owner.id == owner.id) {
+                car.owner = null
+                car.save()
+            }
+        else
+            car.delete()
         return car;
     }
 

@@ -7,9 +7,7 @@ class OwnerRestController {
     def ownerService
 
     def index() {
-        def ownerList = ownerService.searchOwner(params)
-
-        respond ownerList
+        respond params.carId ? ownerService.getOwnerForCar(params.long("carId")) : ownerService.searchOwner(params)
     }
 
     def show(Integer id) {

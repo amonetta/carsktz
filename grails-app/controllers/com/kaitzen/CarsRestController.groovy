@@ -18,12 +18,16 @@ class CarsRestController {
      * @return selected cars.
      */
     def index() {
+        if (params.per_page && !params.max)
+            params.max = params.per_page
         def cars = carService.list(params)
         respond cars
     }
 
-    def show(Integer id){
+    def show(Integer id) {
         def car = carService.show(id)
+        if (car && params.ownerId && car.owner.id != params.long("ownerId"))
+            car = null
         if (car)
             respond car, status: 200
         else
@@ -37,7 +41,7 @@ class CarsRestController {
         } else {
             def carResponse
             try {
-                carResponse = carService.save(car.id, car)
+                carResponse = carService.save(car.id, car, params.long("ownerId"))
             } catch (CarServiceException e) {
                 render status: 500, errorMessage: "Car not saved"
             }
@@ -52,7 +56,7 @@ class CarsRestController {
             render status: 400, errorMessage: "Car has validation errors"
         else
             try {
-                respond carService.update(id, car), status: 200
+                respond carService.update(id, car, params.long("ownerId")), status: 200
             } catch (CarServiceException e) {
                 render status: e.status, message: e.message
             }
@@ -60,7 +64,7 @@ class CarsRestController {
 
     def delete(Integer id) {
         try {
-            respond carService.delete(id), body: "Car with ID ${id} deleted", status: 200
+            respond carService.delete(id, params.long("ownerId")), body: "Car with ID ${id} deleted", status: 200
         } catch (CarServiceException e) {
             render status: e.status, message: e.message
         }

@@ -7,7 +7,7 @@ import wslite.rest.RESTClient
 
 class CarsRestControllerFunctionalSpec extends Specification {
 
-    def restClient = new RESTClient("http://localhost:8080/carsktz/car/api")
+    def restClient = new RESTClient("http://localhost:8080/carsktz/api/car")
 
     def setup() {
     }
@@ -15,7 +15,7 @@ class CarsRestControllerFunctionalSpec extends Specification {
     def cleanup() {
     }
 
-    void "GET a list of car with no filters"() {
+    void "GET car by ID"() {
 
         when:"Asking for a car"
         def response = restClient.get(
@@ -23,7 +23,7 @@ class CarsRestControllerFunctionalSpec extends Specification {
                 accept: ContentType.JSON
         )
 
-        then: "Return status code 200 and first 10 objects"
+        then: "Return status code 200 and selected car"
         response.statusCode == 200
         response.json.id.toString().equals(id.toString())
         response.json.year.equals(year)
@@ -34,10 +34,10 @@ class CarsRestControllerFunctionalSpec extends Specification {
         where:
         id    | year | model            | make          | plate
         1     | 1909 | "Model T"        | "Ford"        | "AAA000"
-        2804  | 1998 | "Intrigue"       | "Oldsmobile"  | ""
-        3854  | 2002 | "Bravada"        | "Oldsmobile"  | ""
-        5844  | 2008 | "Quattroporte"   | "Maserati"    | ""
-        7245  | 2013 | "LX"             | "Lexus"       | ""
+        2804  | 1998 | "Intrigue"       | "Oldsmobile"  | "QMK303"
+        3854  | 2002 | "Bravada"        | "Oldsmobile"  | "FWM583"
+        5844  | 2008 | "Quattroporte"   | "Maserati"    | "LUP262"
+        7245  | 2013 | "LX"             | "Lexus"       | "VAQ623"
     }
 
     void "Testing save via POST"() {
@@ -58,7 +58,7 @@ class CarsRestControllerFunctionalSpec extends Specification {
         response.json.model.equals(model)
         response.json.make.equals(make)
         response.json.plate.equals(plate)
-        //response.json.owner.id.toString().equals(owner.toString())
+        response.json.owner.id.toString().equals(owner.toString())
 
         where:
         year  | model           | make          | plate     | owner
