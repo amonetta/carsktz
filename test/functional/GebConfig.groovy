@@ -18,4 +18,19 @@ environments {
 //    firefox {
 //        driver = { new FirefoxDriver() }
 //    }
+
+    waiting {
+        presets {
+            slow {
+                timeout = 10
+                retryInterval = 0.5
+            }
+            quick {
+                timeout = 1
+            }
+        }
+    }
+
+    baseNavigatorWaiting = true
+    atCheckWaiting = true
 }
