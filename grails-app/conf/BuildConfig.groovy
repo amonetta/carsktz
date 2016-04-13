@@ -48,7 +48,7 @@ grails.project.dependency.resolution = {
         mavenRepo "https://oss.sonatype.org/content/groups/public/" //wslite repository
     }
 
-    def gebVersion = "0.9.2"
+    def gebVersion = "0.9.3" // "0.9.3" (Actual working version) // 0.13.1 (latest version)
     def seleniumVersion = "2.41.0"
 
     dependencies {

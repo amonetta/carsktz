@@ -128,7 +128,7 @@ function editCarAjax(car_id) {
     //preventDefault()
     $.ajax({
         async: false,
-        type:'POST',
+        type:'PUT',
         //data:$(this).parents('form:first').serialize(),
         data: $('#carInputForm').serialize(),
         url: $('#carInputForm').attr("action"),
@@ -181,7 +181,7 @@ function deleteCarAjax(e, carid) {
 function showNewCarDialog() {
     var form = templates.buildTemplate(templates.temps._EDITCAR, {
         "::formTitle" : "Create Car",
-        "::formAction" : "/carsktz/car/save",
+        "::formAction" : "/carsktz/car/save/",
         "::id" : '',
         "::year" : new Date().getFullYear(), //car.year,
         "::make" : '',
@@ -210,7 +210,7 @@ function edit(carEntryId) {
     var car_id = rootRow.find('td.carId').html()
     var form = templates.buildTemplate(templates.temps._EDITCAR, {
             "::formTitle" : "Edit Car",
-            "::formAction" : "/carsktz/car/update",
+            "::formAction" : "/carsktz/car/update/",
             "::id" : car_id,
             "::year" : rootRow.find('td.carYear').html(), //car.year,
             "::make" : rootRow.find('td.carMake').html(),

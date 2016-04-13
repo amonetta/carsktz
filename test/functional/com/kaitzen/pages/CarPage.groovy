@@ -12,6 +12,7 @@ class CarPage extends Page {
     static content = {
         carTable { module CarTable }
         searchForm { module SearchForm }
+        carForm(require: false) { module CarForm, $(".ch-popover").find("form")}
     }
 
     static at = {

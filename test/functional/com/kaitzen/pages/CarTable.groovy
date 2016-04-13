@@ -8,8 +8,8 @@ import geb.Module
 class CarTable extends Module {
 
     static content = {
-        cars {index -> module CarRow, $("#carsTable tr", index + 1)}
-        carCount { $('#carsTable tr').size() - 1}
+        cars(wait: true) {index -> module CarRow, $("#carsTable tr", index + 1)}
+        carCount(wait: true) { $('#carsTable tr').size() - 1}
         pagination(wait: true) { module CarPagination, $(".pagination")}
     }
 }

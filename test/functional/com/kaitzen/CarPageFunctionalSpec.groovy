@@ -105,4 +105,34 @@ public class CarPageFunctionalSpec extends GebReportingSpec {
         1950 | 2000
         1980 | 2000
     }
+
+    void "Test navigation by page parameter"() {
+        when:
+        to CarPage, page: 2
+
+        then:
+        carTable.cars(0).id == 21
+        carTable.cars(carTable.carCount - 1).id == 40
+    }
+
+    void "Test open edit dialog"() {
+        given:
+        to CarPage
+
+        when:
+        carTable.cars(0).click()
+
+        then:
+        waitFor {
+            carForm != null
+            carForm.title.equals("Edit Car")
+            carForm.action.equals("http://localhost:8080/carsktz/car/update/")
+            carForm.year.value().equals("1909")
+            carForm.model.value().equals("Model T")
+            carForm.make.value().equals("Ford")
+            carForm.plate.value().equals("AAA000")
+            carForm.ownerId.value().equals("1")
+            carForm.ownerDescription.value().equals("Monetta, Agustín Ignacio")
+        }
+    }
 }

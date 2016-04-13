@@ -85,7 +85,7 @@ var templates = {
                         '<div class="form-group">' +
                             '<div class="col-md-offset-2 col-lg-offset-3 col-md-10 col-lg-3">' +
                                 '<div class="btn-group" role="group">' +
-                                    "<button id='submitInputButton' type='button' class='ch-btn' name='submitInputButton' value='Confirm' onclick='::submitAction'>::submitLabel</button>" +
+                                    "<button id='submitInputButton' type='button' class='ch-btn' name='submit' value='Confirm' onclick='::submitAction'>::submitLabel</button>" +
                                 '</div>' +
                             '</div>' +
                         '</div>' +

@@ -28,6 +28,7 @@ class CarsRestController {
         def car = carService.show(id)
         if (car && params.ownerId && car.owner.id != params.long("ownerId"))
             car = null
+            car = null
         if (car)
             respond car, status: 200
         else

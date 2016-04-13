@@ -18,7 +18,7 @@ class CarService {
                         like("model", '%' + params.model + '%')
                     if (params.plate)
                         like("plate", '%' + params.plate + '%')
-                    if (params.owner)
+                    if (params.owner) {
                         owner {
                             if (params.owner.toString().isInteger())
                                 sqlRestriction("('' + dni) LIKE '%${params.owner}%'")
@@ -28,10 +28,12 @@ class CarService {
                                     like("nombre", '%' + params.owner.trim() + '%')
                                 }
                         }
-                    if (params.ownerId)
+                    }
+                    if (params.ownerId) {
                         owner {
                             eq("id", params.long('ownerId'))
                         }
+                    }
                 }
                 if (params.sort)
                     order(params.sort, params.order == 'desc' ? 'desc' : 'asc')
@@ -91,13 +93,14 @@ class CarService {
         def car = Car.get(id)
         if (!car)
             throw new CarServiceException(status: 404, message:  "Car (id: ${id}) not found")
-        if (ownerId)
+        if (ownerId) {
             if (car.owner.id == owner.id) {
                 car.owner = null
-                car.save()
+                car.save(failOnError: true)
             }
-        else
-            car.delete()
+        } else {
+            car.delete(failOnError: true)
+        }
         return car;
     }
 
