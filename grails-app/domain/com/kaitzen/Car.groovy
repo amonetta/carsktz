@@ -7,6 +7,8 @@ class Car {
 
     static MIN_YEAR = 1768
 
+    //static mapWith = "redis"
+
     Integer year
     String make
     String model
@@ -15,6 +17,10 @@ class Car {
 
     static mapping = {
         table "VehicleModelYear"
+        /*year index: true
+        make index: true
+        model index: true
+        plate index: true*/
     }
 
     static constraints = {

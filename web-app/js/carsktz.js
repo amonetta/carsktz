@@ -128,7 +128,7 @@ function editCarAjax(car_id) {
     //preventDefault()
     $.ajax({
         async: false,
-        type:'PUT',
+        type:'POST',
         //data:$(this).parents('form:first').serialize(),
         data: $('#carInputForm').serialize(),
         url: $('#carInputForm').attr("action"),
@@ -137,8 +137,8 @@ function editCarAjax(car_id) {
         },
         success:function(data,textStatus){
             $('#carID' + car_id).replaceWith(data);
-        },
-        error:function(XMLHttpRequest,textStatus,errorThrown){}
+        }/*,
+        error:function(XMLHttpRequest,textStatus,errorThrown){}*/
     })
     inputDialog.destroy()
     return false
@@ -210,7 +210,7 @@ function edit(carEntryId) {
     var car_id = rootRow.find('td.carId').html()
     var form = templates.buildTemplate(templates.temps._EDITCAR, {
             "::formTitle" : "Edit Car",
-            "::formAction" : "/carsktz/car/update/",
+            "::formAction" : "/carsktz/car/update/" + car_id,
             "::id" : car_id,
             "::year" : rootRow.find('td.carYear').html(), //car.year,
             "::make" : rootRow.find('td.carMake').html(),

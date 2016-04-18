@@ -2,7 +2,7 @@ package com.kaitzen
 
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 class OwnerService {
 
     @Transactional

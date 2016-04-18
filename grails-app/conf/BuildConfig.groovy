@@ -44,6 +44,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        //mavenRepo "http://central.maven.org/maven2"
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "https://oss.sonatype.org/content/groups/public/" //wslite repository
     }
@@ -62,6 +63,9 @@ grails.project.dependency.resolution = {
         //Uses Firefox for functional tests
         test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
         test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+
+        //compile "com.google.code.simple-spring-memcached:spymemcached:2.7.3"
+        //compile "spy:spymemcached:2.7.3"
     }
 
     plugins {
@@ -95,7 +99,11 @@ grails.project.dependency.resolution = {
         //compile ":asset-pipeline:1.6.1"
         compile ":asset-pipeline:2.7.2"
 
-        compile "org.grails.plugins:jquery-ui:1.10.4"
+        compile ":jquery-ui:1.10.4"
+
+        //compile ":memcached:1.0.3.2"
+        runtime ":redis:1.6.6"
+        //compile ":redis-gorm:1.0.0"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.5.5"

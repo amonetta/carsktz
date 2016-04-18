@@ -51,9 +51,9 @@ class CarController {
         render (template: 'carEntry', bean: response.json, var: "car")
     }
 
-    def update() {
+    def update(Long id) {
 
-        def response = restClient.put(path:"${params.id}", accept: ContentType.JSON) {
+        def response = restClient.put(path:"${id}", accept: ContentType.JSON) {
                 type: ContentType.JSON
                 charset "UTF-8"
                 json params
@@ -62,7 +62,7 @@ class CarController {
         render (template: 'carEntry', bean: response.json, var: "car")
     }
 
-    def delete(Integer id) {
+    def delete(Long id) {
         println id;
         def response = restClient.delete(path: "/${id}", accept: ContentType.JSON)
 
