@@ -2,36 +2,30 @@ package com.kaitzen
 
 import grails.transaction.Transactional
 
-@Transactional(readOnly = false)
+@Transactional
 class OwnerService {
 
-    @Transactional
     Owner addOwner(Owner owner) {
         if (owner.hasErrors()) {
-            throw new OwnerException(
-                    message: "Invalid or empty owner", owner: owner)
+            throw new OwnerException(message: "Invalid or empty owner", owner: owner)
         }
-        else {
-            owner.save(failOnError: true)
-            return owner
-        }
+
+        owner.save(failOnError: true)
     }
 
     def searchOwner(params) {
-        def query = (params.type?.toUpperCase() == 'INCLUDE' ? QueryTypeEnum.INCLUDE : QueryTypeEnum.EXCLUDE).getQuery(params)
-
         def criteria = Owner.createCriteria()
-        if (params.max.toString().toUpperCase() == 'ALL')
+        if (params.max.toString().toUpperCase() == 'ALL') {
             params.max = null
-        else
-            params.max = Math.min(params.max? params.int('max') : 20, 1000)
-        def owners = criteria.list(QueryTypeEnum.EXCLUDE.getQuery(params), max: params.max, offset: params.offset)
+        } else {
+            params.max = Math.min(params.max ? params.int('max') : 20, 1000)
+        }
 
-        return owners
+        criteria.list(QueryTypeEnum.EXCLUDE.getQuery(params), max: params.max, offset: params.offset)
     }
 
     def getOwnerForCar(Long carId) {
-        return Car.findById(carId).owner
+        Car.findById(carId).owner
     }
 
     enum QueryTypeEnum {
@@ -59,12 +53,12 @@ class OwnerService {
                     break
                 default: query = {
                         and {
-                            if (params.nombre)
-                                like("nombre", '%' + params.nombre + '%')
-                            if (params.apellido)
-                                like("apellido", '%' + params.apellido + '%')
-                            if (params.nacionalidad)
-                                like("nacionalidad", '%' + params.nacionalidad + '%')
+                            if (params.nombre) {
+                                like("nombre", '%' + params.nombre + '%') }
+                            if (params.apellido) {
+                                like("apellido", '%' + params.apellido + '%') }
+                            if (params.nacionalidad) {
+                                like("nacionalidad", '%' + params.nacionalidad + '%') }
                             if (params.dni) {
                                 def dniIni = params.dni.padRight(8, '0').toInteger()
                                 def dniEnd = params.dni.padRight(8, '0').toInteger() + 10**(8 - params.dni.length()) - 1
@@ -73,7 +67,8 @@ class OwnerService {
                         }
                     }
             }
-            return query
+
+            query
         }
     }
 }

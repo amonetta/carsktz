@@ -101,6 +101,10 @@ grails.project.dependency.resolution = {
 
         compile ":jquery-ui:1.10.4"
 
+        compile ":grails-melody:1.59.0"
+
+        compile ":codenarc:0.25.2"
+
         //compile ":memcached:1.0.3.2"
         runtime ":redis:1.6.6"
         //compile ":redis-gorm:1.0.0"
@@ -110,5 +114,25 @@ grails.project.dependency.resolution = {
         //compile ":less-asset-pipeline:1.5.3"
         //compile ":coffee-asset-pipeline:1.5.0"
         //compile ":handlebars-asset-pipeline:1.3.0.1"
+    }
+}
+
+//CodeNarc config
+
+codenarc {
+    processTestUnit = false
+    processTestIntegration = false
+    excludeBaseline = ''
+    propertiesFile = 'grails-app/conf/codenarc.properties'
+    ruleSetFiles = "rulesets/basic.xml,rulesets/exceptions.xml, rulesets/imports.xml,rulesets/grails.xml, rulesets/unused.xml, rulesets/size.xml, rulesets/concurrency.xml,rulesets/convention.xml,rulesets/design.xml,rulesets/groovyism.xml,rulesets/imports.xml,rulesets/logging.xml,rulesets/unnecessary.xml,rulesets/naming.xml,rulesets/braces.xml"
+    reports = {
+        MyHtmlReport('html') {
+            outputFile = 'target/CodeNarc-Report.html'
+            title = 'Reporte Codenarc'
+        }
+        MyHtmlSortableReport('sortable') {
+            outputFile = 'target/CodeNarc-Sortable-Report.html'
+            title = 'Reporte Codenarc Ordenable'
+        }
     }
 }

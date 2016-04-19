@@ -1,8 +1,6 @@
 package com.kaitzen
 
-import grails.transaction.*
-import grails.converters.JSON
-
+import grails.transaction.Transactional
 import java.security.MessageDigest
 
 @Transactional
@@ -11,28 +9,29 @@ class CarService {
     def memcachedService
     def redisService
 
-    private static final query = [
+    private static final QUERY = [
         search: { params -> return {
                 and {
-                    if (params.from && params.from.toString().isInteger())
-                        ge("year", params.from as Integer)
-                    if (params.to && params.to.toString().isInteger())
-                        le("year", params.to as Integer)
-                    if (params.make)
-                        like("make", '%' + params.make + '%')
-                    if (params.model)
-                        like("model", '%' + params.model + '%')
-                    if (params.plate)
-                        like("plate", '%' + params.plate + '%')
+                    if (params.from && params.from.toString().isInteger()) {
+                        ge("year", params.from as Integer) }
+                    if (params.to && params.to.toString().isInteger()) {
+                        le("year", params.to as Integer) }
+                    if (params.make) {
+                        like("make", '%' + params.make + '%') }
+                    if (params.model) {
+                        like("model", '%' + params.model + '%') }
+                    if (params.plate) {
+                        like("plate", '%' + params.plate + '%') }
                     if (params.owner) {
                         owner {
-                            if (params.owner.toString().isInteger())
+                            if (params.owner.toString().isInteger()) {
                                 sqlRestriction("('' + dni) LIKE '%${params.owner}%'")
-                            else
+                            } else {
                                 or {
                                     like("apellido", '%' + params.owner.trim() + '%')
                                     like("nombre", '%' + params.owner.trim() + '%')
                                 }
+                            }
                         }
                     }
                     if (params.ownerId) {
@@ -41,18 +40,19 @@ class CarService {
                         }
                     }
                 }
-                if (params.sort)
-                    order(params.sort, params.order == 'desc' ? 'desc' : 'asc')
+                if (params.sort) {
+                    order(params.sort, params.order == 'desc' ? 'desc' : 'asc') }
             }
         }
     ]
 
     @Transactional(readOnly = false)
     def list(Map params = [max: 20, offset: 0]) {
-        if (params.max.toString().toUpperCase() == 'ALL')
+        if (params.max.toString().toUpperCase() == 'ALL') {
             params.max = null
-        else
-            params.max = Math.min(params.max? params.int('max') : 20, 1000)
+        } else {
+            params.max = Math.min(params.max ? params.int('max') : 20, 1000)
+        }
 
         def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, owner: params.owner, ownerId: params.ownerId, max: params.max, offset: params.offset, sort: params.sort, order: params.order]
 
@@ -60,15 +60,12 @@ class CarService {
         md.update(filters.toString().getBytes('UTF-8'))
         def key = md.digest().encodeBase64().encodeAsSHA1()
 
-        println "access key: $key"
-
-        def cachedModel = memcachedService.get(key) {
-            println "Looking into database (filtersKey: $key)"
+        memcachedService.get(key) {
             def criteria = Car.createCriteria()
             def carsList
 
             try {
-                carsList = criteria.list(query.search(params), max: filters.max, offset: filters.offset)
+                carsList = criteria.list(QUERY.search(params), max: filters.max, offset: filters.offset)
             } catch (Exception e) {
                 throw new CarServiceException(message: "Could not get list of cars, see nested exception", status: 500)
             }
@@ -76,10 +73,10 @@ class CarService {
             def serializableList = new ArrayList(filters.max)
 
             carsList.each {
-                serializableList.add([id: car.id] + car.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/) && k != 'owner'} + [owner: car.owner? [
-                        id: car.owner.id,
-                        nombre: car.owner.nombre,
-                        apellido: car.owner.apellido
+                serializableList.add([id: it.id] + it.properties.findAll { k, v -> k != 'class'  && !(k =~ /.+Id/) && k != 'owner'} + [owner: it.owner? [
+                        id: it.owner.id,
+                        nombre: it.owner.nombre,
+                        apellido: it.owner.apellido
                 ] : null])
             }
 
@@ -87,52 +84,59 @@ class CarService {
             carsKeyList.add(key)
             memcachedService.set(":carsKeyList", carsKeyList)
 
-            def model = [cars: serializableList, carsTotal: carsList.totalCount, filters: filters]
-
-            return model
+            [cars: serializableList, carsTotal: carsList.totalCount, filters: filters]
         }
-
-        return cachedModel
     }
 
     //@Transactional(readOnly = true)
-    def Car show(Long id) {
+    Car show(Long id) {
         def car = cacheRedisGet(id)
-        if (car)
+        if (car) {
             return car
+        }
         car = Car.get(id)
-        if (!car)
+        if (!car) {
             return null
+        }
         cacheRedisSet(car)
-        return car
+
+        car
     }
 
-    def Car save(Long id, Car newCar, Long ownerId = null) {
-        if (ownerId)
+    Car save(Long id, Car newCar, Long ownerId = null) {
+        if (ownerId) {
             newCar.owner = Owner.get(ownerId)
-        if (id)
-            return update(id, newCar)
-        else
-            return performSave(new Car(newCar.properties))
+        }
+        def car
+        if (id) {
+            car =  update(id, newCar)
+        } else {
+            car = performSave(new Car(newCar.properties))
+        }
+
+        car
     }
 
-    def Car update(Long id, Car updatedCar, Long ownerId = null) {
-
-        if (!updatedCar.validate())
-            throw new CarServiceException(status: 400,message: "Car is invalid, check contrains", car: updatedCar)
+    Car update(Long id, Car updatedCar, Long ownerId = null) {
+        if (!updatedCar.validate()) {
+            throw new CarServiceException(status: 400, message: "Car is invalid, check contrains", car: updatedCar)
+        }
         Car oldCar = Car.get(id)
-        if (!oldCar)
+        if (!oldCar) {
             throw new CarServiceException(status: 404, message: "Car (id: ${id}) not found")
+        }
         oldCar.properties = updatedCar.properties
-        if(ownerId)
-            oldCar.owner = Owner.get(ownerId)
-        return performSave(oldCar)
+        if(ownerId) {
+            oldCar.owner = Owner.get(ownerId) }
+
+        performSave(oldCar)
     }
 
-    def Car delete(Long id, Long ownerId = null) {
+    Car delete(Long id, Long ownerId = null) {
         def car = Car.get(id)
-        if (!car)
-            throw new CarServiceException(status: 404, message:  "Car (id: ${id}) not found")
+        if (!car) {
+            throw new CarServiceException(status: 404, message: "Car (id: ${id}) not found")
+        }
         if (ownerId) {
             if (car.owner.id == owner.id) {
                 car.owner = null
@@ -143,19 +147,21 @@ class CarService {
         }
         cacheRedisDel(id)
         invalidateCached()
-        return car;
+
+        car
     }
 
-    private performSave(Car car) {
-        if (!(car.validate() && car.save()))
+    private Car performSave(Car car) {
+        if (!(car.validate() && car.save())) {
             throw new CarServiceException(status: 400, message: "Could not save car #${car.id}", car: car)
+        }
         cacheRedisSet(car)
         invalidateCached()
-        return car;
+
+        car
     }
 
-    private cacheRedisSet(Car car) {
-        println car.properties
+    private void cacheRedisSet(Car car) {
         redisService.del("Car:${car.id}")
         redisService.memoizeHash("Car:${car.id}") { return [
                 id    : car.id.toString(),
@@ -176,10 +182,10 @@ class CarService {
         }
     }
 
-    private cacheRedisGet(Long id) {
+    private Car cacheRedisGet(Long id) {
         def carMap = redisService.memoizeHash("Car:$id") {}
-        if (!carMap)
-            return null
+        if (!carMap) {
+            return null }
         def car = new Car(carMap)
         car.id = Integer.parseInt(carMap.id)
         if (carMap.ownerId) {
@@ -187,27 +193,26 @@ class CarService {
             car.owner = new Owner(ownerMap)
             car.owner.id = Integer.parseInt(ownerMap.id)
         }
-        return car
+
+        car
     }
 
-    private cacheRedisDel(Long id) {
+    private void cacheRedisDel(Long id) {
         redisService.del("Car:${id}")
         redisService.del("Car:${id}:Owner")
     }
 
-    private invalidateCached() {
+    private void invalidateCached() {
         def carsKeyList = memcachedService.get(":carsKeyList")
         if (carsKeyList) {
-            carsKeyList.each {
-                memcachedService.delete(it)
-            }
+            carsKeyList.each { memcachedService.delete(it) }
             memcachedService.delete(":carsKeyList")
         }
     }
 }
 
 class CarServiceException extends RuntimeException {
-    def Integer status
-    def Car car
-    def String message
+    Integer status
+    Car car
+    String message
 }

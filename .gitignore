@@ -1,3 +1,5 @@
+/rulesets
+/grails-app/conf/codenarc.properties
 *.iws
 *Db.properties
 *Db.script

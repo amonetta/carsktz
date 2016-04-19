@@ -5,7 +5,7 @@ import groovy.transform.ToString
 @ToString(includeNames = true, includeFields = true, excludes = "metaClass,class")
 class Car {
 
-    static MIN_YEAR = 1768
+    def static final MIN_YEAR = 1768
 
     //static mapWith = "redis"
 
@@ -31,5 +31,5 @@ class Car {
         owner nullable: true
     }
 
-    static searchable = true
+    //static searchable = true
 }

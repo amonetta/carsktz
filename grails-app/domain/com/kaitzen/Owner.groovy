@@ -1,5 +1,8 @@
 package com.kaitzen
 
+import groovy.transform.ToString
+
+@ToString(includeNames = true, includeFields = true, excludes = "metaClass,class")
 class Owner {
 
     Integer dni
@@ -7,9 +10,7 @@ class Owner {
     String apellido
     String nacionalidad
 
-    static hasMany = [
-            cars : Car
-    ]
+    static hasMany = [ cars : Car ]
 
     static mapping = {
         table "Person"

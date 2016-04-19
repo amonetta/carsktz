@@ -9,15 +9,11 @@ class OwnerController {
 
     ResourceLocator grailsResourceLocator
 
-    static scaffold = true
+    //static scaffold = true
 
     def restClient = new RESTClient("http://localhost:8080/carsktz/api/owner")
 
-    def index() {}
-
     def autocomplete() {
-        println "reach autocomplete, params: " + params
-
         def response = restClient.get(query: [nombre: params.query, apellido: params.query, type: 'include'], accept: ContentType.JSON).json
 
         def model = [owners: response]

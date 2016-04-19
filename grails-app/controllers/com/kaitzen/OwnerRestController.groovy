@@ -1,5 +1,4 @@
 package com.kaitzen
-import grails.converters.JSON
 
 class OwnerRestController {
     static responseFormats = ["json","xml"]
@@ -25,22 +24,17 @@ class OwnerRestController {
     }
 
     def update(Long id, Owner newOwner) {
-        if (!newOwner.hasErrors()) {
+        if (newOwner.hasErrors()) {
+            respond message: "Error on owner data", status: 400
+        } else {
             def owner = Owner.get(id)
-
             if (!owner) {
                 respond message: "Not found", status: 404
                 return
             }
-
             owner.properties = newOwner.properties
-            owner.save()
-
-
+            owner.save(failOnError: true)
             respond owner
-        }
-        else {
-            respond newOwner
         }
     }
 
