@@ -102,6 +102,7 @@ grails.project.dependency.resolution = {
         compile ":jquery-ui:1.10.4"
 
         compile ":grails-melody:1.59.0"
+        //compile ":perf4j:0.1.1"
 
         compile ":codenarc:0.25.2"
 

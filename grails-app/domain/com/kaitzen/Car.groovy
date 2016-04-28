@@ -31,5 +31,5 @@ class Car {
         owner nullable: true
     }
 
-    //static searchable = true
+    static searchable = true
 }

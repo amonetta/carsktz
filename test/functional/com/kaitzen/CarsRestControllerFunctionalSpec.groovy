@@ -1,6 +1,5 @@
 package com.kaitzen
 
-import spock.lang.Shared
 import spock.lang.Specification
 import wslite.rest.ContentType
 import wslite.rest.RESTClient

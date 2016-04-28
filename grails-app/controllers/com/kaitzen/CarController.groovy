@@ -1,6 +1,7 @@
 package com.kaitzen
 
 import wslite.rest.RESTClient
+import wslite.rest.ContentType
 
 class CarController {
 
