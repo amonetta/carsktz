@@ -59,7 +59,7 @@ class CarService {
             params.max = null
         } else {
             params.max = Math.min(params.max ? params.int('max') : 20, 1000)
-            log.trace "Limit awnser to $max"
+            log.trace "Limit awnser to ${params.max}"
         }
 
         def filters = [from: params.from, to: params.to, make: params.make, model: params.model, plate: params.plate, owner: params.owner, ownerId: params.ownerId, max: params.max, offset: params.offset, sort: params.sort, order: params.order]
